@@ -13,8 +13,8 @@
   <!--</div>-->
 
   <nav>
-    <a routerLink="/login" routerLinkActive="active">Login</a>
-    <a routerLink="/pending-games" routerLinkActive="active">Pending Games</a>
+    <a *ngIf="getUserProfile() === null" routerLink="/login" routerLinkActive="active">Login</a>
+    <a *ngIf="getUserProfile() !== null" routerLink="/open-games" routerLinkActive="active">Open Games</a>
     <a routerLink="/games" routerLinkActive="active">Active Games</a>
   </nav>
 

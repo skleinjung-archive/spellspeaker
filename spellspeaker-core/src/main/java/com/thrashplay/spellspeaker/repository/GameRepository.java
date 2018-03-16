@@ -1,6 +1,5 @@
 package com.thrashplay.spellspeaker.repository;
 
-import com.thrashplay.spellspeaker.model.GameState;
 import com.thrashplay.spellspeaker.model.SpellspeakerGame;
 
 /**

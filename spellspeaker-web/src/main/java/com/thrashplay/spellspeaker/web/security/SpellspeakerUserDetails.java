@@ -12,7 +12,7 @@ public class SpellspeakerUserDetails extends org.springframework.security.core.u
     private User user;
 
     public SpellspeakerUserDetails(User user) {
-        super(user.getUsername(), user.getPassword(), new ArrayList<>(0));
+        super(user == null ? "ANONYMOUS" : user.getUsername(), user == null ? "NONE_PROVIDED" : user.getPassword(), new ArrayList<>(0));
         this.user = user;
     }
 

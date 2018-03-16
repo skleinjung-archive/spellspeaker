@@ -17,6 +17,7 @@ package com.thrashplay.spellspeaker.web.controller;
 import com.thrashplay.spellspeaker.model.*;
 import com.thrashplay.spellspeaker.repository.GameRepository;
 import com.thrashplay.spellspeaker.view.GameClientView;
+import com.thrashplay.spellspeaker.web.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,24 +44,24 @@ public class GameController {
 
     @GetMapping
     public @ResponseBody
-    List<GameClientView> findAll() {
+    List<GameClientView> findAll(/*@CurrentUser User user*/) {
         List<SpellspeakerGame> games = gameRepository.findAll();
         List<GameClientView> results = new ArrayList<>(games.size());
         for (SpellspeakerGame game : games) {
-            results.add(game.toClientView(PlayerColor.Blue));
+//            results.add(game.toClientView(user.getId()));
+            results.add(game.toClientView(0));
         }
         return results;
     }
 
     @GetMapping("/{id}")
     public @ResponseBody
-    ResponseEntity<Object> findById(@PathVariable long id) {
+    ResponseEntity<Object> findById(@CurrentUser User user, @PathVariable long id) {
         SpellspeakerGame game = gameRepository.findOne(id);
         if (game != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(game.toClientView(PlayerColor.Blue));
+            return ResponseEntity.status(HttpStatus.OK).body(game.toClientView(user == null ? -1 : user.getId()));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
 }

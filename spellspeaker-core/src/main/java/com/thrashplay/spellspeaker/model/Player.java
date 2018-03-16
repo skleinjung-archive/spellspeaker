@@ -4,12 +4,17 @@ package com.thrashplay.spellspeaker.model;
  * @author Sean Kleinjung
  */
 public class Player {
+    private long userId;
     private int nextTurnTick;
-
     private Hand hand;
 
-    public Player() {
+    public Player(long userId) {
+        this.userId = userId;
         hand = new Hand();
+    }
+
+    public long getUserId() {
+        return userId;
     }
 
     public int getNextTurnTick() {

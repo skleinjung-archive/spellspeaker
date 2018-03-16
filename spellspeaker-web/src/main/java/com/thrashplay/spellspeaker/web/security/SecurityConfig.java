@@ -46,11 +46,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             .authorizeRequests()
-            .antMatchers("/api/auth/login").permitAll()
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
+            .antMatchers("/api/user/profile").authenticated()
+            .antMatchers("/api/auth/logout").authenticated()
 
             .and()
-            .anonymous().disable().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
+            .anonymous().principal(new SpellspeakerUserDetails(null))
+
+            .and()
+            .exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
 
         http.addFilterBefore(new SpellspeakerAuthenticationFilter(authenticationManager(), authenticationTokenRepository), BasicAuthenticationFilter.class);
     }

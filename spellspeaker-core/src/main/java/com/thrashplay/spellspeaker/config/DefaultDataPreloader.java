@@ -33,12 +33,6 @@ public class DefaultDataPreloader {
 
     @PostConstruct
     public void preloadData() {
-        if (gameRepository.findOne(101L) == null) {
-            SpellspeakerGame game = new SpellspeakerGame(new DefaultGameRules(), cardFactory);
-            game.setId(101);
-            gameRepository.save(game);
-        }
-
         if (userRepository.findOne(1L) == null) {
             User user = new User();
             user.setId(1);
@@ -53,6 +47,12 @@ public class DefaultDataPreloader {
             user.setUsername("red");
             user.setPassword("password");
             userRepository.save(user);
+        }
+
+        if (gameRepository.findOne(101L) == null) {
+            SpellspeakerGame game = new SpellspeakerGame(new DefaultGameRules(), cardFactory, 1L, 2L);
+            game.setId(101);
+            gameRepository.save(game);
         }
     }
 }

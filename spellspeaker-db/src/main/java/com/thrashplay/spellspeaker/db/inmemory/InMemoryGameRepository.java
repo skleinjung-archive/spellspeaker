@@ -1,11 +1,7 @@
 package com.thrashplay.spellspeaker.db.inmemory;
 
-import com.thrashplay.spellspeaker.config.DefaultGameRules;
-import com.thrashplay.spellspeaker.model.CardFactory;
 import com.thrashplay.spellspeaker.model.SpellspeakerGame;
 import com.thrashplay.spellspeaker.repository.GameRepository;
-import com.thrashplay.spellspeaker.model.GameState;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

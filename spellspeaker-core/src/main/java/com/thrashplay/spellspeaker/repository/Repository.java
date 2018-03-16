@@ -1,7 +1,5 @@
 package com.thrashplay.spellspeaker.repository;
 
-import com.thrashplay.spellspeaker.model.GameState;
-
 import java.io.Serializable;
 import java.util.List;
 

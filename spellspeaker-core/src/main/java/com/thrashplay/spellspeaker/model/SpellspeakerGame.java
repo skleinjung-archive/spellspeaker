@@ -25,11 +25,11 @@ public class SpellspeakerGame {
 
     private int currentTick = 0;
 
-    public SpellspeakerGame(GameRules rules, CardFactory cardFactory) {
+    public SpellspeakerGame(GameRules rules, CardFactory cardFactory, long bluePlayerUserId, long redPlayerUserId) {
         this.rules = rules;
 
-        bluePlayer = new Player();
-        redPlayer = new Player();
+        bluePlayer = new Player(bluePlayerUserId);
+        redPlayer = new Player(redPlayerUserId);
 
         discardPile = new DiscardPile();
 
@@ -65,7 +65,7 @@ public class SpellspeakerGame {
         return redPlayer;
     }
 
-    public GameClientView toClientView(final PlayerColor color) {
+    public GameClientView toClientView(final long userId) {
         return new GameClientView() {
             @Override
             public long getId() {
@@ -99,8 +99,14 @@ public class SpellspeakerGame {
 
             @Override
             public List<CardView> getHand() {
-                Player player = color == PlayerColor.Blue ? bluePlayer : redPlayer;
-                return convertToCardViews(player.getHand().getCards());
+                Player player = null;
+                if (userId == bluePlayer.getUserId()) {
+                    player = bluePlayer;
+                } else if (userId == redPlayer.getUserId()) {
+                    player = redPlayer;
+                }
+
+                return player == null ? null : convertToCardViews(player.getHand().getCards());
             }
 
             private List<CardView> convertToCardViews(List<Card> cards) {

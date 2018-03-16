@@ -46,19 +46,21 @@
     </li>
   </ul>
 
-  <h3>Hand</h3>
+  <div *ngIf="game.hand !== null">
+    <h3>Hand</h3>
 
-  <ul class="hand">
-    <li *ngFor="let card of game.hand" class="card">
-      <div class="cardHeader">
-        <div class="cardStats">
-          <span class="cardManaCost">{{card.manaCost}}</span>
-          <span class="cardCastingTime">{{card.castingTime}}</span>
+    <ul class="hand">
+      <li *ngFor="let card of game.hand" class="card">
+        <div class="cardHeader">
+          <div class="cardStats">
+            <span class="cardManaCost">{{card.manaCost}}</span>
+            <span class="cardCastingTime">{{card.castingTime}}</span>
+          </div>
+          <span class="cardName">{{card.name}}</span>
         </div>
-        <span class="cardName">{{card.name}}</span>
-      </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  </div>
 
   <!--<button (click)="goBack()">Back</button>-->
   <!--<button (click)="save()">Save</button>-->
