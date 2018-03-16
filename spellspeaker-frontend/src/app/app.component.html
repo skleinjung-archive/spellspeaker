@@ -1,0 +1,22 @@
+<div class="top-bar">
+  <h1>{{title}}</h1>
+  <div *ngIf="getUserProfile() != null" class="login-info">
+    Logged in as: {{getUserProfile().username}} (<a (click)="logout()" href="javascript:void(0)">Logout</a>)
+  </div>
+</div>
+
+<div class="main-container">
+  <!--<div style="text-align:center">-->
+    <!--<h1>-->
+      <!--{{title}}-->
+    <!--</h1>-->
+  <!--</div>-->
+
+  <nav>
+    <a routerLink="/login" routerLinkActive="active">Login</a>
+    <a routerLink="/pending-games" routerLinkActive="active">Pending Games</a>
+    <a routerLink="/games" routerLinkActive="active">Active Games</a>
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>

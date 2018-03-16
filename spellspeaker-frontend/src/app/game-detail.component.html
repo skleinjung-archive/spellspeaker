@@ -1,0 +1,66 @@
+<div *ngIf="game && rules">
+  <h2>Game Details</h2>
+
+  <!--<div><label>ID: </label> {{game.id}}</div>-->
+  <!--
+  <div>
+    <label>Tick: </label>
+    {{game.currentTick}}
+  </div>
+  -->
+
+  <h3>General</h3>
+
+  <div>
+    <label>Library: </label>
+    {{game.numberOfCardsInLibrary}}
+  </div>
+
+  <h3>Time</h3>
+
+  <div>
+    <ul class="timeTrack">
+      <li *ngFor="let n of range(0, rules.ticksPerPhase - 1)">
+        <div class="timeTrackSpaceContainer">
+          <div class="timeTrackSpace" [ngClass]="{currentTick: game.currentTick == n}">
+            <div>{{n}}</div>
+            <div class="timeTracker bluePlayer" [ngClass]="{showTimeTracker: game.blueNextTurnTick == n}"></div>
+            <div class="timeTracker redPlayer" [ngClass]="{showTimeTracker: game.redNextTurnTick == n}"></div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h3>Market</h3>
+
+  <ul class="market">
+    <li *ngFor="let card of game.market" class="card">
+      <div class="cardHeader">
+        <div class="cardStats">
+          <span class="cardManaCost">{{card.manaCost}}</span>
+          <span class="cardCastingTime">{{card.castingTime}}</span>
+        </div>
+        <span class="cardName">{{card.name}}</span>
+      </div>
+    </li>
+  </ul>
+
+  <h3>Hand</h3>
+
+  <ul class="hand">
+    <li *ngFor="let card of game.hand" class="card">
+      <div class="cardHeader">
+        <div class="cardStats">
+          <span class="cardManaCost">{{card.manaCost}}</span>
+          <span class="cardCastingTime">{{card.castingTime}}</span>
+        </div>
+        <span class="cardName">{{card.name}}</span>
+      </div>
+    </li>
+  </ul>
+
+  <!--<button (click)="goBack()">Back</button>-->
+  <!--<button (click)="save()">Save</button>-->
+</div>
+

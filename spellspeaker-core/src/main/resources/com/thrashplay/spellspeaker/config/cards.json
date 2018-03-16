@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Ice 1",
+    "manaCost": "2",
+    "castingTime": "2",
+    "quantity": "5"
+  },
+  {
+    "name": "Ice 2",
+    "manaCost": "3",
+    "castingTime": "3",
+    "quantity": "4"
+  },
+  {
+    "name": "Ice 3",
+    "manaCost": "4",
+    "castingTime": "4",
+    "quantity": "3"
+  },
+  {
+    "name": "Lightning 1",
+    "manaCost": "1",
+    "castingTime": "1",
+    "quantity": "5"
+  },
+  {
+    "name": "Lightning 2",
+    "manaCost": "2",
+    "castingTime": "2",
+    "quantity": "4"
+  },
+  {
+    "name": "Lightning 3",
+    "manaCost": "3",
+    "castingTime": "3",
+    "quantity": "3"
+  },
+  {
+    "name": "Fire 1",
+    "manaCost": "1",
+    "castingTime": "3",
+    "quantity": "5"
+  },
+  {
+    "name": "Fire 2",
+    "manaCost": "2",
+    "castingTime": "4",
+    "quantity": "4"
+  },
+  {
+    "name": "Fire 3",
+    "manaCost": "3",
+    "castingTime": "5",
+    "quantity": "3"
+  }
+]

@@ -1,0 +1,115 @@
+label {
+  display: inline-block;
+  width: 5em;
+  margin: .5em 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+input {
+  height: 2em;
+  font-size: 1em;
+  padding-left: .4em;
+}
+button {
+  margin-top: 20px;
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer; cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+
+ul.timeTrack li {
+  list-style-type: none;
+  display: inline-block;
+}
+div.timeTrackSpace {
+  display: inline-block;
+  border: 1px solid gray;
+  margin: 15px 5px 15px 5px;
+
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  line-height: 25px;
+}
+
+div.timeTrackSpace.currentTick {
+  border: 1px solid darkred;
+  background-color: lightpink;
+}
+
+.timeTracker {
+  width: 25px;
+  height: 5px;
+  margin: 3px 0 0 0;
+  border: 1px solid gray;
+  visibility: hidden;
+}
+.timeTracker.showTimeTracker {
+  visibility: visible;
+}
+
+.bluePlayer {
+  background-color: blue;
+}
+.redPlayer {
+  background-color: red;
+}
+
+/* market */
+ul.market {
+  list-style-type: none;
+}
+.card {
+  display: inline-block;
+  border: 1px solid black;
+  width: 144px;
+  height: 219px;
+  margin: 0 15px 15px 0;
+}
+.cardHeader {
+  line-height: 28px;
+  background-color: gainsboro;
+  border-bottom: 1px solid black;
+  padding: 0 5px 0 5px;
+}
+/* clearfix */
+.cardHeader:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.cardStats {
+  float: right;
+}
+.cardManaCost {
+  margin: 3px 3px 0 0;
+  padding: 0 3px;
+  background-color: white;
+  border: 1px solid black;
+  line-height: 20px;
+  width: 14px;
+  text-align: center;
+  display: inline-block;
+}
+.cardCastingTime {
+  margin: 3px 0;
+  padding: 0 3px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 50%;
+  line-height: 20px;
+  width: 14px;
+  text-align: center;
+  display: inline-block;
+}

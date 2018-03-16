@@ -1,0 +1,7 @@
+<h2>Games</h2>
+
+<ul class="games">
+  <li *ngFor="let game of games" (click)="onSelect(game)" [class.selected]="game === selectedGame">
+    <span class="badge">{{game.id}}</span> {{game.currentTick}}
+  </li>
+</ul>

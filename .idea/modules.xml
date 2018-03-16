@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/spellspeaker-core/spellspeaker-core.iml" filepath="$PROJECT_DIR$/spellspeaker-core/spellspeaker-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spellspeaker-db/spellspeaker-db.iml" filepath="$PROJECT_DIR$/spellspeaker-db/spellspeaker-db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spellspeaker-frontend/spellspeaker-frontend.iml" filepath="$PROJECT_DIR$/spellspeaker-frontend/spellspeaker-frontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spellspeaker-web/spellspeaker-web.iml" filepath="$PROJECT_DIR$/spellspeaker-web/spellspeaker-web.iml" />
     </modules>
   </component>
 </project>

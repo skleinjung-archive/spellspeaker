@@ -6,11 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="spellspeaker-core" />
+        <module name="spellspeaker-db" />
+        <module name="spellspeaker-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="spellspeaker-core" target="1.5" />
+      <module name="spellspeaker-core" target="1.8" />
+      <module name="spellspeaker-db" target="1.8" />
+      <module name="spellspeaker-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
