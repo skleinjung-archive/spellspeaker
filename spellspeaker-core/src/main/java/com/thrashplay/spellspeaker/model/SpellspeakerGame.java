@@ -30,12 +30,12 @@ public class SpellspeakerGame {
         this.rules = rules;
 
         bluePlayer = new Player(bluePlayerUserId);
-        bluePlayer.setHealth(40);
-        bluePlayer.setMana(30);
+        bluePlayer.setHealth(rules.getMaximumHealth());
+        bluePlayer.setMana(rules.getMaximumMana());
 
         redPlayer = new Player(redPlayerUserId);
-        redPlayer.setHealth(40);
-        redPlayer.setMana(30);
+        redPlayer.setHealth(rules.getMaximumHealth());
+        redPlayer.setMana(rules.getMaximumMana());
 
         discardPile = new DiscardPile();
 
