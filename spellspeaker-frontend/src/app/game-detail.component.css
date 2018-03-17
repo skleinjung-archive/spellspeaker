@@ -2,7 +2,6 @@ label {
   display: inline-block;
   width: 5em;
   margin: .5em 0;
-  color: #607D8B;
   font-weight: bold;
 }
 input {
@@ -28,6 +27,10 @@ button:disabled {
   cursor: auto;
 }
 
+ul.timeTrack {
+  margin: 8px;
+  padding: 0;
+}
 ul.timeTrack li {
   list-style-type: none;
   display: inline-block;
@@ -60,15 +63,43 @@ div.timeTrackSpace.currentTick {
 }
 
 .bluePlayer {
-  background-color: blue;
+  background-color: #336699;
+  color: white;
+}
+.bluePlayer h4 {
+  background-color: #1f3366;
 }
 .redPlayer {
-  background-color: red;
+  background-color: #993333;
+  color: white;
+}
+.redPlayer h4 {
+  background-color: #661f1f;
+}
+
+/* player stats */
+.playerStats {
+  margin: 8px 4px;
+  padding: 0;
+  border: 2px solid #333;
+}
+.playerStats h4 {
+  font-size: 1.25em;
+  margin: 0;
+  padding: 5px;
+  border-bottom: 1px solid #333;
+  vertical-align: top;
+}
+.statBlock {
+  padding: 0 15px;
+  line-height: 1em;
 }
 
 /* market */
 ul.market {
   list-style-type: none;
+  margin: 8px;
+  padding: 0;
 }
 .card {
   display: inline-block;
@@ -112,4 +143,11 @@ ul.market {
   width: 14px;
   text-align: center;
   display: inline-block;
+}
+
+/* hand */
+ul.hand {
+  list-style-type: none;
+  margin: 8px;
+  padding: 0;
 }

@@ -11,8 +11,9 @@ public interface GameClientView {
     long getId();
     int getNumberOfCardsInLibrary();
     int getCurrentTick();
-    int getBlueNextTurnTick();
-    int getRedNextTurnTick();
+
+    PlayerView getBluePlayer();
+    PlayerView getRedPlayer();
 
     List<CardView> getMarket();
 

@@ -3,6 +3,7 @@ package com.thrashplay.spellspeaker.model;
 import com.thrashplay.spellspeaker.config.GameRules;
 import com.thrashplay.spellspeaker.view.CardView;
 import com.thrashplay.spellspeaker.view.GameClientView;
+import com.thrashplay.spellspeaker.view.PlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,12 @@ public class SpellspeakerGame {
         this.rules = rules;
 
         bluePlayer = new Player(bluePlayerUserId);
+        bluePlayer.setHealth(40);
+        bluePlayer.setMana(30);
+
         redPlayer = new Player(redPlayerUserId);
+        redPlayer.setHealth(40);
+        redPlayer.setMana(30);
 
         discardPile = new DiscardPile();
 
@@ -65,7 +71,16 @@ public class SpellspeakerGame {
         return redPlayer;
     }
 
-    public GameClientView toClientView(final long userId) {
+    public GameClientView toClientView(final User requestingUser) {
+        final Player currentUserPlayer;
+        if (requestingUser != null && requestingUser.getId() == bluePlayer.getUserId()) {
+            currentUserPlayer = bluePlayer;
+        } else if (requestingUser != null && requestingUser.getId() == redPlayer.getUserId()) {
+            currentUserPlayer = redPlayer;
+        } else {
+            currentUserPlayer = null;
+        }
+
         return new GameClientView() {
             @Override
             public long getId() {
@@ -83,13 +98,13 @@ public class SpellspeakerGame {
             }
 
             @Override
-            public int getBlueNextTurnTick() {
-                return bluePlayer.getNextTurnTick();
+            public PlayerView getBluePlayer() {
+                return new PlayerView(requestingUser, bluePlayer);
             }
 
             @Override
-            public int getRedNextTurnTick() {
-                return redPlayer.getNextTurnTick();
+            public PlayerView getRedPlayer() {
+                return new PlayerView(requestingUser, redPlayer);
             }
 
             @Override
@@ -99,14 +114,7 @@ public class SpellspeakerGame {
 
             @Override
             public List<CardView> getHand() {
-                Player player = null;
-                if (userId == bluePlayer.getUserId()) {
-                    player = bluePlayer;
-                } else if (userId == redPlayer.getUserId()) {
-                    player = redPlayer;
-                }
-
-                return player == null ? null : convertToCardViews(player.getHand().getCards());
+                return currentUserPlayer == null ? null : convertToCardViews(currentUserPlayer.getHand().getCards());
             }
 
             private List<CardView> convertToCardViews(List<Card> cards) {

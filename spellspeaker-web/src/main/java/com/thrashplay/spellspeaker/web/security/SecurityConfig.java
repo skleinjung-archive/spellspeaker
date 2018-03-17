@@ -65,10 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .userDetailsService(userService)
             .and()
             .authenticationProvider(tokenAuthenticationProvider());
-//            .inMemoryAuthentication()
-//            .withUser("blue").password("password").roles("USER")
-//            .and()
-//            .withUser("red").password("password").roles("USER");
     }
 
     @Bean

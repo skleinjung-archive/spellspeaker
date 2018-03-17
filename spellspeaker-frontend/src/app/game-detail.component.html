@@ -16,6 +16,40 @@
     {{game.numberOfCardsInLibrary}}
   </div>
 
+  <h3>Player Stats</h3>
+
+  <div class="column-container playerStatsContainer">
+    <div class="column playerStats bluePlayer">
+      <!--<h4>Blue Player</h4>-->
+      <div class="statBlock">
+        <div>
+          <label>Health: </label> {{game.bluePlayer.health}}
+        </div>
+        <div>
+          <label>Mana: </label> {{game.bluePlayer.mana}}
+        </div>
+        <div>
+          <label>Hand Size: </label> {{game.bluePlayer.numberOfCardsInHand}}
+        </div>
+      </div>
+    </div>
+
+    <div class="column playerStats redPlayer">
+      <!--<h4>Red Player</h4>-->
+      <div class="statBlock">
+        <div>
+          <label>Health: </label> {{game.redPlayer.health}}
+        </div>
+        <div>
+          <label>Mana: </label> {{game.redPlayer.mana}}
+        </div>
+        <div>
+          <label>Hand Size: </label> {{game.redPlayer.numberOfCardsInHand}}
+        </div>
+      </div>
+    </div>
+  </div>
+
   <h3>Time</h3>
 
   <div>
@@ -24,9 +58,25 @@
         <div class="timeTrackSpaceContainer">
           <div class="timeTrackSpace" [ngClass]="{currentTick: game.currentTick == n}">
             <div>{{n}}</div>
-            <div class="timeTracker bluePlayer" [ngClass]="{showTimeTracker: game.blueNextTurnTick == n}"></div>
-            <div class="timeTracker redPlayer" [ngClass]="{showTimeTracker: game.redNextTurnTick == n}"></div>
+            <div class="timeTracker bluePlayer" [ngClass]="{showTimeTracker: game.bluePlayer.nextTurnTick == n}"></div>
+            <div class="timeTracker redPlayer" [ngClass]="{showTimeTracker: game.redPlayer.nextTurnTick == n}"></div>
           </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="game.hand !== null">
+    <h3>Hand</h3>
+
+    <ul class="hand">
+      <li *ngFor="let card of game.hand" class="card">
+        <div class="cardHeader">
+          <div class="cardStats">
+            <span class="cardManaCost">{{card.manaCost}}</span>
+            <span class="cardCastingTime">{{card.castingTime}}</span>
+          </div>
+          <span class="cardName">{{card.name}}</span>
         </div>
       </li>
     </ul>
@@ -46,21 +96,7 @@
     </li>
   </ul>
 
-  <div *ngIf="game.hand !== null">
-    <h3>Hand</h3>
 
-    <ul class="hand">
-      <li *ngFor="let card of game.hand" class="card">
-        <div class="cardHeader">
-          <div class="cardStats">
-            <span class="cardManaCost">{{card.manaCost}}</span>
-            <span class="cardCastingTime">{{card.castingTime}}</span>
-          </div>
-          <span class="cardName">{{card.name}}</span>
-        </div>
-      </li>
-    </ul>
-  </div>
 
   <!--<button (click)="goBack()">Back</button>-->
   <!--<button (click)="save()">Save</button>-->

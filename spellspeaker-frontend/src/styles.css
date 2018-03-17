@@ -4,3 +4,12 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* column layout */
+
+.column-container {
+  display:  flex;
+}
+.column-container .column {
+  flex: 50%;
+}

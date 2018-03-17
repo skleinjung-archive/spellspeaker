@@ -49,7 +49,7 @@ public class GameController {
         List<GameClientView> results = new ArrayList<>(games.size());
         for (SpellspeakerGame game : games) {
 //            results.add(game.toClientView(user.getId()));
-            results.add(game.toClientView(0));
+            results.add(game.toClientView(null));
         }
         return results;
     }
@@ -59,7 +59,7 @@ public class GameController {
     ResponseEntity<Object> findById(@CurrentUser User user, @PathVariable long id) {
         SpellspeakerGame game = gameRepository.findOne(id);
         if (game != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(game.toClientView(user == null ? -1 : user.getId()));
+            return ResponseEntity.status(HttpStatus.OK).body(game.toClientView(user));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

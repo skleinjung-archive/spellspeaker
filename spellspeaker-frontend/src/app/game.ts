@@ -3,11 +3,19 @@ export class Game {
   currentTick: number;
 
   numberOfCardsInLibrary: number;
-  blueNextTurnTick: number;
-  redNextTurnTick: number;
+
+  bluePlayer: Player;
+  redPlayer: Player;
 
   market: Card[];
   hand: Card[];
+}
+
+export class Player {
+  nextTurnTick: number;
+  health: number;
+  mana: number;
+  numberOfCardsInHand: number;
 }
 
 export class Card {
@@ -15,3 +23,4 @@ export class Card {
   manaCost: number;
   castingTime: number;
 }
+
