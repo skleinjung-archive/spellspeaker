@@ -72,7 +72,7 @@ export class GameDetailComponent implements OnInit {
   }
 
   isHandSelectionEnabled(): boolean {
-    return this._game.expectedInput === 'SelectCardFromHand';
+    return this._game.expectedInput === 'PlayCardFromHand';
   }
 
   get selectedCardFromMarket(): Card {
@@ -102,7 +102,7 @@ export class GameDetailComponent implements OnInit {
   }
 
   confirmHandSelection(): void {
-    this.gameService.selectFromHand(this._game.id, this.selectedCardFromHand)
+    this.gameService.playCardFromHand(this._game.id, this.selectedCardFromHand)
       .subscribe(game => {
         this.game = game;
       });

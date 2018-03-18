@@ -27,10 +27,10 @@ export class GameService {
       // .catch(this.handleError);
   }
 
-  selectFromHand(gameId: number, card: Card): Observable<Game> {
+  playCardFromHand(gameId: number, card: Card): Observable<Game> {
     const url = this.gamesUrl + '/' + gameId + '/actions';
     return this.http.post<Game>(url, JSON.stringify({
-      action: 'SelectCardFromHand',
+      action: 'PlayCardFromHand',
       card: card.name
     }), {headers: this.headers});
   }

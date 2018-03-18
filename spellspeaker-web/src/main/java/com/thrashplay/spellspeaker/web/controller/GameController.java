@@ -74,7 +74,7 @@ public class GameController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        game.selectFromHand(user.getId(), action.getCard());
+        game.playFromHand(user.getId(), action.getCard());
         return ResponseEntity.status(HttpStatus.OK).body(new GameView(user, game));
     }
 }

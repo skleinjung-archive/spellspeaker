@@ -89,30 +89,42 @@ public class SpellspeakerGame {
 
         // resolve active card
 
-        expectedInput = ExpectedInput.SelectCardFromHand;
+        expectedInput = ExpectedInput.PlayCardFromHand;
     }
 
-    public void selectFromHand(long userId, String cardName) {
+    public void playFromHand(long userId, String cardName) {
         if (activePlayer.getUserId() != userId) {
             throw new IllegalStateException("It is not your turn!");
         }
-        if (expectedInput != ExpectedInput.SelectCardFromHand) {
+        if (expectedInput != ExpectedInput.PlayCardFromHand) {
             throw new IllegalStateException("Not expecting to select a card from hand. expectedInput=" + expectedInput);
         }
 
-        boolean cardFound = false;
+        Card card = null;
         Iterator<Card> iterator = activePlayer.getHand().getCards().iterator();
         while (iterator.hasNext()) {
-            Card card = iterator.next();
-            if (!cardFound && card.getName().equals(cardName)) {
-                cardFound = true;
+            Card currentCard = iterator.next();
+            if (card == null && currentCard.getName().equals(cardName)) {
+                card = currentCard;
                 iterator.remove();
             }
         }
 
-        if (!cardFound) {
+        if (card == null) {
             throw new IllegalArgumentException("Card not found in active player's hand. (cardName=" + cardName + ", hand=" + activePlayer.getHand().getCards());
         }
+
+        int manaCost = Math.max(0, card.getManaCost());
+        int castingTime = Math.max(0, card.getCastingTime());
+
+        if (activePlayer.getMana() < manaCost) {
+            throw new IllegalStateException("You do not have enough mana to cast '" + cardName + "'.");
+        }
+
+        activePlayer.setNextTurnTick((currentTick + castingTime) % rules.getTicksPerPhase());
+        activePlayer.setMana(activePlayer.getMana() - manaCost);
+
+        advanceTimeTracker();
     }
 
     private Player calculateActivePlayer() {
