@@ -10,76 +10,79 @@
   </div>
   -->
 
-  <h3>General</h3>
-
-  <div>
-    <label>Library: </label>
-    {{game.numberOfCardsInLibrary}}
-  </div>
-  <div>
-    <label>Active Player: </label>
-    {{game.activePlayerColor}}
-  </div>
-  <div>
-    <label>Expected Input: </label>
-    {{game.expectedInput}}
-  </div>
-
-  <h3>Player Stats</h3>
-
-  <div class="column-container playerStatsContainer">
-    <div class="column playerStats bluePlayer">
-      <!--<h4>Blue Player</h4>-->
-      <div class="statBlock">
-        <div>
-          <label>Health: </label> {{game.bluePlayer.health}}
-        </div>
-        <div>
-          <label>Mana: </label> {{game.bluePlayer.mana}}
-        </div>
-        <div>
-          <label>Hand Size: </label> {{game.bluePlayer.numberOfCardsInHand}}
-        </div>
-      </div>
+  <div class="section">
+    <h3>General</h3>
+    <div>
+      <label>Library: </label>
+      {{game.numberOfCardsInLibrary}}
     </div>
-
-    <div class="column playerStats redPlayer">
-      <!--<h4>Red Player</h4>-->
-      <div class="statBlock">
-        <div>
-          <label>Health: </label> {{game.redPlayer.health}}
-        </div>
-        <div>
-          <label>Mana: </label> {{game.redPlayer.mana}}
-        </div>
-        <div>
-          <label>Hand Size: </label> {{game.redPlayer.numberOfCardsInHand}}
-        </div>
-      </div>
+    <div>
+      <label>Active Player: </label>
+      {{game.activePlayerColor}}
+    </div>
+    <div>
+      <label>Expected Input: </label>
+      {{game.expectedInput}}
     </div>
   </div>
 
-  <h3>Time</h3>
+  <div class="section">
+    <h3>Player Stats</h3>
 
-  <div>
+    <div class="column-container playerStatsContainer">
+      <div class="column playerStats bluePlayer">
+        <!--<h4>Blue Player</h4>-->
+        <div class="statBlock">
+          <div>
+            <label>Health: </label> {{game.bluePlayer.health}}
+          </div>
+          <div>
+            <label>Mana: </label> {{game.bluePlayer.mana}}
+          </div>
+          <div>
+            <label>Hand Size: </label> {{game.bluePlayer.numberOfCardsInHand}}
+          </div>
+        </div>
+      </div>
+
+      <div class="column playerStats redPlayer">
+        <!--<h4>Red Player</h4>-->
+        <div class="statBlock">
+          <div>
+            <label>Health: </label> {{game.redPlayer.health}}
+          </div>
+          <div>
+            <label>Mana: </label> {{game.redPlayer.mana}}
+          </div>
+          <div>
+            <label>Hand Size: </label> {{game.redPlayer.numberOfCardsInHand}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Time</h3>
     <ul class="timeTrack">
       <li *ngFor="let n of range(0, rules.ticksPerPhase - 1)">
         <div class="timeTrackSpaceContainer">
           <div class="timeTrackSpace" [ngClass]="{currentTick: game.currentTick == n}">
             <div>{{n}}</div>
-            <div class="timeTracker bluePlayer" [ngClass]="{showTimeTracker: game.bluePlayer.nextTurnTick == n}"></div>
-            <div class="timeTracker redPlayer" [ngClass]="{showTimeTracker: game.redPlayer.nextTurnTick == n}"></div>
+          </div>
+          <div class="column-container">
+            <div class="column timeTracker bluePlayer" [ngClass]="{showTimeTracker: game.bluePlayer.nextTurnTick == n}"></div>
+            <div class="column timeTracker redPlayer" [ngClass]="{showTimeTracker: game.redPlayer.nextTurnTick == n}"></div>
           </div>
         </div>
       </li>
     </ul>
   </div>
 
-  <div *ngIf="game.hand !== null">
-    <h3>Hand</h3>
-
-    <ul class="hand">
-      <li *ngFor="let card of game.hand" class="card">
+  <div class="section">
+    <h3>Market</h3>
+    <ul class="market">
+      <li *ngFor="let card of game.market" class="card">
         <div class="cardHeader">
           <div class="cardStats">
             <span class="cardManaCost">{{card.manaCost}}</span>
@@ -89,23 +92,27 @@
         </div>
       </li>
     </ul>
+    <div class="actions">
+      <button (click)="selectFromHand()">Select</button>
+    </div>
   </div>
 
-  <h3>Market</h3>
-
-  <ul class="market">
-    <li *ngFor="let card of game.market" class="card">
-      <div class="cardHeader">
-        <div class="cardStats">
-          <span class="cardManaCost">{{card.manaCost}}</span>
-          <span class="cardCastingTime">{{card.castingTime}}</span>
-        </div>
-        <span class="cardName">{{card.name}}</span>
-      </div>
-    </li>
-  </ul>
-
-
+  <div *ngIf="game.hand !== null">
+    <div class="section">
+      <h3>Hand</h3>
+      <ul class="hand">
+        <li *ngFor="let card of game.hand" class="card">
+          <div class="cardHeader">
+            <div class="cardStats">
+              <span class="cardManaCost">{{card.manaCost}}</span>
+              <span class="cardCastingTime">{{card.castingTime}}</span>
+            </div>
+            <span class="cardName">{{card.name}}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 
   <!--<button (click)="goBack()">Back</button>-->
   <!--<button (click)="save()">Save</button>-->

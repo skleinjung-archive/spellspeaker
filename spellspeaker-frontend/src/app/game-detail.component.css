@@ -1,3 +1,5 @@
+h3 {
+}
 label {
   display: inline-block;
   width: 7em;
@@ -13,7 +15,7 @@ input {
 button {
   margin-top: 20px;
   font-family: Arial;
-  background-color: #eee;
+  /*background-color: #eee;*/
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
@@ -28,18 +30,30 @@ button:disabled {
   cursor: auto;
 }
 
+.section {
+  margin: 32px 8px 8px 0;
+}
+.section h3 {
+  background-color: #eee;
+  margin: 0 0 8px 0;
+  padding: 4px;
+}
+
 ul.timeTrack {
-  margin: 8px;
+  margin: 0;
   padding: 0;
 }
 ul.timeTrack li {
   list-style-type: none;
   display: inline-block;
 }
+div.timeTrackSpaceContainer {
+  margin: 0 5px 0 5px;
+}
+
 div.timeTrackSpace {
   display: inline-block;
   border: 1px solid gray;
-  margin: 15px 5px 15px 5px;
 
   height: 25px;
   width: 25px;
@@ -53,11 +67,14 @@ div.timeTrackSpace.currentTick {
 }
 
 .timeTracker {
-  width: 25px;
+  width: 3px;
   height: 5px;
-  margin: 3px 0 0 0;
+  margin: 1px 0 8px 0;
   border: 1px solid gray;
   visibility: hidden;
+}
+.timeTracker.bluePlayer {
+  margin-right: 2px;
 }
 .timeTracker.showTimeTracker {
   visibility: visible;
@@ -80,7 +97,7 @@ div.timeTrackSpace.currentTick {
 
 /* player stats */
 .playerStats {
-  margin: 8px 4px;
+  margin: 0 8px 0 0;
   padding: 0;
   border: 2px solid #333;
 }
@@ -102,7 +119,7 @@ div.timeTrackSpace.currentTick {
 /* market */
 ul.market {
   list-style-type: none;
-  margin: 8px;
+  margin: 0;
   padding: 0;
 }
 .card {
@@ -110,7 +127,7 @@ ul.market {
   border: 1px solid black;
   width: 144px;
   height: 219px;
-  margin: 0 15px 15px 0;
+  margin: 15px 15px 0 0;
 }
 .cardHeader {
   line-height: 28px;
@@ -152,6 +169,14 @@ ul.market {
 /* hand */
 ul.hand {
   list-style-type: none;
-  margin: 8px;
+  margin: 0;
   padding: 0;
+}
+
+/* hand and market action rows */
+.actions {
+  margin: 16px 0 8px 0;
+}
+.actions button {
+  margin: 0;
 }
