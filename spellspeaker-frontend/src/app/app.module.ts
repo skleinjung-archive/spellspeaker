@@ -14,10 +14,13 @@ import {AuthenticationService} from "./authentication.service";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthenticationInterceptor} from "./authentication-interceptor";
 import {UserProfileService} from "./user-profile-service";
+import {MessageService} from "./message-service";
+import {MessageComponent} from "./message.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    MessageComponent,
     GamesComponent,
     LoginComponent,
     GameDetailComponent
@@ -30,6 +33,7 @@ import {UserProfileService} from "./user-profile-service";
     AppRoutingModule
   ],
   providers: [
+    MessageService,
     GameService,
     RulesService,
     AuthenticationService,

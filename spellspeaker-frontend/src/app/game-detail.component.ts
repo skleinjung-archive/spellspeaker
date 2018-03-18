@@ -8,6 +8,7 @@ import {Game} from "./game";
 import {GameService} from "./game.service";
 import {Rules} from "./rules";
 import {RulesService} from "./rules.service"
+import {MessageService} from "./message-service";
 
 @Component({
   selector: 'game-detail',
@@ -15,7 +16,8 @@ import {RulesService} from "./rules.service"
   styleUrls: ['./game-detail.component.css']
 })
 export class GameDetailComponent implements OnInit {
-  constructor(private gameService: GameService,
+  constructor(private messageService: MessageService,
+              private gameService: GameService,
               private rulesService: RulesService,
               private route: ActivatedRoute,
               private location: Location
@@ -27,9 +29,19 @@ export class GameDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.gameService.getGame(+params.get('id')))
-      .subscribe(game => this.game = game);
+      .subscribe(game => {
+        this.game = game;
 
-    this.rulesService.getRules().subscribe(rules => this.rules = rules)
+        if (game.currentUserColor == null) {
+          this.messageService.showInformation('It is ' + game.activePlayerColor + '\'s turn.');
+        } else if (game.currentUserColor === game.activePlayerColor) {
+          this.messageService.showInformation('It is your turn.');
+        } else {
+          this.messageService.showInformation('It is your opponent\'s turn.');
+        }
+      });
+
+    this.rulesService.getRules().subscribe(rules => this.rules = rules);
   }
 
   // https://stackoverflow.com/questions/3895478/does-javascript-have-a-method-like-range-to-generate-a-range-within-the-supp/31989462#31989462

@@ -1,11 +1,7 @@
 package com.thrashplay.spellspeaker.model;
 
 import com.thrashplay.spellspeaker.config.GameRules;
-import com.thrashplay.spellspeaker.view.CardView;
-import com.thrashplay.spellspeaker.view.GameClientView;
-import com.thrashplay.spellspeaker.view.PlayerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +16,11 @@ public class SpellspeakerGame {
     private Player bluePlayer;
     private Player redPlayer;
 
+    private Player playerWithInitiative;
+    private Player activePlayer;
+
+    private ExpectedInput expectedInput;
+
     private DiscardPile discardPile;
     private Library library;
     private Market market;
@@ -29,13 +30,15 @@ public class SpellspeakerGame {
     public SpellspeakerGame(GameRules rules, CardFactory cardFactory, long bluePlayerUserId, long redPlayerUserId) {
         this.rules = rules;
 
-        bluePlayer = new Player(bluePlayerUserId);
+        bluePlayer = new Player(bluePlayerUserId, PlayerColor.Blue);
         bluePlayer.setHealth(rules.getMaximumHealth());
         bluePlayer.setMana(rules.getMaximumMana());
 
-        redPlayer = new Player(redPlayerUserId);
+        redPlayer = new Player(redPlayerUserId, PlayerColor.Red);
         redPlayer.setHealth(rules.getMaximumHealth());
         redPlayer.setMana(rules.getMaximumMana());
+
+        playerWithInitiative = bluePlayer; // todo: randomly determine this
 
         discardPile = new DiscardPile();
 
@@ -53,6 +56,9 @@ public class SpellspeakerGame {
             bluePlayer.getHand().add(library.draw());
             redPlayer.getHand().add(library.draw());
         }
+
+        currentTick = -1;
+        advanceTimeTracker();
     }
 
     public long getId() {
@@ -63,6 +69,42 @@ public class SpellspeakerGame {
         this.id = id;
     }
 
+    public int getCurrentTick() {
+        return currentTick;
+    }
+
+    //    public boolean tick() {
+//        currentTick = (currentTick + 1) % rules.getTicksPerPhase();
+//
+//        if (playerWithInitiative.getNextTurnTick() == currentTick) {
+//            setupTurn(playerWithInitiative);
+//        }
+//    }
+
+    public void advanceTimeTracker() {
+        while ((activePlayer = calculateActivePlayer()) == null) {
+            currentTick = (currentTick + 1) % rules.getTicksPerPhase();
+        }
+
+        // resolve active card
+
+        expectedInput = ExpectedInput.SelectCardFromHand;
+    }
+
+    private Player calculateActivePlayer() {
+        if (playerWithInitiative.getNextTurnTick() == currentTick) {
+            return playerWithInitiative;
+        } else if (getPlayerWithoutInitiative().getNextTurnTick() == currentTick) {
+            return getPlayerWithoutInitiative();
+        } else {
+            return null;
+        }
+    }
+
+    private Player getPlayerWithoutInitiative() {
+        return playerWithInitiative == bluePlayer ? redPlayer : bluePlayer;
+    }
+
     public Player getBluePlayer() {
         return bluePlayer;
     }
@@ -71,60 +113,19 @@ public class SpellspeakerGame {
         return redPlayer;
     }
 
-    public GameClientView toClientView(final User requestingUser) {
-        final Player currentUserPlayer;
-        if (requestingUser != null && requestingUser.getId() == bluePlayer.getUserId()) {
-            currentUserPlayer = bluePlayer;
-        } else if (requestingUser != null && requestingUser.getId() == redPlayer.getUserId()) {
-            currentUserPlayer = redPlayer;
-        } else {
-            currentUserPlayer = null;
-        }
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
 
-        return new GameClientView() {
-            @Override
-            public long getId() {
-                return id;
-            }
+    public ExpectedInput getExpectedInput() {
+        return expectedInput;
+    }
 
-            @Override
-            public int getNumberOfCardsInLibrary() {
-                return library.size();
-            }
+    public Market getMarket() {
+        return market;
+    }
 
-            @Override
-            public int getCurrentTick() {
-                return currentTick;
-            }
-
-            @Override
-            public PlayerView getBluePlayer() {
-                return new PlayerView(requestingUser, bluePlayer);
-            }
-
-            @Override
-            public PlayerView getRedPlayer() {
-                return new PlayerView(requestingUser, redPlayer);
-            }
-
-            @Override
-            public List<CardView> getMarket() {
-                return convertToCardViews(market.getCards());
-            }
-
-            @Override
-            public List<CardView> getHand() {
-                return currentUserPlayer == null ? null : convertToCardViews(currentUserPlayer.getHand().getCards());
-            }
-
-            private List<CardView> convertToCardViews(List<Card> cards) {
-                List<CardView> views = new ArrayList<>(cards.size());
-                for (Card card : cards) {
-                    CardView view = CardView.fromCard(card);
-                    views.add(view);
-                }
-                return views;
-            }
-        };
+    public Library getLibrary() {
+        return library;
     }
 }

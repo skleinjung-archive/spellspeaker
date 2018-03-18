@@ -7,18 +7,24 @@ import com.thrashplay.spellspeaker.view.PlayerView;
  */
 public class Player {
     private long userId;
+    private PlayerColor color;
     private int nextTurnTick;
     private int health;
     private int mana;
     private Hand hand;
 
-    public Player(long userId) {
+    public Player(long userId, PlayerColor color) {
         this.userId = userId;
+        this.color = color;
         hand = new Hand();
     }
 
     public long getUserId() {
         return userId;
+    }
+
+    public PlayerColor getColor() {
+        return color;
     }
 
     public int getNextTurnTick() {

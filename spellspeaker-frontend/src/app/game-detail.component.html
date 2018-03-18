@@ -1,3 +1,4 @@
+<script src="game.service.ts"></script>
 <div *ngIf="game && rules">
   <h2>Game Details</h2>
 
@@ -14,6 +15,14 @@
   <div>
     <label>Library: </label>
     {{game.numberOfCardsInLibrary}}
+  </div>
+  <div>
+    <label>Active Player: </label>
+    {{game.activePlayerColor}}
+  </div>
+  <div>
+    <label>Expected Input: </label>
+    {{game.expectedInput}}
   </div>
 
   <h3>Player Stats</h3>
