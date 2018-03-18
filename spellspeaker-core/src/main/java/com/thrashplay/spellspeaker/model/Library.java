@@ -7,20 +7,11 @@ import java.util.List;
 /**
  * @author Sean Kleinjung
  */
-public class Library {
-    private List<Card> cards = new ArrayList<>(300);
+public class Library  extends CardContainer{
     private DiscardPile discardPile;
 
     public Library(DiscardPile discardPile) {
         this.discardPile = discardPile;
-    }
-
-    public int size() {
-        return cards.size();
-    }
-
-    public void add(Card card) {
-        cards.add(card);
     }
 
     public Card draw() {
@@ -42,9 +33,5 @@ public class Library {
 
     public void shuffle() {
         Collections.shuffle(cards);
-    }
-
-    public boolean hasCards() {
-        return !cards.isEmpty();
     }
 }

@@ -19,6 +19,7 @@ export class Player {
   health: number;
   mana: number;
   numberOfCardsInHand: number;
+  ritual: Card[];
 }
 
 export class Card {

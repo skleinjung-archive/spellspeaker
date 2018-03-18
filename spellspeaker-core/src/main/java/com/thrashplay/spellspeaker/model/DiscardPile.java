@@ -7,17 +7,7 @@ import java.util.List;
 /**
  * @author Sean Kleinjung
  */
-public class DiscardPile {
-    private List<Card> cards = new ArrayList<>(300);
-
-    public List<Card> getCards() {
-        return cards;
-    }
-
-    public void add(Card card) {
-        cards.add(card);
-    }
-
+public class DiscardPile extends CardContainer {
     public void addAll(List<Card> cards) {
         this.cards.addAll(cards);
     }

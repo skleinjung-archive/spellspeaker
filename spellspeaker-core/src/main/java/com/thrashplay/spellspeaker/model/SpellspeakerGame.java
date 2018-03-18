@@ -74,14 +74,6 @@ public class SpellspeakerGame {
         return currentTick;
     }
 
-    //    public boolean tick() {
-//        currentTick = (currentTick + 1) % rules.getTicksPerPhase();
-//
-//        if (playerWithInitiative.getNextTurnTick() == currentTick) {
-//            setupTurn(playerWithInitiative);
-//        }
-//    }
-
     public void advanceTimeTracker() {
         while ((activePlayer = calculateActivePlayer()) == null) {
             currentTick = (currentTick + 1) % rules.getTicksPerPhase();
@@ -100,6 +92,18 @@ public class SpellspeakerGame {
             throw new IllegalStateException("Not expecting to select a card from hand. expectedInput=" + expectedInput);
         }
 
+        Card card = findCardInHand(activePlayer, cardName);
+        if (card == null) {
+            throw new IllegalArgumentException("Card not found in active player's hand. (cardName=" + cardName + ", hand=" + activePlayer.getHand().getCards());
+        }
+
+        spendManaAndTime(activePlayer, card);
+        activePlayer.getRitual().add(card);
+
+        advanceTimeTracker();
+    }
+
+    private Card findCardInHand(Player activePlayer, String cardName) {
         Card card = null;
         Iterator<Card> iterator = activePlayer.getHand().getCards().iterator();
         while (iterator.hasNext()) {
@@ -109,22 +113,19 @@ public class SpellspeakerGame {
                 iterator.remove();
             }
         }
+        return card;
+    }
 
-        if (card == null) {
-            throw new IllegalArgumentException("Card not found in active player's hand. (cardName=" + cardName + ", hand=" + activePlayer.getHand().getCards());
-        }
-
+    private void spendManaAndTime(Player activePlayer, Card card) {
         int manaCost = Math.max(0, card.getManaCost());
         int castingTime = Math.max(0, card.getCastingTime());
 
         if (activePlayer.getMana() < manaCost) {
-            throw new IllegalStateException("You do not have enough mana to cast '" + cardName + "'.");
+            throw new IllegalStateException("You do not have enough mana to cast '" + card.getName() + "'.");
         }
 
         activePlayer.setNextTurnTick((currentTick + castingTime) % rules.getTicksPerPhase());
         activePlayer.setMana(activePlayer.getMana() - manaCost);
-
-        advanceTimeTracker();
     }
 
     private Player calculateActivePlayer() {

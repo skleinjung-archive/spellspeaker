@@ -81,7 +81,7 @@
 
   <div class="section">
     <h3>Market</h3>
-    <ul class="market">
+    <ul class="cardSet">
       <li *ngFor="let card of game.market" class="card" [ngClass]="{selected: card == selectedCardFromMarket, selectable: isMarketSelectionEnabled()}" (click)="selectedCardFromMarket = card">
         <div class="cardHeader">
           <div class="cardStats">
@@ -97,10 +97,40 @@
     </div>
   </div>
 
+  <div class="section">
+    <h3>Blue Ritual</h3>
+    <ul class="cardSet">
+      <li *ngFor="let card of game.bluePlayer.ritual" class="card">
+        <div class="cardHeader">
+          <div class="cardStats">
+            <span class="cardManaCost">{{card.manaCost}}</span>
+            <span class="cardCastingTime">{{card.castingTime}}</span>
+          </div>
+          <span class="cardName">{{card.name}}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Red Ritual</h3>
+    <ul class="cardSet">
+      <li *ngFor="let card of game.redPlayer.ritual" class="card">
+        <div class="cardHeader">
+          <div class="cardStats">
+            <span class="cardManaCost">{{card.manaCost}}</span>
+            <span class="cardCastingTime">{{card.castingTime}}</span>
+          </div>
+          <span class="cardName">{{card.name}}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
   <div *ngIf="game.hand !== null">
     <div class="section">
       <h3>Hand</h3>
-      <ul class="hand">
+      <ul class="cardSet">
         <li *ngFor="let card of game.hand" class="card" [ngClass]="{selected: card == selectedCardFromHand, selectable: isHandSelectionEnabled()}" (click)="selectedCardFromHand = card">
           <div class="cardHeader">
             <div class="cardStats">

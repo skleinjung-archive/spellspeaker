@@ -12,11 +12,13 @@ public class Player {
     private int health;
     private int mana;
     private Hand hand;
+    private Ritual ritual;
 
     public Player(long userId, PlayerColor color) {
         this.userId = userId;
         this.color = color;
         hand = new Hand();
+        ritual = new Ritual();
     }
 
     public long getUserId() {
@@ -53,5 +55,9 @@ public class Player {
 
     public Hand getHand() {
         return hand;
+    }
+
+    public Ritual getRitual() {
+        return ritual;
     }
 }
