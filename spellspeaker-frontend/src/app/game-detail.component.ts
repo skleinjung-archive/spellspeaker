@@ -4,7 +4,7 @@ import {Location} from '@angular/common';
 
 import 'rxjs/add/operator/switchMap';
 
-import {Game} from "./game";
+import {Card, Game} from "./game";
 import {GameService} from "./game.service";
 import {Rules} from "./rules";
 import {RulesService} from "./rules.service"
@@ -23,22 +23,16 @@ export class GameDetailComponent implements OnInit {
               private location: Location
   ) {}
 
-  @Input() game: Game;
+  @Input() private _game: Game;
   rules: Rules;
+  private _selectedCardFromMarket: Card;
+  private _selectedCardFromHand: Card;
 
   ngOnInit(): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.gameService.getGame(+params.get('id')))
       .subscribe(game => {
         this.game = game;
-
-        if (game.currentUserColor == null) {
-          this.messageService.showInformation('It is ' + game.activePlayerColor + '\'s turn.');
-        } else if (game.currentUserColor === game.activePlayerColor) {
-          this.messageService.showInformation('It is your turn.');
-        } else {
-          this.messageService.showInformation('It is your opponent\'s turn.');
-        }
       });
 
     this.rulesService.getRules().subscribe(rules => this.rules = rules);
@@ -55,6 +49,63 @@ export class GameDetailComponent implements OnInit {
     return Array(len).fill(0).map(function(_, index) {
       return startingPoint + (stepSize * index);
     });
+  }
+
+  get game(): Game {
+    return this._game;
+  }
+
+  set game(value: Game) {
+    this._game = value;
+    if (this._game.currentUserColor == null) {
+      this.messageService.showInformation('It is ' + this._game.activePlayerColor + '\'s turn.');
+    } else if (this._game.currentUserColor === this._game.activePlayerColor) {
+      this.messageService.showInformation('It is your turn.');
+    } else {
+      this.messageService.showInformation('It is your opponent\'s turn.');
+    }
+  }
+
+  isMarketSelectionEnabled(): boolean {
+    // todo: implement this
+    return false;
+  }
+
+  isHandSelectionEnabled(): boolean {
+    return this._game.expectedInput === 'SelectCardFromHand';
+  }
+
+  get selectedCardFromMarket(): Card {
+    return this._selectedCardFromMarket;
+  }
+
+  set selectedCardFromMarket(value: Card) {
+    if (!this.isMarketSelectionEnabled()) {
+      return;
+    }
+
+    this._selectedCardFromHand = null;
+    this._selectedCardFromMarket = value;
+  }
+
+  get selectedCardFromHand(): Card {
+    return this._selectedCardFromHand;
+  }
+
+  set selectedCardFromHand(value: Card) {
+    if (!this.isHandSelectionEnabled()) {
+      return;
+    }
+
+    this._selectedCardFromMarket = null;
+    this._selectedCardFromHand = value;
+  }
+
+  confirmHandSelection(): void {
+    this.gameService.selectFromHand(this._game.id, this.selectedCardFromHand)
+      .subscribe(game => {
+        this.game = game;
+      });
   }
 
   goBack(): void {

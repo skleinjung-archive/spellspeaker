@@ -2,6 +2,7 @@ package com.thrashplay.spellspeaker.model;
 
 import com.thrashplay.spellspeaker.config.GameRules;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -89,6 +90,29 @@ public class SpellspeakerGame {
         // resolve active card
 
         expectedInput = ExpectedInput.SelectCardFromHand;
+    }
+
+    public void selectFromHand(long userId, String cardName) {
+        if (activePlayer.getUserId() != userId) {
+            throw new IllegalStateException("It is not your turn!");
+        }
+        if (expectedInput != ExpectedInput.SelectCardFromHand) {
+            throw new IllegalStateException("Not expecting to select a card from hand. expectedInput=" + expectedInput);
+        }
+
+        boolean cardFound = false;
+        Iterator<Card> iterator = activePlayer.getHand().getCards().iterator();
+        while (iterator.hasNext()) {
+            Card card = iterator.next();
+            if (!cardFound && card.getName().equals(cardName)) {
+                cardFound = true;
+                iterator.remove();
+            }
+        }
+
+        if (!cardFound) {
+            throw new IllegalArgumentException("Card not found in active player's hand. (cardName=" + cardName + ", hand=" + activePlayer.getHand().getCards());
+        }
     }
 
     private Player calculateActivePlayer() {

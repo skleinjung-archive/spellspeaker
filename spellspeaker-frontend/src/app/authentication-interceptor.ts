@@ -25,6 +25,10 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
     });
 
+    clonedRequest = req.clone({
+      headers: req.headers.set('Content-Type', 'application/json')
+    });
+
     const authenticationToken = this.userProfileService.authenticationToken as string;
     if (authenticationToken && authenticationToken !== null) {
       clonedRequest = req.clone({

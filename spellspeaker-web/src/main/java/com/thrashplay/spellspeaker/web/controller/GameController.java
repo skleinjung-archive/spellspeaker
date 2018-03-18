@@ -17,6 +17,7 @@ package com.thrashplay.spellspeaker.web.controller;
 import com.thrashplay.spellspeaker.model.*;
 import com.thrashplay.spellspeaker.repository.GameRepository;
 import com.thrashplay.spellspeaker.view.GameView;
+import com.thrashplay.spellspeaker.web.model.ActionParameters;
 import com.thrashplay.spellspeaker.web.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,5 +64,17 @@ public class GameController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @PostMapping("/{gameId}/actions")
+    public @ResponseBody
+    ResponseEntity<Object> executeAction(@CurrentUser User user, @PathVariable long gameId, @RequestBody ActionParameters action) {
+        SpellspeakerGame game = gameRepository.findOne(gameId);
+        if (game == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        game.selectFromHand(user.getId(), action.getCard());
+        return ResponseEntity.status(HttpStatus.OK).body(new GameView(user, game));
     }
 }

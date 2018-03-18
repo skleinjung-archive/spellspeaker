@@ -82,7 +82,7 @@
   <div class="section">
     <h3>Market</h3>
     <ul class="market">
-      <li *ngFor="let card of game.market" class="card">
+      <li *ngFor="let card of game.market" class="card" [ngClass]="{selected: card == selectedCardFromMarket, selectable: isMarketSelectionEnabled()}" (click)="selectedCardFromMarket = card">
         <div class="cardHeader">
           <div class="cardStats">
             <span class="cardManaCost">{{card.manaCost}}</span>
@@ -93,7 +93,7 @@
       </li>
     </ul>
     <div class="actions">
-      <button (click)="selectFromHand()">Select</button>
+      <button (click)="confirmMarketSelection()" [disabled]="!isMarketSelectionEnabled() || selectedCardFromMarket == null">Confirm Selection</button>
     </div>
   </div>
 
@@ -101,7 +101,7 @@
     <div class="section">
       <h3>Hand</h3>
       <ul class="hand">
-        <li *ngFor="let card of game.hand" class="card">
+        <li *ngFor="let card of game.hand" class="card" [ngClass]="{selected: card == selectedCardFromHand, selectable: isHandSelectionEnabled()}" (click)="selectedCardFromHand = card">
           <div class="cardHeader">
             <div class="cardStats">
               <span class="cardManaCost">{{card.manaCost}}</span>
@@ -111,6 +111,9 @@
           </div>
         </li>
       </ul>
+      <div class="actions">
+        <button (click)="confirmHandSelection()" [disabled]="!isHandSelectionEnabled() || selectedCardFromHand == null">Confirm Selection</button>
+      </div>
     </div>
   </div>
 
