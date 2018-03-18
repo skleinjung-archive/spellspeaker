@@ -3,12 +3,13 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Location} from '@angular/common';
 
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/finally';
 
-import {Card, Game} from "./game";
-import {GameService} from "./game.service";
-import {Rules} from "./rules";
-import {RulesService} from "./rules.service"
-import {MessageService} from "./message-service";
+import {Card, Game} from './game';
+import {GameService} from './game.service';
+import {Rules} from './rules';
+import {RulesService} from './rules.service';
+import {MessageService} from './message-service';
 
 @Component({
   selector: 'game-detail',
@@ -103,13 +104,12 @@ export class GameDetailComponent implements OnInit {
 
   confirmHandSelection(): void {
     this.gameService.playCardFromHand(this._game.id, this.selectedCardFromHand)
+      .finally(() => {
+        window.scrollTo(0, 0);
+      })
       .subscribe(game => {
         this.game = game;
       });
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   // save(): void {

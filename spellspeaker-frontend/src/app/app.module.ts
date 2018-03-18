@@ -16,6 +16,7 @@ import {AuthenticationInterceptor} from "./authentication-interceptor";
 import {UserProfileService} from "./user-profile-service";
 import {MessageService} from "./message-service";
 import {MessageComponent} from "./message.component";
+import {ErrorInterceptor} from "./error-interceptor";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,11 @@ import {MessageComponent} from "./message.component";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true,
     }
   ],
