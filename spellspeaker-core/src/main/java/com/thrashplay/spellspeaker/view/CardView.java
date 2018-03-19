@@ -9,29 +9,32 @@ public class CardView {
     private String name;
     private int manaCost;
     private int castingTime;
+    private String element;
+    private int power;
+    private String text;
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getManaCost() {
         return manaCost;
     }
 
-    public void setManaCost(int manaCost) {
-        this.manaCost = manaCost;
-    }
-
     public int getCastingTime() {
         return castingTime;
     }
 
-    public void setCastingTime(int castingTime) {
-        this.castingTime = castingTime;
+    public String getElement() {
+        return element;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public String getText() {
+        return text;
     }
 
     public static CardView fromCard(Card card) {
@@ -39,6 +42,9 @@ public class CardView {
         view.name = card.getName();
         view.manaCost = card.getManaCost();
         view.castingTime = card.getCastingTime();
+        view.element = card.getElement().name();
+        view.power = card.getPower();
+        view.text = card.getText();
         return view;
     }
 }

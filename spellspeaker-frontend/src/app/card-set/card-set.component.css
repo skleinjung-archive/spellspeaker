@@ -6,6 +6,7 @@ ul.cardSet {
 }
 ul.cardSet li {
   display: inline-block;
+  vertical-align: top;
 }
 
 ul.cardSet li.updated {
@@ -22,7 +23,6 @@ ul.cardSet li.updated {
   border: 3px solid black;
   border-radius: 5px;
   width: 144px;
-  height: 149px;
   margin: 15px 15px 0 0;
 }
 .card:last-child {
@@ -39,12 +39,14 @@ ul.cardSet li.updated {
 
 /* card header */
 .cardHeader {
-  line-height: 28px;
   background-color: gainsboro;
   border-bottom: 1px solid black;
   padding: 0 5px 0 5px;
   font-size: 0.75em;
   font-weight: bold;
+  vertical-align: center;
+  display: table;
+  width: 134px;
 }
 /* clearfix */
 .cardHeader:after {
@@ -52,8 +54,10 @@ ul.cardSet li.updated {
   clear: both;
   display: table;
 }
-.cardStats {
-  float: right;
+.cardName {
+  display: table-cell;
+  vertical-align: middle;
+  width: 83px;
 }
 .cardManaCost {
   margin: 3px 3px 0 0;
@@ -79,6 +83,7 @@ ul.cardSet li.updated {
 
 /* card text */
 .cardBody {
+  height: 121px;
   padding: 4px;
   font-size: 0.75em;
 }
@@ -86,7 +91,7 @@ p {
   padding: 0;
   margin: 0;
 }
-p.special {
+p + p.special {
   margin-top: 8px;
 }
 

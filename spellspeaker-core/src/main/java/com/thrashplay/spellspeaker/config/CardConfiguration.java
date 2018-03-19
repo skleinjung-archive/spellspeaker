@@ -1,5 +1,7 @@
 package com.thrashplay.spellspeaker.config;
 
+import com.thrashplay.spellspeaker.model.Element;
+
 /**
  * @author Sean Kleinjung
  */
@@ -8,6 +10,9 @@ public class CardConfiguration {
     private String name;
     private int manaCost;
     private int castingTime;
+    private Element element;
+    private int power;
+    private String text;
     private int quantity;
 
     public long getId() {
@@ -40,6 +45,30 @@ public class CardConfiguration {
 
     public void setCastingTime(int castingTime) {
         this.castingTime = castingTime;
+    }
+
+    public Element getElement() {
+        return element;
+    }
+
+    public void setElement(Element element) {
+        this.element = element;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public int getQuantity() {

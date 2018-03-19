@@ -3,6 +3,7 @@ package com.thrashplay.spellspeaker.repository.json;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thrashplay.spellspeaker.config.CardConfiguration;
+import com.thrashplay.spellspeaker.model.Element;
 import com.thrashplay.spellspeaker.repository.CardConfigurationRepository;
 import org.springframework.stereotype.Repository;
 
@@ -78,6 +79,9 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
         private int manaCost;
         private int castingTime;
         private int quantity;
+        private String element;
+        private int power;
+        private String text;
 
         public CardConfiguration toCardConfiguration() {
             CardConfiguration result = new CardConfiguration();
@@ -85,6 +89,9 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
             result.setManaCost(manaCost);
             result.setCastingTime(castingTime);
             result.setQuantity(quantity);
+            result.setElement(element == null ? Element.None : Element.fromName(element));
+            result.setPower(power);
+            result.setText(text);
             return result;
         }
     }

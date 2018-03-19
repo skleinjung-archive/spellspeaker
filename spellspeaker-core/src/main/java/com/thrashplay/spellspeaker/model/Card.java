@@ -7,6 +7,9 @@ public class Card {
     private String name;
     private int manaCost;
     private int castingTime;
+    private int power;
+    private Element element;
+    private String text;
 
     public String getName() {
         return name;
@@ -30,5 +33,29 @@ public class Card {
 
     public void setCastingTime(int castingTime) {
         this.castingTime = castingTime;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public Element getElement() {
+        return element;
+    }
+
+    public void setElement(Element element) {
+        this.element = element;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

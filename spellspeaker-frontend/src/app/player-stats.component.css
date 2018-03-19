@@ -26,7 +26,7 @@
   vertical-align: center;
   float: left;
   width: 150px;
-  height: 155px;
+  height: 164px;
   border: 1px solid #999;
 }
 .activeCard .card {
@@ -46,7 +46,7 @@
   padding-left: 20px;
   padding-bottom: 16px;
   border: 1px solid #666;
-  min-height: 155px;
+  min-height: 165px;
 }
 .bluePlayer ~ .ritual {
   background-color: #A3B1BF;

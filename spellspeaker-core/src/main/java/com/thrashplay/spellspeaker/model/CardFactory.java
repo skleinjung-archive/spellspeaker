@@ -28,6 +28,9 @@ public class CardFactory {
                 card.setName(cardConfiguration.getName());
                 card.setManaCost(cardConfiguration.getManaCost());
                 card.setCastingTime(cardConfiguration.getCastingTime());
+                card.setElement(cardConfiguration.getElement());
+                card.setPower(cardConfiguration.getPower());
+                card.setText(cardConfiguration.getText());
                 cards.add(card);
             }
         }

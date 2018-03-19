@@ -4,4 +4,9 @@ export class Card {
   name: string;
   manaCost: number;
   castingTime: number;
+
+  element: string;
+  power: number;
+
+  text: string;
 }
