@@ -20,7 +20,7 @@ export class PlayerStatsComponent implements OnInit {
   }
 
   playerHasRitual(player: Player) {
-    return player.ritual && player.ritual.length > 0;
+    return player.ritual && player.ritual.cards && player.ritual.cards.length > 0;
   }
 
   isRitualCardUpdated(player: Player, cardName: string): boolean {

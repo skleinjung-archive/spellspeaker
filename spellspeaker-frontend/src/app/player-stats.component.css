@@ -3,18 +3,21 @@
   margin: 0 8px 0 0;
   padding: 0;
 }
-.statBlock {
+.statsRow {
   padding: 0 15px;
   margin-bottom: 8px;
   line-height: 1em;
 }
-.statBlock label {
+.statsRow label {
   width: auto;
   color: #ffffff;
 }
-.statBlock div {
+.statsRow div {
   display: inline-block;
   margin-right: 10px;
+}
+.ritualStats {
+  float: right;
 }
 
 /* player active card */

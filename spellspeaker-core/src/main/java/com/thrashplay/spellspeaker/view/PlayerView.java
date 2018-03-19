@@ -18,7 +18,7 @@ public class PlayerView {
     private int mana;
     private int numberOfCardsInHand;
     private CardView activeCard;
-    private List<CardView> ritual;
+    private RitualView ritual;
 
     public PlayerView(User requestingUser, Player player) {
         isControlledByClient = requestingUser != null && requestingUser.getId() == player.getUserId();
@@ -27,7 +27,7 @@ public class PlayerView {
         mana = player.getMana();
         numberOfCardsInHand = player.getHand().size();
         activeCard = player.getActiveCard() == null ? null : CardView.fromCard(player.getActiveCard());
-        ritual = convertToCardViews(player.getRitual().getCards());
+        ritual = new RitualView(player.getRitual());
     }
 
     public boolean isControlledByClient() {
@@ -54,16 +54,7 @@ public class PlayerView {
         return activeCard;
     }
 
-    public List<CardView> getRitual() {
+    public RitualView getRitual() {
         return ritual;
-    }
-
-    private List<CardView> convertToCardViews(List<Card> cards) {
-        List<CardView> views = new ArrayList<>(cards.size());
-        for (Card card : cards) {
-            CardView view = CardView.fromCard(card);
-            views.add(view);
-        }
-        return views;
     }
 }

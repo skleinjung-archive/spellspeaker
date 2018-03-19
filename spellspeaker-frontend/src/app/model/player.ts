@@ -1,4 +1,5 @@
 import {Card} from './card';
+import {Ritual} from './ritual';
 
 export class Player {
   nextTurnTick: number;
@@ -6,5 +7,5 @@ export class Player {
   mana: number;
   numberOfCardsInHand: number;
   activeCard: Card;
-  ritual: Card[];
+  ritual: Ritual;
 }

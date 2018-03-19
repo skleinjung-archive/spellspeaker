@@ -2,6 +2,9 @@ package com.thrashplay.spellspeaker.view;
 
 import com.thrashplay.spellspeaker.model.Card;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Sean Kleinjung
  */
@@ -46,5 +49,14 @@ public class CardView {
         view.power = card.getPower();
         view.text = card.getText();
         return view;
+    }
+
+    public static List<CardView> fromCards(List<Card> cards) {
+        List<CardView> views = new ArrayList<>(cards.size());
+        for (Card card : cards) {
+            CardView view = CardView.fromCard(card);
+            views.add(view);
+        }
+        return views;
     }
 }

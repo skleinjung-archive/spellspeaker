@@ -49,10 +49,10 @@ public class GameView {
         expectedInput = game.getExpectedInput() == null
                 ? null
                 : game.getExpectedInput().name();
-        market = convertToCardViews(game.getMarket().getCards());
+        market = CardView.fromCards(game.getMarket().getCards());
         hand = currentUserPlayer == null
                 ? null
-                : convertToCardViews(currentUserPlayer.getHand().getCards());
+                : CardView.fromCards(currentUserPlayer.getHand().getCards());
     }
 
     public long getId() {
@@ -93,14 +93,5 @@ public class GameView {
 
     public List<CardView> getHand() {
         return hand;
-    }
-
-    private List<CardView> convertToCardViews(List<Card> cards) {
-        List<CardView> views = new ArrayList<>(cards.size());
-        for (Card card : cards) {
-            CardView view = CardView.fromCard(card);
-            views.add(view);
-        }
-        return views;
     }
 }
