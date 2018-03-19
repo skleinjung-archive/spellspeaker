@@ -98,7 +98,7 @@ public class SpellspeakerGame {
         }
 
         spendManaAndTime(activePlayer, card);
-        activePlayer.getRitual().add(card);
+        activePlayer.setActiveCard(card);
 
         advanceTimeTracker();
     }

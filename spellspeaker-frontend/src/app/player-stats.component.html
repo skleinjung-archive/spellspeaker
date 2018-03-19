@@ -12,12 +12,12 @@
       </div>
     </div>
 
-    <div *ngIf="bluePlayer.activeCard" class="activeCard">
-      <app-card-set [cards]="[bluePlayer.activeCard]"></app-card-set>
+    <div class="activeCard">
+      <app-card-set *ngIf="bluePlayer.activeCard" [cards]="[bluePlayer.activeCard]"></app-card-set>
     </div>
 
-    <div *ngIf="playerHasRitual(bluePlayer)" class="ritual">
-      <app-card-set [cards]="bluePlayer.ritual"></app-card-set>
+    <div class="ritual">
+      <app-card-set *ngIf="playerHasRitual(bluePlayer)" [cards]="bluePlayer.ritual"></app-card-set>
     </div>
   </div>
 
@@ -35,12 +35,12 @@
       </div>
     </div>
 
-    <div *ngIf="redPlayer.activeCard" class="activeCard">
-      <app-card-set [cards]="[redPlayer.activeCard]"></app-card-set>
+    <div class="activeCard">
+      <app-card-set *ngIf="redPlayer.activeCard" [cards]="[redPlayer.activeCard]"></app-card-set>
     </div>
 
-    <div *ngIf="playerHasRitual(redPlayer)" class="ritual">
-      <app-card-set [cards]="redPlayer.ritual"></app-card-set>
+    <div class="ritual">
+      <app-card-set *ngIf="playerHasRitual(redPlayer)" [cards]="redPlayer.ritual"></app-card-set>
     </div>
   </div>
 </div>

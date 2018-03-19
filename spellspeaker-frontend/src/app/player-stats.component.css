@@ -24,13 +24,15 @@
   vertical-align: center;
   float: left;
   box-shadow: 2px 2px #666;
+  background-color: #D3D347;
+  width: 165px;
+  height: 225px
 }
 .activeCard .card {
   margin: 0;
 }
 
 div.activeCard {
-  background-color: #D3D347;
 }
 
 .ritual {
@@ -39,6 +41,7 @@ div.activeCard {
   padding-left: 20px;
   padding-bottom: 16px;
   border: 1px solid #666;
+  min-height: 225px;
 }
 .bluePlayer ~ .ritual {
   background-color: #A3B1BF;

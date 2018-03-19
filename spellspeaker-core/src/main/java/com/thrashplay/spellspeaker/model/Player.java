@@ -12,6 +12,7 @@ public class Player {
     private int health;
     private int mana;
     private Hand hand;
+    private Card activeCard;
     private Ritual ritual;
 
     public Player(long userId, PlayerColor color) {
@@ -55,6 +56,14 @@ public class Player {
 
     public Hand getHand() {
         return hand;
+    }
+
+    public Card getActiveCard() {
+        return activeCard;
+    }
+
+    public void setActiveCard(Card activeCard) {
+        this.activeCard = activeCard;
     }
 
     public Ritual getRitual() {

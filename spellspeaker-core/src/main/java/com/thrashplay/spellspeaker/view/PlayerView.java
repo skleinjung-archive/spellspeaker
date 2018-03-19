@@ -17,6 +17,7 @@ public class PlayerView {
     private int health;
     private int mana;
     private int numberOfCardsInHand;
+    private CardView activeCard;
     private List<CardView> ritual;
 
     public PlayerView(User requestingUser, Player player) {
@@ -25,6 +26,7 @@ public class PlayerView {
         health = player.getHealth();
         mana = player.getMana();
         numberOfCardsInHand = player.getHand().size();
+        activeCard = player.getActiveCard() == null ? null : CardView.fromCard(player.getActiveCard());
         ritual = convertToCardViews(player.getRitual().getCards());
     }
 
@@ -46,6 +48,10 @@ public class PlayerView {
 
     public int getNumberOfCardsInHand() {
         return numberOfCardsInHand;
+    }
+
+    public CardView getActiveCard() {
+        return activeCard;
     }
 
     public List<CardView> getRitual() {
