@@ -5,6 +5,7 @@ package com.thrashplay.spellspeaker.model;
  */
 public class Card {
     private String name;
+    private CardType type;
     private int manaCost;
     private int castingTime;
     private int power;
@@ -17,6 +18,14 @@ public class Card {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public CardType getType() {
+        return type;
+    }
+
+    public void setType(CardType type) {
+        this.type = type;
     }
 
     public int getManaCost() {

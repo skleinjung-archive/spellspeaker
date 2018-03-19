@@ -1,5 +1,6 @@
 package com.thrashplay.spellspeaker.config;
 
+import com.thrashplay.spellspeaker.model.CardType;
 import com.thrashplay.spellspeaker.model.Element;
 
 /**
@@ -8,6 +9,7 @@ import com.thrashplay.spellspeaker.model.Element;
 public class CardConfiguration {
     private long id;
     private String name;
+    private CardType type;
     private int manaCost;
     private int castingTime;
     private Element element;
@@ -29,6 +31,14 @@ public class CardConfiguration {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public CardType getType() {
+        return type;
+    }
+
+    public void setType(CardType type) {
+        this.type = type;
     }
 
     public int getManaCost() {

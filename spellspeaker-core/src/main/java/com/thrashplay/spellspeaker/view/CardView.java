@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class CardView {
     private String name;
+    private String type;
     private int manaCost;
     private int castingTime;
     private String element;
@@ -18,6 +19,10 @@ public class CardView {
 
     public String getName() {
         return name;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public int getManaCost() {
@@ -43,6 +48,7 @@ public class CardView {
     public static CardView fromCard(Card card) {
         CardView view = new CardView();
         view.name = card.getName();
+        view.type = card.getType().name();
         view.manaCost = card.getManaCost();
         view.castingTime = card.getCastingTime();
         view.element = card.getElement().name();

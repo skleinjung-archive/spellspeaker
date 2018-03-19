@@ -2,7 +2,9 @@ package com.thrashplay.spellspeaker.repository.json;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.thrashplay.spellspeaker.SpellspeakerException;
 import com.thrashplay.spellspeaker.config.CardConfiguration;
+import com.thrashplay.spellspeaker.model.CardType;
 import com.thrashplay.spellspeaker.model.Element;
 import com.thrashplay.spellspeaker.repository.CardConfigurationRepository;
 import org.springframework.stereotype.Repository;
@@ -24,14 +26,14 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
     private static final String JSON_RESOURCE_PATH = "/com/thrashplay/spellspeaker/config/cards.json";
 
     private static final Gson gson = new Gson();
-    private static List<CardConfiguration> cardConfigurations;
+    private static List<CardConfiguration> libraryCardConfigurations;
 
     @Override
     public CardConfiguration findOne(Long id) {
         ensureInitialized();
 
-        if (id > 0 && id < cardConfigurations.size()) {
-            return cardConfigurations.get(id.intValue());
+        if (id > 0 && id < libraryCardConfigurations.size()) {
+            return libraryCardConfigurations.get(id.intValue());
         } else {
             return null;
         }
@@ -40,7 +42,7 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
     @Override
     public List<CardConfiguration> findAll() {
         ensureInitialized();
-        return cardConfigurations;
+        return libraryCardConfigurations;
     }
 
     @Override
@@ -49,18 +51,18 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
     }
 
     private synchronized void ensureInitialized() {
-        if (cardConfigurations == null) {
+        if (libraryCardConfigurations == null) {
             Reader reader = null;
             try {
                 InputStream inputStream = JsonCardConfigurationRepository.class.getResourceAsStream(JSON_RESOURCE_PATH);
                 reader = new InputStreamReader(inputStream);
 
-                Type listType = new TypeToken<ArrayList<DeserializedCardConfiguration>>() {}.getType();
-                List<DeserializedCardConfiguration> deserializedCardConfigurations = gson.fromJson(reader, listType);
+                Type listType = new TypeToken<DeserializedCardConfigurations>() {}.getType();
+                DeserializedCardConfigurations deserializedCardConfigurations = gson.fromJson(reader, listType);
 
-                cardConfigurations = new ArrayList<>(deserializedCardConfigurations.size());
-                for (DeserializedCardConfiguration deserializedCardConfiguration : deserializedCardConfigurations) {
-                    cardConfigurations.add(deserializedCardConfiguration.toCardConfiguration());
+                libraryCardConfigurations = new ArrayList<>(deserializedCardConfigurations.library.size());
+                for (DeserializedCardConfiguration deserializedCardConfiguration : deserializedCardConfigurations.library) {
+                    libraryCardConfigurations.add(deserializedCardConfiguration.toCardConfiguration());
                 }
             } finally {
                 if (reader != null) {
@@ -74,8 +76,21 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
         }
     }
 
+    private static class DeserializedCardConfigurations {
+        private List<DeserializedCardConfiguration> library;
+
+        public List<DeserializedCardConfiguration> getLibrary() {
+            return library;
+        }
+
+        public void setLibrary(List<DeserializedCardConfiguration> library) {
+            this.library = library;
+        }
+    }
+
     private static class DeserializedCardConfiguration {
         private String name;
+        private String type;
         private int manaCost;
         private int castingTime;
         private int quantity;
@@ -86,6 +101,12 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
         public CardConfiguration toCardConfiguration() {
             CardConfiguration result = new CardConfiguration();
             result.setName(name);
+
+            if (type == null) {
+                type = "Rune";
+            }
+            result.setType(CardType.fromName(type));
+
             result.setManaCost(manaCost);
             result.setCastingTime(castingTime);
             result.setQuantity(quantity);

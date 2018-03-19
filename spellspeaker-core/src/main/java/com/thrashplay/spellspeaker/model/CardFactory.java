@@ -26,6 +26,7 @@ public class CardFactory {
             for (int i = 0; i < cardConfiguration.getQuantity(); i++) {
                 Card card = new Card();
                 card.setName(cardConfiguration.getName());
+                card.setType(cardConfiguration.getType());
                 card.setManaCost(cardConfiguration.getManaCost());
                 card.setCastingTime(cardConfiguration.getCastingTime());
                 card.setElement(cardConfiguration.getElement());

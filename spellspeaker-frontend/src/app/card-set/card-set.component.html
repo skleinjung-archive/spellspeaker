@@ -12,5 +12,8 @@
       <p *ngIf="card.power && card.power != 0">Power: {{card.power > 0 ? '+' : ''}}{{card.power}}</p>
       <p *ngIf="card.text" class="special">{{card.text}}</p>
     </div>
+    <div class="cardFooter">
+      <span>{{card.type}}</span>
+    </div>
   </li>
 </ul>
