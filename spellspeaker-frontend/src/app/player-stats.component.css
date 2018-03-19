@@ -1,0 +1,48 @@
+/* player stats block */
+.playerStats {
+  margin: 0 8px 0 0;
+  padding: 0;
+}
+.statBlock {
+  padding: 0 15px;
+  margin-bottom: 8px;
+  line-height: 1em;
+}
+.statBlock label {
+  width: auto;
+  color: #ffffff;
+}
+.statBlock div {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* player active card */
+.activeCard {
+  margin-right: 15px;
+  padding: 10px 0 10px 10px;
+  vertical-align: center;
+  float: left;
+  box-shadow: 2px 2px #666;
+}
+.activeCard .card {
+  margin: 0;
+}
+
+div.activeCard {
+  background-color: #D3D347;
+}
+
+.ritual {
+  margin-left: 4px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 16px;
+  border: 1px solid #666;
+}
+.bluePlayer ~ .ritual {
+  background-color: #A3B1BF;
+}
+.redPlayer ~ .ritual {
+  background-color: #FBBABD;
+}

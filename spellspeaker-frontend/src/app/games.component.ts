@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Game} from './game';
-import {GameService} from "./game.service";
+import {Game} from './model/game';
+import {GameService} from "./service/game.service";
 
 @Component({
   selector: 'games',

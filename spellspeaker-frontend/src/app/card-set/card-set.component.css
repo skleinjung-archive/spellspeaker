@@ -1,0 +1,66 @@
+/* card list styles */
+ul.cardSet {
+  list-style-type: none;
+  margin: -15px 0 0 0;
+  padding: 0;
+}
+ul.cardSet li {
+  display: inline-block;
+}
+
+/* cards */
+.card {
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 5px;
+  width: 144px;
+  height: 219px;
+  margin: 15px 15px 0 0;
+}
+
+/* card selection */
+.card.selected {
+  border: 3px solid darkred;
+}
+.card.selectable {
+  cursor: pointer; cursor: hand;
+}
+
+/* card header */
+.cardHeader {
+  line-height: 28px;
+  background-color: gainsboro;
+  border-bottom: 1px solid black;
+  padding: 0 5px 0 5px;
+}
+/* clearfix */
+.cardHeader:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.cardStats {
+  float: right;
+}
+.cardManaCost {
+  margin: 3px 3px 0 0;
+  padding: 0 3px;
+  background-color: white;
+  border: 1px solid black;
+  line-height: 20px;
+  width: 14px;
+  text-align: center;
+  display: inline-block;
+}
+.cardCastingTime {
+  margin: 3px 0;
+  padding: 0 3px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 50%;
+  line-height: 20px;
+  width: 14px;
+  text-align: center;
+  display: inline-block;
+}
+

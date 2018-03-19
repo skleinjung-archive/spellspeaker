@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {Router} from "@angular/router";
-import {AuthenticationService} from "./authentication.service";
+import {AuthenticationService} from "./service/authentication.service";
 import {UserProfile} from "./user-profile";
-import {UserProfileService} from "./user-profile-service";
+import {UserProfileService} from "./service/user-profile-service";
 import {MessageComponent} from "./message.component";
 
 @Component({

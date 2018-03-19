@@ -3,9 +3,10 @@ import {Headers} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {Card, Game} from './game';
+import {Game} from '../model/game';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import {Card} from "../model/card";
 
 @Injectable()
 export class GameService {

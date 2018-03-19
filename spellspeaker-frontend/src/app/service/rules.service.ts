@@ -3,7 +3,7 @@ import {Headers} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {Rules} from "./rules";
+import {Rules} from "../model/rules";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 

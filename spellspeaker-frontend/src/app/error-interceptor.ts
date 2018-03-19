@@ -8,9 +8,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {Injectable} from '@angular/core';
-import {UserProfileService} from './user-profile-service';
+import {UserProfileService} from './service/user-profile-service';
 import {Router} from '@angular/router';
-import {MessageService} from "./message-service";
+import {MessageService} from "./service/message-service";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

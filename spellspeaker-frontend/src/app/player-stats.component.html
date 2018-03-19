@@ -1,0 +1,46 @@
+<div class="column-container playerStatsContainer">
+  <div class="column playerStats">
+    <div class="statBlock bluePlayer">
+      <div>
+        <label>H</label> x {{bluePlayer.health}}
+      </div>
+      <div>
+        <label>M</label> x {{bluePlayer.mana}}
+      </div>
+      <div>
+        <label>Cards</label> x {{bluePlayer.numberOfCardsInHand}}
+      </div>
+    </div>
+
+    <div *ngIf="bluePlayer.activeCard" class="activeCard">
+      <app-card-set [cards]="[bluePlayer.activeCard]"></app-card-set>
+    </div>
+
+    <div *ngIf="playerHasRitual(bluePlayer)" class="ritual">
+      <app-card-set [cards]="bluePlayer.ritual"></app-card-set>
+    </div>
+  </div>
+
+  <div class="column playerStats">
+    <!--<h4>Red Player</h4>-->
+    <div class="statBlock redPlayer">
+      <div>
+        <label>H</label> x {{redPlayer.health}}
+      </div>
+      <div>
+        <label>M</label> x {{redPlayer.mana}}
+      </div>
+      <div>
+        <label>Cards</label> x {{redPlayer.numberOfCardsInHand}}
+      </div>
+    </div>
+
+    <div *ngIf="redPlayer.activeCard" class="activeCard">
+      <app-card-set [cards]="[redPlayer.activeCard]"></app-card-set>
+    </div>
+
+    <div *ngIf="playerHasRitual(redPlayer)" class="ritual">
+      <app-card-set [cards]="redPlayer.ritual"></app-card-set>
+    </div>
+  </div>
+</div>

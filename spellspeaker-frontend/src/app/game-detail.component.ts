@@ -5,16 +5,17 @@ import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/finally';
 
-import {Card, Game} from './game';
-import {GameService} from './game.service';
-import {Rules} from './rules';
-import {RulesService} from './rules.service';
-import {MessageService} from './message-service';
+import {Game} from './model/game';
+import {GameService} from './service/game.service';
+import {Rules} from './model/rules';
+import {RulesService} from './service/rules.service';
+import {MessageService} from './service/message-service';
+import {Card} from "./model/card";
 
 @Component({
   selector: 'game-detail',
   templateUrl: './game-detail.component.html',
-  styleUrls: ['./game-detail.component.css']
+  styleUrls: ['./game-detail.shared.css', './game-detail.component.css']
 })
 export class GameDetailComponent implements OnInit {
   constructor(private messageService: MessageService,
@@ -26,8 +27,6 @@ export class GameDetailComponent implements OnInit {
 
   @Input() private _game: Game;
   rules: Rules;
-  private _selectedCardFromMarket: Card;
-  private _selectedCardFromHand: Card;
 
   ngOnInit(): void {
     this.route.paramMap
@@ -76,34 +75,28 @@ export class GameDetailComponent implements OnInit {
     return this._game.expectedInput === 'PlayCardFromHand';
   }
 
-  get selectedCardFromMarket(): Card {
-    return this._selectedCardFromMarket;
-  }
-
-  set selectedCardFromMarket(value: Card) {
-    if (!this.isMarketSelectionEnabled()) {
-      return;
+  getSelectedCardFromMarket(): Card {
+    for (let i = 0; i < this.game.market.length; i++) {
+      const card = this.game.market[i];
+      if (card.selected) {
+        return card;
+      }
     }
-
-    this._selectedCardFromHand = null;
-    this._selectedCardFromMarket = value;
+    return null;
   }
 
-  get selectedCardFromHand(): Card {
-    return this._selectedCardFromHand;
-  }
-
-  set selectedCardFromHand(value: Card) {
-    if (!this.isHandSelectionEnabled()) {
-      return;
+  getSelectedCardFromHand(): Card {
+    for (let i = 0; i < this.game.hand.length; i++) {
+      const card = this.game.hand[i];
+      if (card.selected) {
+        return card;
+      }
     }
-
-    this._selectedCardFromMarket = null;
-    this._selectedCardFromHand = value;
+    return null;
   }
 
   confirmHandSelection(): void {
-    this.gameService.playCardFromHand(this._game.id, this.selectedCardFromHand)
+    this.gameService.playCardFromHand(this._game.id, this.getSelectedCardFromHand())
       .finally(() => {
         window.scrollTo(0, 0);
       })

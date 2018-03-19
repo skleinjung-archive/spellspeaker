@@ -1,3 +1,6 @@
+import {Player} from './player';
+import {Card} from './card';
+
 export class Game {
   id: number;
   numberOfCardsInLibrary: number;
@@ -12,19 +15,5 @@ export class Game {
 
   market: Card[];
   hand: Card[];
-}
-
-export class Player {
-  nextTurnTick: number;
-  health: number;
-  mana: number;
-  numberOfCardsInHand: number;
-  ritual: Card[];
-}
-
-export class Card {
-  name: string;
-  manaCost: number;
-  castingTime: number;
 }
 
