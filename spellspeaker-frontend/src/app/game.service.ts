@@ -22,9 +22,6 @@ export class GameService {
   getGame(id: number): Observable<Game> {
     const url = `${this.gamesUrl}/${id}`;
     return this.http.get<Game>(url);
-      // .toPromise()
-      // .then(response => response.json() as Game)
-      // .catch(this.handleError);
   }
 
   playCardFromHand(gameId: number, card: Card): Observable<Game> {

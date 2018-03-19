@@ -27,43 +27,6 @@
   </div>-->
 
   <div class="section">
-    <h3>Player Stats</h3>
-
-    <div class="column-container playerStatsContainer">
-      <div class="column playerStats bluePlayer">
-        <!--<h4>Blue Player</h4>-->
-        <div class="statBlock">
-          <div>
-            <label>Health: </label> {{game.bluePlayer.health}}
-          </div>
-          <div>
-            <label>Mana: </label> {{game.bluePlayer.mana}}
-          </div>
-          <div>
-            <label>Hand Size: </label> {{game.bluePlayer.numberOfCardsInHand}}
-          </div>
-        </div>
-      </div>
-
-      <div class="column playerStats redPlayer">
-        <!--<h4>Red Player</h4>-->
-        <div class="statBlock">
-          <div>
-            <label>Health: </label> {{game.redPlayer.health}}
-          </div>
-          <div>
-            <label>Mana: </label> {{game.redPlayer.mana}}
-          </div>
-          <div>
-            <label>Hand Size: </label> {{game.redPlayer.numberOfCardsInHand}}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <h3>Time</h3>
     <ul class="timeTrack">
       <li *ngFor="let n of range(0, rules.ticksPerPhase - 1)">
         <div class="timeTrackSpaceContainer">
@@ -77,6 +40,86 @@
         </div>
       </li>
     </ul>
+
+    <div class="column-container playerStatsContainer">
+      <div class="column playerStats">
+        <!--<h4>Blue Player</h4>-->
+        <div class="statBlock bluePlayer">
+          <div>
+            <label>H x </label> {{game.bluePlayer.health}}
+          </div>
+          <div>
+            <label>M x </label> {{game.bluePlayer.mana}}
+          </div>
+          <div>
+            <label>Cards x </label> {{game.bluePlayer.numberOfCardsInHand}}
+          </div>
+        </div>
+
+        <div class="activeCard">
+          <div class="card">
+            <div class="cardHeader">
+              <div class="cardStats">
+                <span class="cardManaCost">8</span>
+                <span class="cardCastingTime">8</span>
+              </div>
+              <span class="cardName">Active Card</span>
+            </div>
+          </div>
+        </div>
+
+        <ul class="cardSet ritual">
+          <li *ngFor="let card of game.bluePlayer.ritual" class="card">
+            <div class="cardHeader">
+              <div class="cardStats">
+                <span class="cardManaCost">{{card.manaCost}}</span>
+                <span class="cardCastingTime">{{card.castingTime}}</span>
+              </div>
+              <span class="cardName">{{card.name}}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="column playerStats">
+        <!--<h4>Red Player</h4>-->
+        <div class="statBlock redPlayer">
+          <div>
+            <label>H x </label> {{game.redPlayer.health}}
+          </div>
+          <div>
+            <label>M x </label> {{game.redPlayer.mana}}
+          </div>
+          <div>
+            <label>Cards x </label> {{game.redPlayer.numberOfCardsInHand}}
+          </div>
+        </div>
+
+        <div class="activeCard">
+          <div class="card">
+            <div class="cardHeader">
+              <div class="cardStats">
+                <span class="cardManaCost">8</span>
+                <span class="cardCastingTime">8</span>
+              </div>
+              <span class="cardName">Active Card</span>
+            </div>
+          </div>
+        </div>
+
+        <ul class="cardSet ritual">
+          <li *ngFor="let card of game.redPlayer.ritual" class="card">
+            <div class="cardHeader">
+              <div class="cardStats">
+                <span class="cardManaCost">{{card.manaCost}}</span>
+                <span class="cardCastingTime">{{card.castingTime}}</span>
+              </div>
+              <span class="cardName">{{card.name}}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <div class="section">
@@ -95,36 +138,6 @@
     <div class="actions">
       <button (click)="confirmMarketSelection()" [disabled]="!isMarketSelectionEnabled() || selectedCardFromMarket == null">Confirm Selection</button>
     </div>
-  </div>
-
-  <div class="section">
-    <h3>Blue Ritual</h3>
-    <ul class="cardSet">
-      <li *ngFor="let card of game.bluePlayer.ritual" class="card">
-        <div class="cardHeader">
-          <div class="cardStats">
-            <span class="cardManaCost">{{card.manaCost}}</span>
-            <span class="cardCastingTime">{{card.castingTime}}</span>
-          </div>
-          <span class="cardName">{{card.name}}</span>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h3>Red Ritual</h3>
-    <ul class="cardSet">
-      <li *ngFor="let card of game.redPlayer.ritual" class="card">
-        <div class="cardHeader">
-          <div class="cardStats">
-            <span class="cardManaCost">{{card.manaCost}}</span>
-            <span class="cardCastingTime">{{card.castingTime}}</span>
-          </div>
-          <span class="cardName">{{card.name}}</span>
-        </div>
-      </li>
-    </ul>
   </div>
 
   <div *ngIf="game.hand !== null">

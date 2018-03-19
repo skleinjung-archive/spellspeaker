@@ -103,22 +103,106 @@ div.timeTrackSpace.currentTick {
 .playerStats {
   margin: 0 8px 0 0;
   padding: 0;
-  border: 2px solid #333;
 }
 .playerStats h4 {
   font-size: 1.25em;
   margin: 0;
   padding: 5px;
-  border-bottom: 1px solid #333;
+  border: 2px solid #333;
   vertical-align: top;
+}
+.vertical-label {
+  transform: rotate(-90deg);
+  transform-origin: left bottom 0;
+  float: left;
 }
 .statBlock {
   padding: 0 15px;
+  margin-bottom: 8px;
   line-height: 1em;
 }
 .statBlock label {
+  width: auto;
   color: #ffffff;
 }
+.statBlock div {
+  display: inline-block;
+  margin-right: 10px;
+}
+/* player active card */
+.activeCard {
+  margin-right: 15px;
+  padding: 10px;
+  vertical-align: center;
+  float: left;
+  box-shadow: 2px 2px #666;
+}
+.activeCard .card {
+  margin: 0;
+}
+
+.bluePlayer + div.activeCard {
+  background-color: #D3D347;
+}
+.redPlayer + div.activeCard {
+  background-color: #D3D347;
+}
+
+ul.cardSet.ritual {
+  margin-top: 12px;
+  margin-left: 4px;
+  padding-left: 8px;
+  padding-bottom: 8px;
+  border: 1px solid #666;
+}
+.bluePlayer + div + ul.cardSet.ritual {
+  background-color: #A3B1BF;
+}
+.redPlayer + div + ul.cardSet.ritual {
+  background-color: #FBBABD;
+}
+/*
+
+.activeCard {
+  margin-right: 15px;
+  padding: 10px;
+  vertical-align: center;
+  float: left;
+  box-shadow: 2px 2px #666;
+}
+.activeCard .card {
+  margin: 0;
+}
+
+.bluePlayer + div.activeCard {
+  background-color: #D3D347;
+}
+.redPlayer + div.activeCard {
+  background-color: #D3D347;
+}
+
+ul.cardSet.ritual {
+  margin-top: 8px;
+  padding-left: 8px;
+  border: 1px solid #666;
+}
+.ritual .card {
+  margin-top: 8px;
+  margin-bottom: 14px;
+}
+.bluePlayer + div + ul.cardSet.ritual {
+  background-color: #A3B1BF;
+}
+.redPlayer + div + ul.cardSet.ritual {
+  background-color: #FBBABD;
+}
+*/
+
+/* cards */
+.card {
+  background-color: white;
+}
+
 
 /* market */
 ul.cardSet {
