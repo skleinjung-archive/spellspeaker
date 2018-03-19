@@ -15,9 +15,11 @@
 package com.thrashplay.spellspeaker.web.controller;
 
 import com.thrashplay.spellspeaker.model.*;
+import com.thrashplay.spellspeaker.model.state.StateChange;
 import com.thrashplay.spellspeaker.repository.GameRepository;
 import com.thrashplay.spellspeaker.view.GameView;
 import com.thrashplay.spellspeaker.web.model.ActionParameters;
+import com.thrashplay.spellspeaker.web.model.ActionResult;
 import com.thrashplay.spellspeaker.web.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -74,7 +76,7 @@ public class GameController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        game.playFromHand(user.getId(), action.getCard());
-        return ResponseEntity.status(HttpStatus.OK).body(new GameView(user, game));
+        List<StateChange> stateChanges = game.playFromHand(user.getId(), action.getCard());
+        return ResponseEntity.status(HttpStatus.OK).body(new ActionResult(new GameView(user, game), stateChanges));
     }
 }

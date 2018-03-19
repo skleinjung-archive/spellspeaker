@@ -1,8 +1,13 @@
 package com.thrashplay.spellspeaker.model;
 
 import com.thrashplay.spellspeaker.config.GameRules;
+import com.thrashplay.spellspeaker.model.state.AddedToRitual;
+import com.thrashplay.spellspeaker.model.state.BeganCasting;
+import com.thrashplay.spellspeaker.model.state.StateChange;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -59,7 +64,7 @@ public class SpellspeakerGame {
         }
 
         currentTick = -1;
-        advanceTimeTracker();
+        advanceTimeTracker(new LinkedList<>());
     }
 
     public long getId() {
@@ -74,17 +79,26 @@ public class SpellspeakerGame {
         return currentTick;
     }
 
-    public void advanceTimeTracker() {
+    public void advanceTimeTracker(List<StateChange> stateChangeList) {
         while ((activePlayer = calculateActivePlayer()) == null) {
             currentTick = (currentTick + 1) % rules.getTicksPerPhase();
         }
 
-        // resolve active card
-
+        resolveActiveCard(stateChangeList, activePlayer);
         expectedInput = ExpectedInput.PlayCardFromHand;
     }
 
-    public void playFromHand(long userId, String cardName) {
+    private void resolveActiveCard(List<StateChange> stateChangeList, Player player) {
+        // for the time being, just add it to the ritual
+        if (player.getActiveCard() != null) {
+            stateChangeList.add(new AddedToRitual(player.getColor().name(), player.getActiveCard().getName()));
+
+            player.getRitual().add(player.getActiveCard());
+            player.setActiveCard(null);
+        }
+    }
+
+    public List<StateChange> playFromHand(long userId, String cardName) {
         if (activePlayer.getUserId() != userId) {
             throw new IllegalStateException("It is not your turn!");
         }
@@ -97,10 +111,14 @@ public class SpellspeakerGame {
             throw new IllegalArgumentException("Card not found in active player's hand. (cardName=" + cardName + ", hand=" + activePlayer.getHand().getCards());
         }
 
+        List<StateChange> stateChanges = new LinkedList<>();
+
         spendManaAndTime(activePlayer, card);
         activePlayer.setActiveCard(card);
+        stateChanges.add(new BeganCasting(activePlayer.getColor().name(), card.getName()));
 
-        advanceTimeTracker();
+        advanceTimeTracker(stateChanges);
+        return stateChanges;
     }
 
     private Card findCardInHand(Player activePlayer, String cardName) {

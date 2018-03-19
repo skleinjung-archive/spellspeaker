@@ -1,11 +1,17 @@
 <ul class="cardSet">
-  <li *ngFor="let card of cards" class="card" [ngClass]="{selected: card.selected, selectable: selectionEnabled}" (click)="selectIfEnabled(card)">
+  <li *ngFor="let card of cards" class="card" [ngClass]="{selected: card.selected, selectable: selectionEnabled, updated: isCardUpdated(card.name)}" (click)="selectIfEnabled(card)">
     <div class="cardHeader">
       <div class="cardStats">
         <span class="cardManaCost">{{card.manaCost}}</span>
         <span class="cardCastingTime">{{card.castingTime}}</span>
       </div>
       <span class="cardName">{{card.name}}</span>
+    </div>
+    <div class="cardBody">
+      <p>Element: Ice</p>
+      <p>Power: 3</p>
+      <p>Duration 2: Ice</p>
+      <p class="special">Here is some special card text that will take effect when this card is used.</p>
     </div>
   </li>
 </ul>

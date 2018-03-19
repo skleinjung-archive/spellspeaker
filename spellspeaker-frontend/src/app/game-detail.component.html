@@ -41,15 +41,7 @@
       </li>
     </ul>
 
-    <app-player-stats [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer"></app-player-stats>
-  </div>
-
-  <div class="section">
-    <h3>Market</h3>
-    <app-card-set [cards]="game.market" [selectionEnabled]="isMarketSelectionEnabled()"></app-card-set>
-    <div class="actions">
-      <button (click)="confirmMarketSelection()" [disabled]="!getSelectedCardFromMarket()">Confirm Selection</button>
-    </div>
+    <app-player-stats [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer" [blueRitualUpdates]="getUpdatedRitualCards('Blue')" [redRitualUpdates]="getUpdatedRitualCards('Red')"></app-player-stats>
   </div>
 
   <div *ngIf="game.hand !== null">
@@ -59,6 +51,14 @@
       <div class="actions">
         <button (click)="confirmHandSelection()" [disabled]="!getSelectedCardFromHand()">Confirm Selection</button>
       </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Market</h3>
+    <app-card-set [cards]="game.market" [selectionEnabled]="isMarketSelectionEnabled()"></app-card-set>
+    <div class="actions">
+      <button (click)="confirmMarketSelection()" [disabled]="!getSelectedCardFromMarket()">Confirm Selection</button>
     </div>
   </div>
 

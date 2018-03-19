@@ -1,3 +1,4 @@
+///<reference path="message.component.ts"/>
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Location} from '@angular/common';
@@ -11,6 +12,7 @@ import {Rules} from './model/rules';
 import {RulesService} from './service/rules.service';
 import {MessageService} from './service/message-service';
 import {Card} from "./model/card";
+import {AddedToRitualStateChange, StateChange} from "./model/state-change";
 
 @Component({
   selector: 'game-detail',
@@ -26,6 +28,7 @@ export class GameDetailComponent implements OnInit {
   ) {}
 
   @Input() private _game: Game;
+  private _stateChanges: StateChange[];
   rules: Rules;
 
   ngOnInit(): void {
@@ -57,12 +60,24 @@ export class GameDetailComponent implements OnInit {
 
   set game(value: Game) {
     this._game = value;
-    if (this._game.currentUserColor == null) {
-      this.messageService.showInformation('It is ' + this._game.activePlayerColor + '\'s turn.');
-    } else if (this._game.currentUserColor === this._game.activePlayerColor) {
-      this.messageService.showInformation('It is your turn.');
-    } else {
-      this.messageService.showInformation('It is your opponent\'s turn.');
+  }
+
+  get stateChanges(): StateChange[] {
+    return this._stateChanges;
+  }
+
+  set stateChanges(value: StateChange[]) {
+    this._stateChanges = value;
+
+    if (this._stateChanges && this._stateChanges.length > 0) {
+      let message = '';
+      for (let i = 0; i < this._stateChanges.length; i++) {
+        message += '<div>' + this._stateChanges[i].message + '</div>';
+      }
+
+      if (message !== '') {
+        this.messageService.showInformation(message);
+      }
     }
   }
 
@@ -100,10 +115,29 @@ export class GameDetailComponent implements OnInit {
       .finally(() => {
         window.scrollTo(0, 0);
       })
-      .subscribe(game => {
-        this.game = game;
+      .subscribe(result => {
+        this.stateChanges = result.stateChanges;
+        this.game = result.game;
       });
   }
+
+  getUpdatedRitualCards(whichPlayer: string): string[] {
+    const result = [];
+    if (this.stateChanges) {
+      for (let i = 0; i < this.stateChanges.length; i++) {
+        const stateChange = this.stateChanges[i];
+        if (stateChange.type === 'AddedToRitual') {
+          const addedToRitualChange = <AddedToRitualStateChange> stateChange;
+          if (addedToRitualChange.player === whichPlayer) {
+            result.push(addedToRitualChange.card);
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
 
   // save(): void {
   //   this.creatureTypeService.update(this.creatureType)

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Card} from '../model/card';
+import {Player} from "../model/player";
 
 @Component({
   selector: 'app-card-set',
@@ -9,11 +10,16 @@ import {Card} from '../model/card';
 export class CardSetComponent implements OnInit {
 
   @Input() cards: Card[];
+  @Input() updatedCardNames: string[];
   @Input() selectionEnabled: boolean;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  isCardUpdated(cardName: string): boolean {
+    return this.updatedCardNames && this.updatedCardNames.indexOf(cardName) !== -1;
   }
 
   selectIfEnabled(selectedCard: Card) {

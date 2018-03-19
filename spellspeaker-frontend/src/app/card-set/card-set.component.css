@@ -8,14 +8,25 @@ ul.cardSet li {
   display: inline-block;
 }
 
+ul.cardSet li.updated {
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein 2s; /* Firefox < 16 */
+      -ms-animation: fadein 2s; /* Internet Explorer */
+       -o-animation: fadein 2s; /* Opera < 12.1 */
+          animation: fadein 2s;
+}
+
 /* cards */
 .card {
   background-color: white;
   border: 3px solid black;
   border-radius: 5px;
   width: 144px;
-  height: 219px;
+  height: 149px;
   margin: 15px 15px 0 0;
+}
+.card:last-child {
+  margin-right: 0;
 }
 
 /* card selection */
@@ -32,6 +43,8 @@ ul.cardSet li {
   background-color: gainsboro;
   border-bottom: 1px solid black;
   padding: 0 5px 0 5px;
+  font-size: 0.75em;
+  font-weight: bold;
 }
 /* clearfix */
 .cardHeader:after {
@@ -62,5 +75,18 @@ ul.cardSet li {
   width: 14px;
   text-align: center;
   display: inline-block;
+}
+
+/* card text */
+.cardBody {
+  padding: 4px;
+  font-size: 0.75em;
+}
+p {
+  padding: 0;
+  margin: 0;
+}
+p.special {
+  margin-top: 8px;
 }
 

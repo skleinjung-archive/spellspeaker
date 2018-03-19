@@ -17,7 +17,7 @@
     </div>
 
     <div class="ritual">
-      <app-card-set *ngIf="playerHasRitual(bluePlayer)" [cards]="bluePlayer.ritual"></app-card-set>
+      <app-card-set *ngIf="playerHasRitual(bluePlayer)" [cards]="bluePlayer.ritual" [updatedCardNames]="blueRitualUpdates"></app-card-set>
     </div>
   </div>
 
@@ -40,7 +40,7 @@
     </div>
 
     <div class="ritual">
-      <app-card-set *ngIf="playerHasRitual(redPlayer)" [cards]="redPlayer.ritual"></app-card-set>
+      <app-card-set *ngIf="playerHasRitual(redPlayer)" [cards]="redPlayer.ritual" [updatedCardNames]="redRitualUpdates"></app-card-set>
     </div>
   </div>
 </div>

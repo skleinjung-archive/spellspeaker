@@ -20,19 +20,24 @@
 /* player active card */
 .activeCard {
   margin-right: 15px;
-  padding: 10px 0 10px 10px;
+  margin-top: 14px;
+  margin-left: 10px;
+  padding: 6px;
   vertical-align: center;
   float: left;
-  box-shadow: 2px 2px #666;
-  background-color: #D3D347;
-  width: 165px;
-  height: 225px
+  width: 150px;
+  height: 155px;
+  border: 1px solid #999;
 }
 .activeCard .card {
   margin: 0;
 }
 
-div.activeCard {
+.bluePlayer + .activeCard {
+  background-color: #336699;
+}
+.redPlayer + .activeCard {
+  background-color: #993333;
 }
 
 .ritual {
@@ -41,7 +46,7 @@ div.activeCard {
   padding-left: 20px;
   padding-bottom: 16px;
   border: 1px solid #666;
-  min-height: 225px;
+  min-height: 155px;
 }
 .bluePlayer ~ .ritual {
   background-color: #A3B1BF;
@@ -49,3 +54,4 @@ div.activeCard {
 .redPlayer ~ .ritual {
   background-color: #FBBABD;
 }
+

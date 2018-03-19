@@ -15,5 +15,21 @@ export class Game {
 
   market: Card[];
   hand: Card[];
+
+  type: string;
+
+  func(): void {
+  }
+
+  getMessage(): string {
+    console.debug(this);
+    switch (this.type) {
+      case 'AddedToRitual':
+        return this['card'] + ' added to ' + this['player'] + '\'s ritual.';
+
+      default:
+        return '';
+    }
+  }
 }
 
