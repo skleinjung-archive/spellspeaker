@@ -98,8 +98,9 @@ public class SpellspeakerGame {
             stateChangeList.add(new FinishedCasting(player.getColor().name(), card.getName()));
 
             if (card.getType().isRune()) {
+                // add the card to the ritual
                 stateChangeList.add(new AddedToRitual(player.getColor().name(), player.getActiveCard().getName()));
-                player.getRitual().add(player.getActiveCard());
+                player.getRitual().add(card);
             } else {
                 // the card is a spell
 
@@ -117,7 +118,7 @@ public class SpellspeakerGame {
         }
     }
 
-    public List<StateChange> playFromHand(long userId, String cardName) {
+    public List<StateChange> playFromHand(Errors errors, long userId, String cardName) {
         if (activePlayer.getUserId() != userId) {
             throw new IllegalStateException("It is not your turn!");
         }
@@ -132,25 +133,31 @@ public class SpellspeakerGame {
 
         List<StateChange> stateChanges = new LinkedList<>();
 
-        spendManaAndTime(activePlayer, card);
-        activePlayer.setActiveCard(card);
-        stateChanges.add(new BeganCasting(activePlayer.getColor().name(), card.getName()));
+        // validate the rune can be added to the ritual
+        if (card.getType().isRune()) {
+            rules.getRitualConstructionRules().validateRitualAddition(errors, activePlayer.getRitual(), card);
+        }
 
-        advanceTimeTracker(stateChanges);
+        // skip processing if the rune is invalid
+        if (!errors.hasErrors()) {
+            activePlayer.getHand().getCards().remove(card);
+            spendManaAndTime(activePlayer, card);
+            activePlayer.setActiveCard(card);
+            stateChanges.add(new BeganCasting(activePlayer.getColor().name(), card.getName()));
+
+            advanceTimeTracker(stateChanges);
+        }
+
         return stateChanges;
     }
 
     private Card findCardInHand(Player activePlayer, String cardName) {
-        Card card = null;
-        Iterator<Card> iterator = activePlayer.getHand().getCards().iterator();
-        while (iterator.hasNext()) {
-            Card currentCard = iterator.next();
-            if (card == null && currentCard.getName().equals(cardName)) {
-                card = currentCard;
-                iterator.remove();
+        for (Card currentCard : activePlayer.getHand().getCards()) {
+            if (currentCard.getName().equals(cardName)) {
+                return currentCard;
             }
         }
-        return card;
+        return null;
     }
 
     private void spendManaAndTime(Player activePlayer, Card card) {

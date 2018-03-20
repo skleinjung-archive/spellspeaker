@@ -76,7 +76,12 @@ public class GameController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        List<StateChange> stateChanges = game.playFromHand(user.getId(), action.getCard());
-        return ResponseEntity.status(HttpStatus.OK).body(new ActionResult(new GameView(user, game), stateChanges));
+        Errors errors = new Errors();
+        List<StateChange> stateChanges = game.playFromHand(errors, user.getId(), action.getCard());
+        if (errors.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(new ActionResult(new GameView(user, game), stateChanges));
+        }
     }
 }
