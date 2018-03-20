@@ -5,7 +5,6 @@ input {
   padding-left: .4em;
 }
 button {
-  margin-top: 20px;
   font-family: Arial;
   /*background-color: #eee;*/
   border: none;
@@ -92,9 +91,37 @@ div.timeTrackSpace.currentTick {
   width: unset;
   color: #333;
 }
+.userInput button {
+  margin-top: 12px;
+}
 
 .selectionPrompt {
   background-color: #FEEFB3;
   padding: 8px;
   margin-bottom: 8px;
+}
+
+.ritualActions {
+  margin-top: 8px;
+  padding: 8px 8px 8px 0;
+  border-top: 1px solid black;
+}
+.ritualActions div {
+  display: inline-block;
+}
+
+.ritualStatus {
+  float: right;
+}
+.ritualStatus div {
+  display: inline-block;
+  margin-right: 10px;
+}
+.ritualStatus div:last-child {
+  display: inline-block;
+  margin-right: 0;
+}
+.ritualStatus label {
+  width: unset;
+  margin: 2px;
 }

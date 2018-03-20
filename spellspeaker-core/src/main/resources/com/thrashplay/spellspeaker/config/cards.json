@@ -6,7 +6,8 @@
       "reusable": "true",
       "manaCost": "3",
       "castingTime": "3",
-      "text": "Deals (P) damage to your opponent. The type of damage is determined by the spell's element."
+      "text": "Deals (P) damage to your opponent. The type of damage is determined by the spell's element.",
+      "effect": "com.thrashplay.spellspeaker.effect.rune.Inflict"
     },
     {
       "name": "Rejuvenate",

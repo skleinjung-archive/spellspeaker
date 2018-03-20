@@ -52,7 +52,6 @@ public class GameController {
         List<SpellspeakerGame> games = gameRepository.findAll();
         List<GameView> results = new ArrayList<>(games.size());
         for (SpellspeakerGame game : games) {
-//            results.add(game.toClientView(user.getId()));
             results.add(new GameView(null, game));
         }
         return results;

@@ -1,7 +1,6 @@
 /* player stats block */
 .playerStats {
-  margin: 0 8px 0 0;
-  padding: 0;
+    padding: 0;
 }
 .statsRow {
   padding: 0 15px;
@@ -14,9 +13,7 @@
 }
 .statsRow div {
   display: inline-block;
-  margin-right: 10px;
-}
-.basicStats {
+  margin-right: 20px;
 }
 
 .cardArea {
@@ -58,16 +55,6 @@
 }
 .redPlayer ~ .cardArea .ritual {
   background-color: #FBBABD;
-}
-
-.ritualStatus {
-  margin-top: 24px;
-  padding: 8px;
-  background-color: #eee;
-  border-color: #666;
-}
-.ritualStatus.statsRow label {
-  color: #333;
 }
 
 .switchUser {

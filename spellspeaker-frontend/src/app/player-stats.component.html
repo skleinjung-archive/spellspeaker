@@ -32,21 +32,7 @@
 
       <div class="ritual" *ngIf="playerHasRitual(bluePlayer)">
         <app-card-set [cards]="bluePlayer.ritual.cards" [updatedCardNames]="blueRitualUpdates"></app-card-set>
-        <div class="ritualStatus statsRow">
-          <div>
-            <button>Complete Ritual</button>
-          </div>
 
-          <div>
-            <label>Effect:</label> {{bluePlayer.ritual.effect}}
-          </div>
-          <div>
-            <label>Element:</label> {{bluePlayer.ritual.element}}
-          </div>
-          <div>
-            <label>Power:</label> {{bluePlayer.ritual.power >= 0 ? '+' : ''}}{{bluePlayer.ritual.power}}
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -85,7 +71,7 @@
         <app-card-set [cards]="redPlayer.ritual.cards" [updatedCardNames]="redRitualUpdates"></app-card-set>
         <div class="ritualStatus statsRow">
           <div>
-            <button>Complete Ritual</button>
+            <button (click)="completeRitual('red')">Complete Ritual</button>
           </div>
 
           <div>

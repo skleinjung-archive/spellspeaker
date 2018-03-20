@@ -147,6 +147,10 @@ export class GameDetailComponent implements OnInit {
     this.processActionResult(this.gameService.submitUserInput(this._game.id, this.userInput));
   }
 
+  completeRitual(): void {
+    this.processActionResult(this.gameService.completeRitual(this._game.id));
+  }
+
   processActionResult(observable: Observable<ActionResult>): void {
     observable.finally(() => {
       window.scrollTo(0, 0);

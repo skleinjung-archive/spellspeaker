@@ -4,7 +4,6 @@ import com.thrashplay.spellspeaker.InvalidInputException;
 import com.thrashplay.spellspeaker.config.RitualConstructionRule;
 import com.thrashplay.spellspeaker.model.Card;
 import com.thrashplay.spellspeaker.model.CardType;
-import com.thrashplay.spellspeaker.model.Errors;
 import com.thrashplay.spellspeaker.model.Ritual;
 
 /**

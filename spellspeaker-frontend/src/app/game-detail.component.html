@@ -1,14 +1,5 @@
 <script src="service/game.service.ts"></script>
 <div *ngIf="game && rules">
-  <!--<h2>Game Details</h2>-->
-
-  <!--<div><label>ID: </label> {{game.id}}</div>-->
-  <!--
-  <div>
-    <label>Tick: </label>
-    {{game.currentTick}}
-  </div>
-  -->
 
   <!--<div class="section">
     <h3>General</h3>
@@ -42,6 +33,41 @@
     </ul>
 
     <app-player-stats [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer" [blueRitualUpdates]="getUpdatedRitualCards('Blue')" [redRitualUpdates]="getUpdatedRitualCards('Red')" [activePlayerColor]="game.activePlayerColor"></app-player-stats>
+
+    <div class="column-container">
+      <div class="column ritualActions">
+        <div *ngIf="game.currentUserColor == 'Blue'">
+          <button (click)="completeRitual()">Complete Ritual</button>
+        </div>
+        <div class="ritualStatus">
+          <div>
+            <label>Effect:</label> {{game.bluePlayer.ritual.effect}}
+          </div>
+          <div>
+            <label>Element:</label> {{game.bluePlayer.ritual.element}}
+          </div>
+          <div>
+            <label>Power:</label> {{game.bluePlayer.ritual.power >= 0 ? '+' : ''}}{{game.bluePlayer.ritual.power}}
+          </div>
+        </div>
+      </div>
+      <div class="column ritualActions">
+        <div *ngIf="game.currentUserColor == 'Red'">
+          <button (click)="completeRitual()">Complete Ritual</button>
+        </div>
+        <div class="ritualStatus">
+          <div>
+            <label>Effect:</label> {{game.redPlayer.ritual.effect}}
+          </div>
+          <div>
+            <label>Element:</label> {{game.redPlayer.ritual.element}}
+          </div>
+          <div>
+            <label>Power:</label> {{game.redPlayer.ritual.power >= 0 ? '+' : ''}}{{game.redPlayer.ritual.power}}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="isMyTurn() && game.inputRequest.type === 'TextEntry'">

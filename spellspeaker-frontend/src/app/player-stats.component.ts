@@ -38,6 +38,10 @@ export class PlayerStatsComponent implements OnInit {
     // }
   }
 
+  completeRitual(whichPlayer: string) {
+
+  }
+
   switchToUser(username: string) {
     this.authenticationService.loginWithCredentials(username, 'password',
       (result) => {
@@ -48,5 +52,6 @@ export class PlayerStatsComponent implements OnInit {
         }
       });
   }
+
 }
 

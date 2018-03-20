@@ -13,6 +13,9 @@ body {
 .column-container .column {
   flex: 50%;
 }
+.column-container .column:first-child {
+  margin-right: 8px;
+}
 
 /* animation definitions */
 

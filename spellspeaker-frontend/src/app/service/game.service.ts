@@ -77,6 +77,13 @@ export class GameService {
     }), {headers: this.headers});
   }
 
+  completeRitual(gameId: number) {
+    const url = this.gamesUrl + '/' + gameId + '/actions';
+    return this.http.post<ActionResult>(url, JSON.stringify({
+      action: 'CompleteRitual'
+    }), {headers: this.headers});
+  }
+
   // create(name: string): Promise<Game> {
   //   return this.http
   //     .post(this.gamesUrl, JSON.stringify({name: name}), {headers: this.headers})
@@ -84,4 +91,5 @@ export class GameService {
   //     .then(response => response.json().data as Game)
   //     .catch(this.handleError);
   // }
+
 }

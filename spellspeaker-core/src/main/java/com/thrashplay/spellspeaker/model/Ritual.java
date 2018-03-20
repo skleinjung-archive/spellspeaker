@@ -7,13 +7,18 @@ import java.util.List;
  * @author Sean Kleinjung
  */
 public class Ritual extends CardContainer {
-    public String getEffect() {
+    public Card getEffectRune() {
         for (Card card : cards) {
             if (card.getType() == CardType.EffectRune) {
-                return card.getName();
+                return card;
             }
         }
-        return "None";
+        return null;
+    }
+
+    public String getEffect() {
+        Card effectRune = getEffectRune();
+        return effectRune != null ? effectRune.getName() : "None";
     }
 
     public Element getElement() {
@@ -31,5 +36,17 @@ public class Ritual extends CardContainer {
             power += card.getPower();
         }
         return power;
+    }
+
+    public void clear(Hand hand, DiscardPile discardPile) {
+        for (Card card : getCards()) {
+            if (card.isBaseCard()) {
+                hand.add(card);
+            } else {
+                discardPile.add(card);
+            }
+        }
+
+        getCards().clear();
     }
 }

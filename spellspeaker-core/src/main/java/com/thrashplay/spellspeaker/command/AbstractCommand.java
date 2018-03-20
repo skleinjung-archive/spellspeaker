@@ -18,6 +18,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = PlayCardFromHand.class, name = "PlayCardFromHand"),
         @JsonSubTypes.Type(value = DiscardCardFromHand.class, name = "DiscardCardFromHand"),
         @JsonSubTypes.Type(value = SubmitUserInput.class, name = "SubmitUserInput"),
+        @JsonSubTypes.Type(value = CompleteRitual.class, name = "CompleteRitual")
 })
 public abstract class AbstractCommand {
     public abstract List<StateChange> execute(User currentUser, SpellspeakerGame game);
