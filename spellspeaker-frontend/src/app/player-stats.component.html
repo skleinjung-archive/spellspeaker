@@ -69,21 +69,6 @@
 
       <div class="ritual" *ngIf="playerHasRitual(redPlayer)">
         <app-card-set [cards]="redPlayer.ritual.cards" [updatedCardNames]="redRitualUpdates"></app-card-set>
-        <div class="ritualStatus statsRow">
-          <div>
-            <button (click)="completeRitual('red')">Complete Ritual</button>
-          </div>
-
-          <div>
-            <label>Effect:</label> {{redPlayer.ritual.effect}}
-          </div>
-          <div>
-            <label>Element:</label> {{redPlayer.ritual.element}}
-          </div>
-          <div>
-            <label>Power:</label> {{redPlayer.ritual.power >= 0 ? '+' : ''}}{{redPlayer.ritual.power}}
-          </div>
-        </div>
       </div>
     </div>
   </div>
