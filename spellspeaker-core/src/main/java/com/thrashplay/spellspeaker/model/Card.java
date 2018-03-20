@@ -14,7 +14,8 @@ public class Card {
     private int power;
     private Element element;
     private String text;
-    private SpellEffect effect;
+    private Class<? extends SpellEffect> effectClass;
+    private CardExecutionParameter parameter;
 
     public String getName() {
         return name;
@@ -80,11 +81,23 @@ public class Card {
         this.text = text;
     }
 
-    public SpellEffect getEffect() {
-        return effect;
+    public Class<? extends SpellEffect> getEffectClass() {
+        return effectClass;
     }
 
-    public void setEffect(SpellEffect effect) {
-        this.effect = effect;
+    public void setEffectClass(Class<? extends SpellEffect> effectClass) {
+        this.effectClass = effectClass;
+    }
+
+    public CardExecutionParameter getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(CardExecutionParameter parameter) {
+        this.parameter = parameter;
+    }
+
+    public boolean requiresInput() {
+        return parameter != null;
     }
 }

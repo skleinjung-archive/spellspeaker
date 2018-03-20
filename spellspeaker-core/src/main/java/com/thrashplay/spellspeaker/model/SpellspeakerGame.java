@@ -1,12 +1,15 @@
 package com.thrashplay.spellspeaker.model;
 
+import com.thrashplay.spellspeaker.InvalidInputException;
 import com.thrashplay.spellspeaker.config.GameRules;
+import com.thrashplay.spellspeaker.effect.SpellEffectExecutor;
 import com.thrashplay.spellspeaker.model.state.AddedToRitual;
 import com.thrashplay.spellspeaker.model.state.BeganCasting;
 import com.thrashplay.spellspeaker.model.state.FinishedCasting;
 import com.thrashplay.spellspeaker.model.state.StateChange;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +28,8 @@ public class SpellspeakerGame {
     private Player playerWithInitiative;
     private Player activePlayer;
 
-    private ExpectedInput expectedInput;
+    private InputRequest inputRequest;
+    private String inputResponse;
 
     private DiscardPile discardPile;
     private Library library;
@@ -33,8 +37,11 @@ public class SpellspeakerGame {
 
     private int currentTick = 0;
 
-    public SpellspeakerGame(GameRules rules, CardFactory cardFactory, long bluePlayerUserId, long redPlayerUserId) {
+    private SpellEffectExecutor spellEffectExecutor;
+
+    public SpellspeakerGame(GameRules rules, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor, long bluePlayerUserId, long redPlayerUserId) {
         this.rules = rules;
+        this.spellEffectExecutor = spellEffectExecutor;
 
         bluePlayer = new Player(bluePlayerUserId, PlayerColor.Blue);
         bluePlayer.setHealth(rules.getMaximumHealth());
@@ -90,11 +97,10 @@ public class SpellspeakerGame {
             currentTick = (currentTick + 1) % rules.getTicksPerPhase();
         }
 
-        resolveActiveCard(stateChangeList, activePlayer);
-        expectedInput = ExpectedInput.PlayCardFromHand;
+        inputRequest = resolveActiveCard(stateChangeList, activePlayer);
     }
 
-    private void resolveActiveCard(List<StateChange> stateChangeList, Player player) {
+    private InputRequest resolveActiveCard(List<StateChange> stateChangeList, Player player) {
         // for the time being, just add it to the ritual
         if (player.getActiveCard() != null) {
             Card card = player.getActiveCard();
@@ -105,60 +111,77 @@ public class SpellspeakerGame {
                 // add the card to the ritual
                 stateChangeList.add(new AddedToRitual(player.getColor().name(), player.getActiveCard().getName()));
                 player.getRitual().add(card);
+
+                player.setActiveCard(null);
+            } else if (!card.requiresInput() || inputResponse != null && inputResponse.length() > 0) {
+                // the card is a spell without input, or we got the input we need - execute it
+                executeSpell(activePlayer, card);
             } else {
-                // the card is a spell
-                card.getEffect().execute(this, player);
-
-                // put reusable cards back in the player's hand, otherwise discard it
-                if (card.isReusable()) {
-                    player.getHand().add(card);
-                } else {
-                    discardPile.add(card);
-                }
+                // the card is a spell with input - request it
+                return new InputRequest(InputRequest.InputRequestType.TextEntry, card.getParameter().getPrompt());
             }
-
-            player.setActiveCard(null);
         }
+
+        return new InputRequest(InputRequest.InputRequestType.PlayCardFromHand);
     }
 
-    public List<StateChange> playFromHand(Errors errors, long userId, String cardName) {
-        if (activePlayer.getUserId() != userId) {
-            errors.add("It is not your turn.");
+    private void executeSpell(Player player, Card card) {
+        spellEffectExecutor.execute(card, this, inputResponse);
+
+        // put reusable cards back in the player's hand, otherwise discard it
+        if (card.isReusable()) {
+            player.getHand().add(card);
+        } else {
+            discardPile.add(card);
         }
-        if (expectedInput != ExpectedInput.PlayCardFromHand) {
-            errors.add("Did not expect a card to be selected from your hand.");
+        player.setActiveCard(null);
+        inputResponse = null;
+    }
+
+    public List<StateChange> playFromHand(long userId, String cardName) {
+        if (activePlayer.getUserId() != userId) {
+            throw new InvalidInputException("It is not your turn.");
+        }
+        if (inputRequest.getType() != InputRequest.InputRequestType.PlayCardFromHand) {
+            throw new InvalidInputException("Did not expect a card to be selected from your hand.");
         }
 
         Card card = findCardInHand(activePlayer, cardName);
         if (card == null) {
-            errors.add("You do not have that card.");
+            throw new InvalidInputException("You do not have that card.");
         }
 
         List<StateChange> stateChanges = new LinkedList<>();
-        if (!errors.hasErrors()) {
-            assert card != null; // fixes IntelliJ warnings about card being null
-
-            // validate the rune can be added to the ritual
-            if (card.getType().isRune()) {
-                rules.getRitualConstructionRules().validateRitualAddition(errors, activePlayer.getRitual(), card);
-            }
-
-            if (activePlayer.getMana() < card.getManaCost()) {
-                errors.add("You do not have enough mana to cast '" + card.getName() + "'.");
-            }
-
-            // skip processing if the rune is invalid
-            if (!errors.hasErrors()) {
-                activePlayer.getHand().getCards().remove(card);
-                spendManaAndTime(activePlayer, card);
-                activePlayer.setActiveCard(card);
-                stateChanges.add(new BeganCasting(activePlayer.getColor().name(), card.getName()));
-
-                advanceTimeTracker(stateChanges);
-            }
+        // validate the rune can be added to the ritual
+        if (card.getType().isRune()) {
+            rules.getRitualConstructionRules().validateRitualAddition(activePlayer.getRitual(), card);
         }
 
+        if (activePlayer.getMana() < card.getManaCost()) {
+            throw new InvalidInputException("You do not have enough mana to cast '" + card.getName() + "'.");
+        }
+
+        // skip processing if the rune is invalid
+        activePlayer.getHand().getCards().remove(card);
+        spendManaAndTime(activePlayer, card);
+        activePlayer.setActiveCard(card);
+        stateChanges.add(new BeganCasting(activePlayer.getColor().name(), card.getName()));
+
+        advanceTimeTracker(stateChanges);
+
         return stateChanges;
+    }
+
+    public List<StateChange> handleUserInput(String input) {
+        if (inputRequest.getType() != InputRequest.InputRequestType.TextEntry) {
+            throw new InvalidInputException("Not expecting user input.");
+        }
+
+        List<StateChange> stateChangeList = new LinkedList<>();
+
+        inputResponse = input;
+        inputRequest = resolveActiveCard(stateChangeList, activePlayer);
+        return stateChangeList;
     }
 
     private Card findCardInHand(Player activePlayer, String cardName) {
@@ -204,8 +227,18 @@ public class SpellspeakerGame {
         return activePlayer;
     }
 
-    public ExpectedInput getExpectedInput() {
-        return expectedInput;
+    public Player getNonActivePlayer() {
+        if (activePlayer == bluePlayer) {
+            return redPlayer;
+        } else if (activePlayer == redPlayer) {
+            return bluePlayer;
+        } else {
+            return null;
+        }
+    }
+
+    public InputRequest getInputRequest() {
+        return inputRequest;
     }
 
     public Market getMarket() {

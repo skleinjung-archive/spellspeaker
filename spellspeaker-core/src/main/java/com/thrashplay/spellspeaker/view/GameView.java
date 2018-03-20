@@ -18,7 +18,7 @@ public class GameView {
     private String activePlayerColor;
     private String currentUserColor;
 
-    private String expectedInput;
+    private InputRequestView inputRequest;
 
     private List<CardView> market;
     private List<CardView> hand;
@@ -46,9 +46,9 @@ public class GameView {
         activePlayerColor = game.getActivePlayer() == null
                 ? null
                 : game.getActivePlayer().getColor().name();
-        expectedInput = game.getExpectedInput() == null
+        inputRequest = game.getInputRequest() == null
                 ? null
-                : game.getExpectedInput().name();
+                : new InputRequestView(game.getInputRequest());
         market = CardView.fromCards(game.getMarket().getCards());
         hand = currentUserPlayer == null
                 ? null
@@ -83,8 +83,8 @@ public class GameView {
         return currentUserColor;
     }
 
-    public String getExpectedInput() {
-        return expectedInput;
+    public InputRequestView getInputRequest() {
+        return inputRequest;
     }
 
     public List<CardView> getMarket() {

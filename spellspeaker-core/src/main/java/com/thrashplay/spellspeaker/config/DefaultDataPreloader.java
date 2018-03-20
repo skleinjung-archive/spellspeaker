@@ -1,5 +1,7 @@
 package com.thrashplay.spellspeaker.config;
 
+import com.thrashplay.spellspeaker.effect.SpellEffect;
+import com.thrashplay.spellspeaker.effect.SpellEffectExecutor;
 import com.thrashplay.spellspeaker.model.CardFactory;
 import com.thrashplay.spellspeaker.model.SpellspeakerGame;
 import com.thrashplay.spellspeaker.model.User;
@@ -19,16 +21,19 @@ public class DefaultDataPreloader {
     private CardFactory cardFactory;
     private GameRepository gameRepository;
     private UserRepository userRepository;
+    private SpellEffectExecutor spellEffectExecutor;
 
     @Autowired
-    public DefaultDataPreloader(CardFactory cardFactory, GameRepository gameRepository, UserRepository userRepository) {
+    public DefaultDataPreloader(CardFactory cardFactory, GameRepository gameRepository, UserRepository userRepository, SpellEffectExecutor spellEffectExecutor) {
         Assert.notNull(cardFactory, "cardFactory cannot be null");
         Assert.notNull(gameRepository, "gameRepository cannot be null");
         Assert.notNull(userRepository, "userRepository cannot be null");
+        Assert.notNull(spellEffectExecutor, "spellEffectExecutor cannot be null");
 
         this.cardFactory = cardFactory;
         this.gameRepository = gameRepository;
         this.userRepository = userRepository;
+        this.spellEffectExecutor = spellEffectExecutor;
     }
 
     @PostConstruct
@@ -50,7 +55,7 @@ public class DefaultDataPreloader {
         }
 
         if (gameRepository.findOne(101L) == null) {
-            SpellspeakerGame game = new SpellspeakerGame(new DefaultGameRules(), cardFactory, 1L, 2L);
+            SpellspeakerGame game = new SpellspeakerGame(new DefaultGameRules(), cardFactory, spellEffectExecutor,1L, 2L);
             game.setId(101);
             gameRepository.save(game);
         }

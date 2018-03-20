@@ -49,7 +49,8 @@ public class CardFactory {
         card.setElement(cardConfiguration.getElement());
         card.setPower(cardConfiguration.getPower());
         card.setText(cardConfiguration.getText());
-        card.setEffect(cardConfiguration.getEffect());
+        card.setEffectClass(cardConfiguration.getEffectClass());
+        card.setParameter(cardConfiguration.getParameter());
         return card;
     }
 }

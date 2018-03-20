@@ -7,6 +7,7 @@ import com.thrashplay.spellspeaker.config.CardConfiguration;
 import com.thrashplay.spellspeaker.config.GameRules;
 import com.thrashplay.spellspeaker.effect.SpellEffect;
 import com.thrashplay.spellspeaker.effect.spell.Noop;
+import com.thrashplay.spellspeaker.model.CardExecutionParameter;
 import com.thrashplay.spellspeaker.model.CardType;
 import com.thrashplay.spellspeaker.model.Element;
 import com.thrashplay.spellspeaker.repository.CardConfigurationRepository;
@@ -146,6 +147,7 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
         private String text;
         private List<String> textVariables;
         private String effect;
+        private DeserializedCardExecutionParameter parameter;
 
         public CardConfiguration toCardConfiguration(GameRules rules) {
             CardConfiguration result = new CardConfiguration();
@@ -174,9 +176,14 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
                 effect = Noop.class.getName();
             }
             try {
-                result.setEffect((SpellEffect) Class.forName(effect).newInstance());
-            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | ClassCastException e) {
+                //noinspection unchecked
+                result.setEffectClass((Class<? extends SpellEffect>) Class.forName(effect));
+            } catch ( ClassNotFoundException | ClassCastException e) {
                 throw new CardConfigurationException(String.format("Invalid effect class for card '%s': %s", name, effect), e);
+            }
+
+            if (parameter != null) {
+                result.setParameter(parameter.toCardExecutionParameter());
             }
 
             return result;
@@ -197,6 +204,25 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
                 result = String.format(text, parameters);
             }
 
+            return result;
+        }
+    }
+
+    public class DeserializedCardExecutionParameter {
+        private String name;
+        private String type;
+        private String prompt;
+
+        public CardExecutionParameter toCardExecutionParameter() {
+            CardExecutionParameter result = new CardExecutionParameter();
+            result.setName(name);
+
+            if (type == null) {
+                type = "String";
+            }
+            result.setType(CardExecutionParameter.Type.fromName(type));
+
+            result.setPrompt(prompt);
             return result;
         }
     }

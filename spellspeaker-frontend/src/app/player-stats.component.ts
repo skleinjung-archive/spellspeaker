@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 import {Player} from './model/player';
+import {Router} from "@angular/router";
+import {AuthenticationService} from "./service/authentication.service";
 
 @Component({
   selector: 'app-player-stats',
@@ -14,7 +16,9 @@ export class PlayerStatsComponent implements OnInit {
   @Input() redRitualUpdates: string[];
 
   constructor(
-  ) {}
+    private authenticationService: AuthenticationService,
+    private router: Router) {
+  }
 
   ngOnInit(): void {
   }
@@ -31,6 +35,17 @@ export class PlayerStatsComponent implements OnInit {
     // } else {
     //   return this.redRitualUpdates.indexOf(cardName) !== -1;
     // }
+  }
+
+  switchToUser(username: string) {
+    this.authenticationService.loginWithCredentials(username, 'password',
+      (result) => {
+        if (result === true) {
+          this.router.navigate(['/games']).then(() =>{
+            this.router.navigate(['/games/101']);
+          });
+        }
+      });
   }
 }
 

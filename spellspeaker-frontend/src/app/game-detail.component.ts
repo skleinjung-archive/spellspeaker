@@ -29,6 +29,8 @@ export class GameDetailComponent implements OnInit {
 
   @Input() private _game: Game;
   private _stateChanges: StateChange[];
+
+  userInput: string;
   rules: Rules;
 
   ngOnInit(): void {
@@ -81,13 +83,17 @@ export class GameDetailComponent implements OnInit {
     }
   }
 
+  isMyTurn(): boolean {
+    return this.game.activePlayerColor === this.game.currentUserColor;
+  }
+
   isMarketSelectionEnabled(): boolean {
     // todo: implement this
     return false;
   }
 
   isHandSelectionEnabled(): boolean {
-    return this._game.expectedInput === 'PlayCardFromHand';
+    return this._game.inputRequest.type === 'PlayCardFromHand';
   }
 
   getSelectedCardFromMarket(): Card {
@@ -112,6 +118,17 @@ export class GameDetailComponent implements OnInit {
 
   confirmHandSelection(): void {
     this.gameService.playCardFromHand(this._game.id, this.getSelectedCardFromHand())
+      .finally(() => {
+        window.scrollTo(0, 0);
+      })
+      .subscribe(result => {
+        this.stateChanges = result.stateChanges;
+        this.game = result.game;
+      });
+  }
+
+  confirmUserInput(): void {
+    this.gameService.submitUserInput(this._game.id, this.userInput)
       .finally(() => {
         window.scrollTo(0, 0);
       })

@@ -7,5 +7,5 @@ import com.thrashplay.spellspeaker.model.SpellspeakerGame;
  * @author Sean Kleinjung
  */
 public interface SpellEffect {
-    void execute(SpellspeakerGame game, Player castingPlayer);
+    void execute();
 }

@@ -14,6 +14,8 @@
 
 package com.thrashplay.spellspeaker.web.controller;
 
+import com.thrashplay.spellspeaker.InvalidInputException;
+import com.thrashplay.spellspeaker.SpellspeakerException;
 import com.thrashplay.spellspeaker.model.*;
 import com.thrashplay.spellspeaker.model.state.StateChange;
 import com.thrashplay.spellspeaker.repository.GameRepository;
@@ -76,12 +78,22 @@ public class GameController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        Errors errors = new Errors();
-        List<StateChange> stateChanges = game.playFromHand(errors, user.getId(), action.getCard());
-        if (errors.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(new ActionResult(new GameView(user, game), stateChanges));
+        List<StateChange> stateChanges = null;
+        switch (action.getAction()) {
+            case "PlayCardFromHand":
+                stateChanges = game.playFromHand(user.getId(), action.getCard());
+                break;
+
+            case "SubmitUserInput":
+                stateChanges = game.handleUserInput(action.getUserInput());
+                break;
+
+            default:
+                throw new InvalidInputException("Unknown action type: " + action.getAction());
+
         }
+
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        return ResponseEntity.status(HttpStatus.OK).body(new ActionResult(new GameView(user, game), stateChanges));
     }
 }

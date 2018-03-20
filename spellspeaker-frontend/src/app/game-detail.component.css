@@ -81,3 +81,14 @@ div.timeTrackSpace.currentTick {
 .actions button {
   margin: 0;
 }
+
+/* user input section */
+
+.section.userInput div {
+  margin-left: 16px;
+}
+
+.userInput label {
+  width: unset;
+  color: #333;
+}

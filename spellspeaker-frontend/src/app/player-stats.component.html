@@ -23,6 +23,9 @@
         <div>
           <label>Power:</label> {{bluePlayer.ritual.power >= 0 ? '+' : ''}}{{bluePlayer.ritual.power}}
         </div>
+        <div class="switchUser">
+          <a (click)="switchToUser('blue')">[Switch to Blue]</a>
+        </div>
       </div>
     </div>
 
@@ -59,6 +62,9 @@
         </div>
         <div>
           <label>Power:</label> {{redPlayer.ritual.power >= 0 ? '+' : ''}}{{redPlayer.ritual.power}}
+        </div>
+        <div class="switchUser">
+          <a (click)="switchToUser('red')">[Switch to Red]</a>
         </div>
       </div>
     </div>

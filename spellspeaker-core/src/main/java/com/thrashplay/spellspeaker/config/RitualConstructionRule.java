@@ -12,5 +12,5 @@ public interface RitualConstructionRule {
      * Returns true if this rule allows the specified card to be added to the ritual, otherwise returns
      * false.
      */
-    void validateRitualAddition(Errors errors, Ritual ritual, Card card);
+    void validateRitualAddition(Ritual ritual, Card card);
 }

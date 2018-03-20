@@ -32,7 +32,13 @@
       "reusable": "true",
       "manaCost": "0",
       "castingTime": "1",
-      "text": "Lose X mana. Draw X cards from the library and add them to your hand."
+      "text": "Lose X mana. Draw X cards from the library and add them to your hand.",
+      "effect": "com.thrashplay.spellspeaker.effect.spell.Research",
+      "parameter": {
+        "name": "manaToSpend",
+        "type": "Integer",
+        "prompt": "Enter an amount of mana to spend:"
+      }
     }
   ],
   "library": [

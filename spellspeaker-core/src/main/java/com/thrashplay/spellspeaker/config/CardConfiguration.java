@@ -1,6 +1,7 @@
 package com.thrashplay.spellspeaker.config;
 
 import com.thrashplay.spellspeaker.effect.SpellEffect;
+import com.thrashplay.spellspeaker.model.CardExecutionParameter;
 import com.thrashplay.spellspeaker.model.CardType;
 import com.thrashplay.spellspeaker.model.Element;
 
@@ -17,7 +18,8 @@ public class CardConfiguration {
     private Element element;
     private int power;
     private String text;
-    private SpellEffect effect;
+    private Class<? extends SpellEffect> effectClass;
+    private CardExecutionParameter parameter;
     private int quantity;
 
     public long getId() {
@@ -92,12 +94,20 @@ public class CardConfiguration {
         this.text = text;
     }
 
-    public SpellEffect getEffect() {
-        return effect;
+    public Class<? extends SpellEffect> getEffectClass() {
+        return effectClass;
     }
 
-    public void setEffect(SpellEffect effect) {
-        this.effect = effect;
+    public void setEffectClass(Class<? extends SpellEffect> effectClass) {
+        this.effectClass = effectClass;
+    }
+
+    public CardExecutionParameter getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(CardExecutionParameter parameter) {
+        this.parameter = parameter;
     }
 
     public int getQuantity() {
@@ -107,6 +117,4 @@ public class CardConfiguration {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-
 }

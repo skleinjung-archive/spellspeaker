@@ -61,6 +61,14 @@ export class GameService {
       // });
   }
 
+  submitUserInput(gameId: number, userInput: string): Observable<ActionResult> {
+    const url = this.gamesUrl + '/' + gameId + '/actions';
+    return this.http.post<ActionResult>(url, JSON.stringify({
+      action: 'SubmitUserInput',
+      userInput: userInput
+    }), {headers: this.headers});
+  }
+
   // create(name: string): Promise<Game> {
   //   return this.http
   //     .post(this.gamesUrl, JSON.stringify({name: name}), {headers: this.headers})

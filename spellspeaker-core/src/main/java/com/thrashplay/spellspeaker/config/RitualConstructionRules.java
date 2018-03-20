@@ -18,9 +18,9 @@ public class RitualConstructionRules implements RitualConstructionRule {
         return this;
     }
 
-    public void validateRitualAddition(Errors errors, Ritual ritual, Card card) {
+    public void validateRitualAddition(Ritual ritual, Card card) {
         for (RitualConstructionRule rule : rules) {
-            rule.validateRitualAddition(errors, ritual, card);
+            rule.validateRitualAddition(ritual, card);
         }
     }
 }

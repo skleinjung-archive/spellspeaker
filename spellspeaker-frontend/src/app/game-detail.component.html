@@ -44,6 +44,21 @@
     <app-player-stats [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer" [blueRitualUpdates]="getUpdatedRitualCards('Blue')" [redRitualUpdates]="getUpdatedRitualCards('Red')"></app-player-stats>
   </div>
 
+  <div *ngIf="isMyTurn() && game.inputRequest.type === 'TextEntry'">
+    <div class="section userInput">
+      <h3>Input Needed</h3>
+      <div>
+        <label>{{game.inputRequest.prompt}}</label>
+      </div>
+      <div>
+        <input [(ngModel)]="userInput" placeholder="Enter a value"/>
+      </div>
+      <div>
+        <button (click)="confirmUserInput()">Submit</button>
+      </div>
+    </div>
+  </div>
+
   <div *ngIf="game.hand !== null">
     <div class="section">
       <h3>Hand</h3>

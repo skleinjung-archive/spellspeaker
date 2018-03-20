@@ -1,5 +1,6 @@
 import {Player} from './player';
 import {Card} from './card';
+import {InputRequest} from './input-request';
 
 export class Game {
   id: number;
@@ -11,25 +12,11 @@ export class Game {
   activePlayerColor: string;
   currentUserColor: string;
 
-  expectedInput: string;
+  inputRequest: InputRequest;
 
   market: Card[];
   hand: Card[];
 
   type: string;
-
-  func(): void {
-  }
-
-  getMessage(): string {
-    console.debug(this);
-    switch (this.type) {
-      case 'AddedToRitual':
-        return this['card'] + ' added to ' + this['player'] + '\'s ritual.';
-
-      default:
-        return '';
-    }
-  }
 }
 
