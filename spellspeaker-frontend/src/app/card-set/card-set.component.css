@@ -22,7 +22,7 @@ ul.cardSet li.updated {
   background-color: white;
   border: 3px solid black;
   border-radius: 5px;
-  width: 144px;
+  width: 140px;
   margin: 15px 15px 0 0;
 }
 .card:last-child {
@@ -46,7 +46,7 @@ ul.cardSet li.updated {
   font-weight: bold;
   vertical-align: center;
   display: table;
-  width: 134px;
+  width: 130px;
 }
 /* clearfix */
 .cardHeader:after {
@@ -57,7 +57,7 @@ ul.cardSet li.updated {
 .cardName {
   display: table-cell;
   vertical-align: middle;
-  width: 83px;
+  width: 79px;
 }
 .cardManaCost {
   margin: 3px 3px 0 0;

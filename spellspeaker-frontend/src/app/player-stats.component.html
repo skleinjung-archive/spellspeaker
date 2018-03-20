@@ -23,18 +23,23 @@
         <div>
           <label>Power:</label> {{bluePlayer.ritual.power >= 0 ? '+' : ''}}{{bluePlayer.ritual.power}}
         </div>
-        <div class="switchUser">
+      </div>
+
+      <div class="switchUser">
+        <div>
           <a (click)="switchToUser('blue')">[Switch to Blue]</a>
         </div>
       </div>
     </div>
 
-    <div class="activeCard">
-      <app-card-set *ngIf="bluePlayer.activeCard" [cards]="[bluePlayer.activeCard]"></app-card-set>
-    </div>
+    <div class="cardArea">
+      <div class="activeCard">
+        <app-card-set *ngIf="bluePlayer.activeCard" [cards]="[bluePlayer.activeCard]"></app-card-set>
+      </div>
 
-    <div class="ritual">
-      <app-card-set *ngIf="playerHasRitual(bluePlayer)" [cards]="bluePlayer.ritual.cards" [updatedCardNames]="blueRitualUpdates"></app-card-set>
+      <div class="ritual" *ngIf="playerHasRitual(bluePlayer)">
+        <app-card-set [cards]="bluePlayer.ritual.cards" [updatedCardNames]="blueRitualUpdates"></app-card-set>
+      </div>
     </div>
   </div>
 
@@ -63,18 +68,23 @@
         <div>
           <label>Power:</label> {{redPlayer.ritual.power >= 0 ? '+' : ''}}{{redPlayer.ritual.power}}
         </div>
-        <div class="switchUser">
+      </div>
+
+      <div class="switchUser">
+        <div>
           <a (click)="switchToUser('red')">[Switch to Red]</a>
         </div>
       </div>
     </div>
 
-    <div class="activeCard">
-      <app-card-set *ngIf="redPlayer.activeCard" [cards]="[redPlayer.activeCard]"></app-card-set>
-    </div>
+    <div class="cardArea">
+      <div class="activeCard">
+        <app-card-set *ngIf="redPlayer.activeCard" [cards]="[redPlayer.activeCard]"></app-card-set>
+      </div>
 
-    <div class="ritual">
-      <app-card-set *ngIf="playerHasRitual(redPlayer)" [cards]="redPlayer.ritual.cards" [updatedCardNames]="redRitualUpdates"></app-card-set>
+      <div class="ritual" *ngIf="playerHasRitual(redPlayer)">
+        <app-card-set [cards]="redPlayer.ritual.cards" [updatedCardNames]="redRitualUpdates"></app-card-set>
+      </div>
     </div>
   </div>
 </div>

@@ -16,51 +16,51 @@
   display: inline-block;
   margin-right: 10px;
 }
-.ritualStats {
-  float: right;
+
+.cardArea {
+  display: table;
 }
 
 /* player active card */
 .activeCard {
-  margin-right: 15px;
-  margin-top: 14px;
-  margin-left: 10px;
-  padding: 6px;
+  margin-right: 8px;
+  padding: 16px 8px 16px 8px;
   vertical-align: center;
   float: left;
   width: 150px;
   height: 181px;
+  min-height: 180px;
   border: 1px solid #999;
+  display: table-cell;
 }
 .activeCard .card {
   margin: 0;
 }
 
-.bluePlayer + .activeCard {
+.bluePlayer + .cardArea .activeCard {
   background-color: #336699;
 }
-.redPlayer + .activeCard {
+.redPlayer + .cardArea .activeCard {
   background-color: #993333;
 }
 
 .ritual {
   margin-left: 4px;
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-bottom: 16px;
+  padding: 16px 16px 16px;
   border: 1px solid #666;
   min-height: 180px;
+  display: table-cell;
 }
-.bluePlayer ~ .ritual {
+.bluePlayer ~ .cardArea .ritual {
   background-color: #A3B1BF;
 }
-.redPlayer ~ .ritual {
+.redPlayer ~ .cardArea .ritual {
   background-color: #FBBABD;
 }
 
-.switchUser {
+.switchUser div {
   cursor: pointer;
   font-weight: bold;
-  margin-left: 15px;
+  margin: 0.5em 0;
 }
 
