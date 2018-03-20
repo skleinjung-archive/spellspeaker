@@ -14,7 +14,6 @@
 
 package com.thrashplay.spellspeaker.web.controller;
 
-import com.thrashplay.spellspeaker.InvalidInputException;
 import com.thrashplay.spellspeaker.model.*;
 import com.thrashplay.spellspeaker.model.state.StateChange;
 import com.thrashplay.spellspeaker.repository.GameRepository;

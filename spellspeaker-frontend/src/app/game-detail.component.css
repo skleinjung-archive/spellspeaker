@@ -21,15 +21,6 @@ button:disabled {
   cursor: auto;
 }
 
-.section {
-  margin: 8px 8px 32px 0;
-}
-.section h3 {
-  background-color: #eee;
-  margin: 0 0 8px 0;
-  padding: 4px;
-}
-
 ul.timeTrack {
   margin: 0;
   padding: 0;

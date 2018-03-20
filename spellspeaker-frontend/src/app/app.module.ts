@@ -19,6 +19,8 @@ import {MessageComponent} from './message.component';
 import {ErrorInterceptor} from './error-interceptor';
 import {PlayerStatsComponent} from './player-stats.component';
 import {CardSetComponent} from './card-set/card-set.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import {ConfigurationService} from "./service/configuration.service";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import {CardSetComponent} from './card-set/card-set.component';
     GamesComponent,
     GameDetailComponent,
     PlayerStatsComponent,
-    CardSetComponent
+    CardSetComponent,
+    ConfigurationComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,7 @@ import {CardSetComponent} from './card-set/card-set.component';
     RulesService,
     AuthenticationService,
     UserProfileService,
+    ConfigurationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,

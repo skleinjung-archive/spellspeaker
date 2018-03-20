@@ -12,13 +12,11 @@ import com.thrashplay.spellspeaker.model.CardType;
 import com.thrashplay.spellspeaker.model.Element;
 import com.thrashplay.spellspeaker.repository.CardConfigurationRepository;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -33,14 +31,27 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
     private static final String JSON_RESOURCE_PATH = "/com/thrashplay/spellspeaker/config/cards.json";
 
     private static final Gson gson = new Gson();
-    private static List<CardConfiguration> baseCardConfigurations;
-    private static List<CardConfiguration> libraryCardConfigurations;
+
+    private String cardsJson;
+    private List<CardConfiguration> baseCardConfigurations;
+    private List<CardConfiguration> libraryCardConfigurations;
 
     private GameRules rules;
 
     @Autowired
     public JsonCardConfigurationRepository(GameRules rules) {
         this.rules = rules;
+    }
+
+    public String getCardsJson() {
+        ensureInitialized();
+        return cardsJson;
+    }
+
+    public void setCardsJson(String newJson) {
+        this.cardsJson = newJson;
+        libraryCardConfigurations = null;
+        baseCardConfigurations = null;
     }
 
     @Override
@@ -85,10 +96,22 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
 
     private synchronized void ensureInitialized() {
         if (libraryCardConfigurations == null || baseCardConfigurations == null) {
+            if (cardsJson == null) {
+                InputStream inputStream = null;
+                try {
+                    inputStream = JsonCardConfigurationRepository.class.getResourceAsStream(JSON_RESOURCE_PATH);
+                    cardsJson = IOUtils.toString(inputStream, "UTF-8");
+                    ;
+                } catch (IOException e) {
+                    throw new CardConfigurationException("Failed to read card configuration JSON: " + e.toString(), e);
+                } finally {
+                    IOUtils.closeQuietly(inputStream);
+                }
+            }
+
             Reader reader = null;
             try {
-                InputStream inputStream = JsonCardConfigurationRepository.class.getResourceAsStream(JSON_RESOURCE_PATH);
-                reader = new InputStreamReader(inputStream);
+                reader = new StringReader(cardsJson);
 
                 Type listType = new TypeToken<DeserializedCardConfigurations>() {}.getType();
                 DeserializedCardConfigurations deserializedCardConfigurations = gson.fromJson(reader, listType);
@@ -103,13 +126,7 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
                     libraryCardConfigurations.add(deserializedCardConfiguration.toCardConfiguration(rules));
                 }
             } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(String.format("Failed to close reader: %s", e.toString()), e);
-                    }
-                }
+                IOUtils.closeQuietly(reader);
             }
         }
     }
