@@ -203,7 +203,10 @@ public class SpellspeakerGame {
         return stateChanges;
     }
 
-    public List<StateChange> handleUserInput(String input) {
+    public List<StateChange> handleUserInput(User currentUser, String input) {
+        if (activePlayer.getUserId() != currentUser.getId()) {
+            throw new InvalidInputException("It is not your turn.");
+        }
         if (inputRequest.getType() != InputRequest.InputRequestType.TextEntry) {
             throw new InvalidInputException("Not expecting user input.");
         }

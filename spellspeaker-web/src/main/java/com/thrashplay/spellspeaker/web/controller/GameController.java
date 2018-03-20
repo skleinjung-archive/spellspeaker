@@ -15,12 +15,11 @@
 package com.thrashplay.spellspeaker.web.controller;
 
 import com.thrashplay.spellspeaker.InvalidInputException;
-import com.thrashplay.spellspeaker.SpellspeakerException;
 import com.thrashplay.spellspeaker.model.*;
 import com.thrashplay.spellspeaker.model.state.StateChange;
 import com.thrashplay.spellspeaker.repository.GameRepository;
 import com.thrashplay.spellspeaker.view.GameView;
-import com.thrashplay.spellspeaker.web.model.ActionParameters;
+import com.thrashplay.spellspeaker.command.AbstractCommand;
 import com.thrashplay.spellspeaker.web.model.ActionResult;
 import com.thrashplay.spellspeaker.web.security.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,32 +71,13 @@ public class GameController {
 
     @PostMapping("/{gameId}/actions")
     public @ResponseBody
-    ResponseEntity<Object> executeAction(@CurrentUser User user, @PathVariable long gameId, @RequestBody ActionParameters action) {
+    ResponseEntity<Object> executeAction(@CurrentUser User user, @PathVariable long gameId, @RequestBody AbstractCommand action) {
         SpellspeakerGame game = gameRepository.findOne(gameId);
         if (game == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        List<StateChange> stateChanges = null;
-        switch (action.getAction()) {
-            case "PlayCardFromHand":
-                stateChanges = game.playFromHand(user.getId(), action.getCard());
-                break;
-
-            case "DiscardCardFromHand":
-                stateChanges = game.discardFromHand(user.getId(), action.getCard());
-                break;
-
-            case "SubmitUserInput":
-                stateChanges = game.handleUserInput(action.getUserInput());
-                break;
-
-            default:
-                throw new InvalidInputException("Unknown action type: " + action.getAction());
-
-        }
-
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        List<StateChange> stateChanges = action.execute(user, game);
         return ResponseEntity.status(HttpStatus.OK).body(new ActionResult(new GameView(user, game), stateChanges));
     }
 }
