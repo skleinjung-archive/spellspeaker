@@ -24,4 +24,8 @@ public class CardContainer {
     public boolean hasCards() {
         return !cards.isEmpty();
     }
+
+    public void addAll(List<Card> newCards) {
+        cards.addAll(newCards);
+    }
 }

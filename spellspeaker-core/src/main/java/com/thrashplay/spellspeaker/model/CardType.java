@@ -17,6 +17,15 @@ public enum CardType {
         return this == EffectRune || this == Rune;
     }
 
+    public String getDisplayString() {
+        switch (this) {
+            case EffectRune:
+                return "Effect Rune";
+            default:
+                return name();
+        }
+    }
+
     public static CardType fromName(String type) {
         if ("EffectRune".equals(type)) {
             return EffectRune;

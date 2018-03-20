@@ -13,4 +13,8 @@ public interface CardConfigurationRepository extends Repository<CardConfiguratio
 
     @Override
     List<CardConfiguration> findAll();
+
+    List<CardConfiguration> findAllLibraryCards();
+
+    List<CardConfiguration> findAllBaseCards();
 }

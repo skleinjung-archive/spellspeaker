@@ -11,6 +11,7 @@ import java.util.List;
 public class CardView {
     private String name;
     private String type;
+    private boolean reusable;
     private int manaCost;
     private int castingTime;
     private String element;
@@ -23,6 +24,10 @@ public class CardView {
 
     public String getType() {
         return type;
+    }
+
+    public boolean isReusable() {
+        return reusable;
     }
 
     public int getManaCost() {
@@ -48,7 +53,8 @@ public class CardView {
     public static CardView fromCard(Card card) {
         CardView view = new CardView();
         view.name = card.getName();
-        view.type = card.getType().name();
+        view.type = card.getType().getDisplayString();
+        view.reusable = card.isReusable();
         view.manaCost = card.getManaCost();
         view.castingTime = card.getCastingTime();
         view.element = card.getElement().name();

@@ -13,7 +13,7 @@
       <p *ngIf="card.text" class="special">{{card.text}}</p>
     </div>
     <div class="cardFooter">
-      <span>{{card.type}}</span>
+      <span>{{card.reusable ? '↺' : ""}} {{card.type}}</span>
     </div>
   </li>
 </ul>

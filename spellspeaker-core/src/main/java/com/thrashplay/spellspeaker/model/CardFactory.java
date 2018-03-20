@@ -5,6 +5,7 @@ import com.thrashplay.spellspeaker.repository.CardConfigurationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,22 +21,34 @@ public class CardFactory {
         this.cardConfigurationRepository = cardConfigurationRepository;
     }
 
-    public List<Card> createCards() {
+    public List<Card> createBaseCards() {
+        return createCards(cardConfigurationRepository.findAllBaseCards());
+    }
+
+    public List<Card> createLibraryCards() {
+        return createCards(cardConfigurationRepository.findAllLibraryCards());
+    }
+
+    private List<Card> createCards(List<CardConfiguration> cardConfigurations) {
         List<Card> cards = new LinkedList<>();
-        for (CardConfiguration cardConfiguration : cardConfigurationRepository.findAll()) {
+        for (CardConfiguration cardConfiguration : cardConfigurations) {
             for (int i = 0; i < cardConfiguration.getQuantity(); i++) {
-                Card card = new Card();
-                card.setName(cardConfiguration.getName());
-                card.setType(cardConfiguration.getType());
-                card.setManaCost(cardConfiguration.getManaCost());
-                card.setCastingTime(cardConfiguration.getCastingTime());
-                card.setElement(cardConfiguration.getElement());
-                card.setPower(cardConfiguration.getPower());
-                card.setText(cardConfiguration.getText());
-                cards.add(card);
+                cards.add(createCard(cardConfiguration));
             }
         }
-
         return cards;
+    }
+
+    private Card createCard(CardConfiguration cardConfiguration) {
+        Card card = new Card();
+        card.setName(cardConfiguration.getName());
+        card.setType(cardConfiguration.getType());
+        card.setReusable(cardConfiguration.isReusable());
+        card.setManaCost(cardConfiguration.getManaCost());
+        card.setCastingTime(cardConfiguration.getCastingTime());
+        card.setElement(cardConfiguration.getElement());
+        card.setPower(cardConfiguration.getPower());
+        card.setText(cardConfiguration.getText());
+        return card;
     }
 }

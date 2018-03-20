@@ -1,8 +1,12 @@
 package com.thrashplay.spellspeaker.config;
 
+
+import org.springframework.stereotype.Component;
+
 /**
  * @author Sean Kleinjung
  */
+@Component
 public class DefaultGameRules implements GameRules {
     @Override
     public int getMaximumHealth() {

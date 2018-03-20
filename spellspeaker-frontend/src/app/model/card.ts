@@ -3,6 +3,7 @@ export class Card {
 
   name: string;
   type: string;
+  reusable: boolean;
   manaCost: number;
   castingTime: number;
 

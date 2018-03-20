@@ -10,6 +10,7 @@ public class CardConfiguration {
     private long id;
     private String name;
     private CardType type;
+    private boolean reusable;
     private int manaCost;
     private int castingTime;
     private Element element;
@@ -39,6 +40,14 @@ public class CardConfiguration {
 
     public void setType(CardType type) {
         this.type = type;
+    }
+
+    public boolean isReusable() {
+        return reusable;
+    }
+
+    public void setReusable(boolean reusable) {
+        this.reusable = reusable;
     }
 
     public int getManaCost() {

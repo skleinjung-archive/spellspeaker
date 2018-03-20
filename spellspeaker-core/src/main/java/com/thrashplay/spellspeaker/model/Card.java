@@ -6,6 +6,7 @@ package com.thrashplay.spellspeaker.model;
 public class Card {
     private String name;
     private CardType type;
+    private boolean reusable;
     private int manaCost;
     private int castingTime;
     private int power;
@@ -26,6 +27,14 @@ public class Card {
 
     public void setType(CardType type) {
         this.type = type;
+    }
+
+    public boolean isReusable() {
+        return reusable;
+    }
+
+    public void setReusable(boolean reusable) {
+        this.reusable = reusable;
     }
 
     public int getManaCost() {

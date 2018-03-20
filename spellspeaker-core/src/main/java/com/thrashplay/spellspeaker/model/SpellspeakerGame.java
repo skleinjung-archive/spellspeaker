@@ -5,7 +5,6 @@ import com.thrashplay.spellspeaker.model.state.AddedToRitual;
 import com.thrashplay.spellspeaker.model.state.BeganCasting;
 import com.thrashplay.spellspeaker.model.state.StateChange;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class SpellspeakerGame {
         discardPile = new DiscardPile();
 
         library = new Library(discardPile);
-        List<Card> cards = cardFactory.createCards();
+        List<Card> cards = cardFactory.createLibraryCards();
         for (Card card : cards) {
             library.add(card);
         }
@@ -58,6 +57,8 @@ public class SpellspeakerGame {
         market = new Market(rules, discardPile, library);
         market.refresh();
 
+        bluePlayer.getHand().addAll(cardFactory.createBaseCards());
+        redPlayer.getHand().addAll(cardFactory.createBaseCards());
         for (int i = 0; i < rules.getInitialHandSize(); i++) {
             bluePlayer.getHand().add(library.draw());
             redPlayer.getHand().add(library.draw());

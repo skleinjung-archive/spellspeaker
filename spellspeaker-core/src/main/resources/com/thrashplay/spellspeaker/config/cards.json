@@ -1,4 +1,39 @@
 {
+  "baseCards": [
+    {
+      "name": "Inflict",
+      "type": "EffectRune",
+      "reusable": "true",
+      "manaCost": "3",
+      "castingTime": "3",
+      "text": "Deals (P) damage to your opponent. The type of damage is determined by the spell's element."
+    },
+    {
+      "name": "Rejuvenate",
+      "type": "Spell",
+      "reusable": "true",
+      "manaCost": "0",
+      "castingTime": "10",
+      "text": "Your mana total is set to %d.",
+      "textVariables": ["maximumMana"]
+    },
+    {
+      "name": "Purchase",
+      "type": "Spell",
+      "reusable": "true",
+      "manaCost": "0",
+      "castingTime": "1",
+      "text": "Take a card from the market, and add it to your hand."
+    },
+    {
+      "name": "Research",
+      "type": "Spell",
+      "reusable": "true",
+      "manaCost": "0",
+      "castingTime": "1",
+      "text": "Lose X mana. Draw X cards from the library and add them to your hand."
+    }
+  ],
   "library": [
     {
       "name": "Ice 1",
