@@ -1,5 +1,7 @@
 package com.thrashplay.spellspeaker.model;
 
+import com.thrashplay.spellspeaker.effect.SpellEffect;
+
 /**
  * @author Sean Kleinjung
  */
@@ -12,6 +14,7 @@ public class Card {
     private int power;
     private Element element;
     private String text;
+    private SpellEffect effect;
 
     public String getName() {
         return name;
@@ -75,5 +78,13 @@ public class Card {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public SpellEffect getEffect() {
+        return effect;
+    }
+
+    public void setEffect(SpellEffect effect) {
+        this.effect = effect;
     }
 }

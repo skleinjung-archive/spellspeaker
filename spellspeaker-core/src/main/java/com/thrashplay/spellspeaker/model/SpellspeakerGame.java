@@ -77,6 +77,10 @@ public class SpellspeakerGame {
         this.id = id;
     }
 
+    public GameRules getRules() {
+        return rules;
+    }
+
     public int getCurrentTick() {
         return currentTick;
     }
@@ -103,8 +107,7 @@ public class SpellspeakerGame {
                 player.getRitual().add(card);
             } else {
                 // the card is a spell
-
-                // todo: implement spell behavior
+                card.getEffect().execute(this, player);
 
                 // put reusable cards back in the player's hand, otherwise discard it
                 if (card.isReusable()) {
@@ -120,32 +123,39 @@ public class SpellspeakerGame {
 
     public List<StateChange> playFromHand(Errors errors, long userId, String cardName) {
         if (activePlayer.getUserId() != userId) {
-            throw new IllegalStateException("It is not your turn!");
+            errors.add("It is not your turn.");
         }
         if (expectedInput != ExpectedInput.PlayCardFromHand) {
-            throw new IllegalStateException("Not expecting to select a card from hand. expectedInput=" + expectedInput);
+            errors.add("Did not expect a card to be selected from your hand.");
         }
 
         Card card = findCardInHand(activePlayer, cardName);
         if (card == null) {
-            throw new IllegalArgumentException("Card not found in active player's hand. (cardName=" + cardName + ", hand=" + activePlayer.getHand().getCards());
+            errors.add("You do not have that card.");
         }
 
         List<StateChange> stateChanges = new LinkedList<>();
-
-        // validate the rune can be added to the ritual
-        if (card.getType().isRune()) {
-            rules.getRitualConstructionRules().validateRitualAddition(errors, activePlayer.getRitual(), card);
-        }
-
-        // skip processing if the rune is invalid
         if (!errors.hasErrors()) {
-            activePlayer.getHand().getCards().remove(card);
-            spendManaAndTime(activePlayer, card);
-            activePlayer.setActiveCard(card);
-            stateChanges.add(new BeganCasting(activePlayer.getColor().name(), card.getName()));
+            assert card != null; // fixes IntelliJ warnings about card being null
 
-            advanceTimeTracker(stateChanges);
+            // validate the rune can be added to the ritual
+            if (card.getType().isRune()) {
+                rules.getRitualConstructionRules().validateRitualAddition(errors, activePlayer.getRitual(), card);
+            }
+
+            if (activePlayer.getMana() < card.getManaCost()) {
+                errors.add("You do not have enough mana to cast '" + card.getName() + "'.");
+            }
+
+            // skip processing if the rune is invalid
+            if (!errors.hasErrors()) {
+                activePlayer.getHand().getCards().remove(card);
+                spendManaAndTime(activePlayer, card);
+                activePlayer.setActiveCard(card);
+                stateChanges.add(new BeganCasting(activePlayer.getColor().name(), card.getName()));
+
+                advanceTimeTracker(stateChanges);
+            }
         }
 
         return stateChanges;
@@ -163,10 +173,6 @@ public class SpellspeakerGame {
     private void spendManaAndTime(Player activePlayer, Card card) {
         int manaCost = Math.max(0, card.getManaCost());
         int castingTime = Math.max(0, card.getCastingTime());
-
-        if (activePlayer.getMana() < manaCost) {
-            throw new IllegalStateException("You do not have enough mana to cast '" + card.getName() + "'.");
-        }
 
         activePlayer.setNextTurnTick((currentTick + castingTime) % rules.getTicksPerPhase());
         activePlayer.setMana(activePlayer.getMana() - manaCost);

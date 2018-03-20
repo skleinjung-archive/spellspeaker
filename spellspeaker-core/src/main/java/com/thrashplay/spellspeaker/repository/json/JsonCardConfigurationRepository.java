@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import com.thrashplay.spellspeaker.SpellspeakerException;
 import com.thrashplay.spellspeaker.config.CardConfiguration;
 import com.thrashplay.spellspeaker.config.GameRules;
+import com.thrashplay.spellspeaker.effect.SpellEffect;
+import com.thrashplay.spellspeaker.effect.spell.Noop;
 import com.thrashplay.spellspeaker.model.CardType;
 import com.thrashplay.spellspeaker.model.Element;
 import com.thrashplay.spellspeaker.repository.CardConfigurationRepository;
@@ -143,6 +145,7 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
         private int power;
         private String text;
         private List<String> textVariables;
+        private String effect;
 
         public CardConfiguration toCardConfiguration(GameRules rules) {
             CardConfiguration result = new CardConfiguration();
@@ -166,6 +169,16 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
             result.setElement(element == null ? Element.None : Element.fromName(element));
             result.setPower(power);
             result.setText(resolveText(rules));
+
+            if (effect == null) {
+                effect = Noop.class.getName();
+            }
+            try {
+                result.setEffect((SpellEffect) Class.forName(effect).newInstance());
+            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | ClassCastException e) {
+                throw new CardConfigurationException(String.format("Invalid effect class for card '%s': %s", name, effect), e);
+            }
+
             return result;
         }
 
@@ -177,7 +190,7 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
                     try {
                         parameters[i] = PropertyUtils.getProperty(rules, textVariables.get(i));
                     } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                        throw new CardConfigurationException("Invalid textVariable name: " + textVariables.get(i));
+                        throw new CardConfigurationException("Invalid textVariable name: " + textVariables.get(i), e);
                     }
                 }
 

@@ -15,7 +15,8 @@
       "manaCost": "0",
       "castingTime": "10",
       "text": "Your mana total is set to %d.",
-      "textVariables": ["maximumMana"]
+      "textVariables": ["maximumMana"],
+      "effect": "com.thrashplay.spellspeaker.effect.spell.Rejuvenate"
     },
     {
       "name": "Purchase",
