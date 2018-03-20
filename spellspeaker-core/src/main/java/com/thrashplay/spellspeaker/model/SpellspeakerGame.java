@@ -36,15 +36,15 @@ public class SpellspeakerGame {
 
     private SpellEffectExecutor spellEffectExecutor;
 
-    public SpellspeakerGame(GameRules rules, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor, long bluePlayerUserId, long redPlayerUserId) {
+    public SpellspeakerGame(GameRules rules, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor, User blueUser, User redUser) {
         this.rules = rules;
         this.spellEffectExecutor = spellEffectExecutor;
 
-        bluePlayer = new Player(bluePlayerUserId, PlayerColor.Blue);
+        bluePlayer = new Player(blueUser, PlayerColor.Blue);
         bluePlayer.setHealth(rules.getMaximumHealth());
         bluePlayer.setMana(rules.getMaximumMana());
 
-        redPlayer = new Player(redPlayerUserId, PlayerColor.Red);
+        redPlayer = new Player(redUser, PlayerColor.Red);
         redPlayer.setHealth(rules.getMaximumHealth());
         redPlayer.setMana(rules.getMaximumMana());
 
@@ -229,7 +229,7 @@ public class SpellspeakerGame {
     }
 
     private void assertCurrentUserIsActive(long currentUserId) {
-        if (activePlayer.getUserId() != currentUserId) {
+        if (activePlayer.getUser().getId() != currentUserId) {
             throw new InvalidInputException("It is not your turn.");
         }
     }

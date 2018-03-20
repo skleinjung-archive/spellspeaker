@@ -18,10 +18,13 @@ import com.thrashplay.spellspeaker.InvalidInputException;
 import com.thrashplay.spellspeaker.model.*;
 import com.thrashplay.spellspeaker.model.state.StateChange;
 import com.thrashplay.spellspeaker.repository.GameRepository;
+import com.thrashplay.spellspeaker.repository.UserRepository;
 import com.thrashplay.spellspeaker.view.GameView;
 import com.thrashplay.spellspeaker.command.AbstractCommand;
 import com.thrashplay.spellspeaker.web.model.ActionResult;
+import com.thrashplay.spellspeaker.web.model.CreateGameResponse;
 import com.thrashplay.spellspeaker.web.security.CurrentUser;
+import com.thrashplay.spellspeaker.web.view.GameSummaryView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,23 +41,34 @@ import java.util.List;
 @RequestMapping("/api/games")
 public class GameController {
 
+    private final UserRepository userRepository;
     private final GameRepository gameRepository;
 
     @Autowired
-    public GameController(GameRepository gameRepository) {
+    public GameController(UserRepository userRepository, GameRepository gameRepository) {
+        Assert.notNull(userRepository, "Must supply a user repository");
+        this.userRepository = userRepository;
+
         Assert.notNull(gameRepository, "Must supply a game repository");
         this.gameRepository = gameRepository;
     }
 
     @GetMapping
     public @ResponseBody
-    List<GameView> findAll(/*@CurrentUser User user*/) {
+    List<GameSummaryView> findAll(/*@CurrentUser User user*/) {
         List<SpellspeakerGame> games = gameRepository.findAll();
-        List<GameView> results = new ArrayList<>(games.size());
+        List<GameSummaryView> results = new ArrayList<>(games.size());
         for (SpellspeakerGame game : games) {
-            results.add(new GameView(null, game));
+            results.add(new GameSummaryView(game));
         }
         return results;
+    }
+
+    @PostMapping
+    public @ResponseBody
+    CreateGameResponse create() {
+        long newGameId = gameRepository.createNewGame(userRepository.findByUsername("blue"), userRepository.findByUsername("red"));
+        return new CreateGameResponse(newGameId);
     }
 
     @GetMapping("/{id}")

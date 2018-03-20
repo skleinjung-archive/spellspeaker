@@ -32,7 +32,7 @@
       </li>
     </ul>
 
-    <app-player-stats [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer" [blueRitualUpdates]="getUpdatedRitualCards('Blue')" [redRitualUpdates]="getUpdatedRitualCards('Red')" [activePlayerColor]="game.activePlayerColor"></app-player-stats>
+    <app-player-stats [gameId]="game.id" [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer" [blueRitualUpdates]="getUpdatedRitualCards('Blue')" [redRitualUpdates]="getUpdatedRitualCards('Red')" [activePlayerColor]="game.activePlayerColor"></app-player-stats>
 
     <div class="column-container">
       <div class="column ritualActions">

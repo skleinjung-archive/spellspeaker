@@ -1,11 +1,7 @@
-package com.thrashplay.spellspeaker.view;
+package com.thrashplay.spellspeaker.web.view;
 
-import com.thrashplay.spellspeaker.model.Card;
 import com.thrashplay.spellspeaker.model.Player;
 import com.thrashplay.spellspeaker.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Sean Kleinjung

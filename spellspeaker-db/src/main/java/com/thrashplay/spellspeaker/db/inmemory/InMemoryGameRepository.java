@@ -1,8 +1,16 @@
 package com.thrashplay.spellspeaker.db.inmemory;
 
+import com.thrashplay.spellspeaker.config.DefaultGameRules;
+import com.thrashplay.spellspeaker.config.GameRules;
+import com.thrashplay.spellspeaker.db.repository.IdGenerator;
+import com.thrashplay.spellspeaker.effect.SpellEffectExecutor;
+import com.thrashplay.spellspeaker.model.CardFactory;
 import com.thrashplay.spellspeaker.model.SpellspeakerGame;
+import com.thrashplay.spellspeaker.model.User;
 import com.thrashplay.spellspeaker.repository.GameRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,9 +23,33 @@ import java.util.Map;
 @Repository
 public class InMemoryGameRepository implements GameRepository {
 
+    private GameRules rules;
+    private CardFactory cardFactory;
+    private SpellEffectExecutor spellEffectExecutor;
+    private IdGenerator idGenerator;
     private Map<Long, SpellspeakerGame> games = new HashMap<>();
 
-    public InMemoryGameRepository() {
+    @Autowired
+    public InMemoryGameRepository(IdGenerator idGenerator, GameRules rules, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor) {
+        Assert.notNull(idGenerator, "idGenerator cannot be null");
+        this.idGenerator = idGenerator;
+
+        Assert.notNull(rules, "rules cannot be null");
+        this.rules = rules;
+
+        Assert.notNull(cardFactory, "cardFactory cannot be null");
+        this.cardFactory = cardFactory;
+
+        Assert.notNull(spellEffectExecutor, "spellEffectExecutor cannot be null");
+        this.spellEffectExecutor = spellEffectExecutor;
+    }
+
+    @Override
+    public Long createNewGame(User blueUser, User redUser) {
+        SpellspeakerGame game = new SpellspeakerGame(new DefaultGameRules(), cardFactory, spellEffectExecutor, blueUser, redUser);
+        game.setId(idGenerator.getId(SpellspeakerGame.class));
+        save(game);
+        return game.getId();
     }
 
     public SpellspeakerGame findOne(Long id) {

@@ -6,7 +6,7 @@ import com.thrashplay.spellspeaker.view.PlayerView;
  * @author Sean Kleinjung
  */
 public class Player {
-    private long userId;
+    private User user;
     private PlayerColor color;
     private int nextTurnTick;
     private int health;
@@ -15,15 +15,15 @@ public class Player {
     private Card activeCard;
     private Ritual ritual;
 
-    public Player(long userId, PlayerColor color) {
-        this.userId = userId;
+    public Player(User user, PlayerColor color) {
+        this.user = user;
         this.color = color;
         hand = new Hand();
         ritual = new Ritual();
     }
 
-    public long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     public PlayerColor getColor() {

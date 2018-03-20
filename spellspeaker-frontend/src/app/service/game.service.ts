@@ -10,6 +10,8 @@ import {Observable} from 'rxjs/Observable';
 import {Card} from "../model/card";
 import {ActionResult} from "../model/action-result";
 import {AddedToRitualStateChange, StateChange} from "../model/state-change";
+import {GameSummary} from "../model/game-summary";
+import {CreateGameResponse} from "../model/create-game-response";
 
 @Injectable()
 export class GameService {
@@ -19,8 +21,12 @@ export class GameService {
   constructor(
     private http: HttpClient) { }
 
-  getGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.gamesUrl);
+  getGames(): Observable<GameSummary[]> {
+    return this.http.get<GameSummary[]>(this.gamesUrl);
+  }
+
+  createGame(): Observable<CreateGameResponse> {
+    return this.http.post<CreateGameResponse>(this.gamesUrl, {}, {headers: this.headers});
   }
 
   getGame(id: number): Observable<Game> {

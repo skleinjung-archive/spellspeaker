@@ -10,6 +10,7 @@ import {AuthenticationService} from "./service/authentication.service";
   styleUrls: ['./game-detail.shared.css', './player-stats.component.css']
 })
 export class PlayerStatsComponent implements OnInit {
+  @Input() gameId: number;
   @Input() bluePlayer: Player;
   @Input() redPlayer: Player;
   @Input() blueRitualUpdates: string[];
@@ -47,7 +48,7 @@ export class PlayerStatsComponent implements OnInit {
       (result) => {
         if (result === true) {
           this.router.navigate(['/games']).then(() =>{
-            this.router.navigate(['/games/101']);
+            this.router.navigate(['/games', this.gameId]);
           });
         }
       });

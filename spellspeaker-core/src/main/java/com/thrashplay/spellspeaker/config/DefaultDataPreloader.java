@@ -38,26 +38,24 @@ public class DefaultDataPreloader {
 
     @PostConstruct
     public void preloadData() {
+        User blue = new User();
         if (userRepository.findOne(1L) == null) {
-            User user = new User();
-            user.setId(1);
-            user.setUsername("blue");
-            user.setPassword("password");
-            userRepository.save(user);
+            blue.setId(1);
+            blue.setUsername("blue");
+            blue.setPassword("password");
+            userRepository.save(blue);
         }
 
+        User red = new User();
         if (userRepository.findOne(2L) == null) {
-            User user = new User();
-            user.setId(2);
-            user.setUsername("red");
-            user.setPassword("password");
-            userRepository.save(user);
+            red.setId(2);
+            red.setUsername("red");
+            red.setPassword("password");
+            userRepository.save(red);
         }
 
         if (gameRepository.findOne(101L) == null) {
-            SpellspeakerGame game = new SpellspeakerGame(new DefaultGameRules(), cardFactory, spellEffectExecutor,1L, 2L);
-            game.setId(101);
-            gameRepository.save(game);
+            gameRepository.createNewGame(blue, red);
         }
     }
 }

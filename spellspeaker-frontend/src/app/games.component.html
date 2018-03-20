@@ -2,6 +2,8 @@
 
 <ul class="games">
   <li *ngFor="let game of games" (click)="onSelect(game)" [class.selected]="game === selectedGame">
-    <span class="badge">{{game.id}}</span> <span class="text">[{{game.bluePlayer.health}} - {{game.redPlayer.health}}] Time: {{game.currentTick}}</span>
+    <span class="badge">{{game.id}}</span> <span class="text">{{game.bluePlayerName}} [{{game.bluePlayerHealth}}] vs. {{game.redPlayerName}} [{{game.redPlayerHealth}}]</span>
   </li>
 </ul>
+
+<button (click)="createNewGame()">Create New Game</button>
