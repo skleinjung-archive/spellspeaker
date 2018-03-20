@@ -38,6 +38,11 @@ public class DefaultGameRules implements GameRules {
     }
 
     @Override
+    public int getMaximumHandSize() {
+        return 10;
+    }
+
+    @Override
     @JsonIgnore
     public RitualConstructionRules getRitualConstructionRules() {
         return new RitualConstructionRules()

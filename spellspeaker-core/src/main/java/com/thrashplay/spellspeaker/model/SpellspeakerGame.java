@@ -3,10 +3,7 @@ package com.thrashplay.spellspeaker.model;
 import com.thrashplay.spellspeaker.InvalidInputException;
 import com.thrashplay.spellspeaker.config.GameRules;
 import com.thrashplay.spellspeaker.effect.SpellEffectExecutor;
-import com.thrashplay.spellspeaker.model.state.AddedToRitual;
-import com.thrashplay.spellspeaker.model.state.BeganCasting;
-import com.thrashplay.spellspeaker.model.state.FinishedCasting;
-import com.thrashplay.spellspeaker.model.state.StateChange;
+import com.thrashplay.spellspeaker.model.state.*;
 import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.util.ArrayList;
@@ -122,7 +119,11 @@ public class SpellspeakerGame {
             }
         }
 
-        return new InputRequest(InputRequest.InputRequestType.PlayCardFromHand);
+        if (activePlayer.getHand().size() > rules.getMaximumHandSize()) {
+            return new InputRequest(InputRequest.InputRequestType.SelectCardToDiscard);
+        } else {
+            return new InputRequest(InputRequest.InputRequestType.PlayCardFromHand);
+        }
     }
 
     private void executeSpell(Player player, Card card) {
@@ -168,6 +169,36 @@ public class SpellspeakerGame {
         stateChanges.add(new BeganCasting(activePlayer.getColor().name(), card.getName()));
 
         advanceTimeTracker(stateChanges);
+
+        return stateChanges;
+    }
+
+    public List<StateChange> discardFromHand(long userId, String cardName) {
+        if (activePlayer.getUserId() != userId) {
+            throw new InvalidInputException("It is not your turn.");
+        }
+        if (inputRequest.getType() != InputRequest.InputRequestType.SelectCardToDiscard) {
+            throw new InvalidInputException("Did not expect a card to be discarded from your hand.");
+        }
+
+        Card card = findCardInHand(activePlayer, cardName);
+        if (card == null) {
+            throw new InvalidInputException("You do not have that card.");
+        }
+        if (card.isBaseCard()) {
+            throw new InvalidInputException("You cannot discard a base card.");
+        }
+
+        List<StateChange> stateChanges = new LinkedList<>();
+
+        activePlayer.getHand().getCards().remove(card);
+        stateChanges.add(new Discarded(activePlayer.getColor().name(), card.getName()));
+
+        if (activePlayer.getHand().size() > rules.getMaximumHandSize()) {
+            inputRequest = new InputRequest(InputRequest.InputRequestType.SelectCardToDiscard);
+        } else {
+            inputRequest = new InputRequest(InputRequest.InputRequestType.PlayCardFromHand);
+        }
 
         return stateChanges;
     }

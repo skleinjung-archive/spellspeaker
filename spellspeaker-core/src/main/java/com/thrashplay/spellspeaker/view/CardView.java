@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class CardView {
     private String name;
+    private boolean baseCard;
     private String type;
     private boolean reusable;
     private int manaCost;
@@ -20,6 +21,10 @@ public class CardView {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isBaseCard() {
+        return baseCard;
     }
 
     public String getType() {
@@ -53,6 +58,7 @@ public class CardView {
     public static CardView fromCard(Card card) {
         CardView view = new CardView();
         view.name = card.getName();
+        view.baseCard = card.isBaseCard();
         view.type = card.getType().getDisplayString();
         view.reusable = card.isReusable();
         view.manaCost = card.getManaCost();

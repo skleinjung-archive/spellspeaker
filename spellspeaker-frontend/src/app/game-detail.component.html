@@ -62,6 +62,9 @@
   <div *ngIf="game.hand !== null">
     <div class="section">
       <h3>Hand</h3>
+      <div *ngIf="getHandSelectionPrompt() !== null" class="selectionPrompt">
+        {{getHandSelectionPrompt()}}
+      </div>
       <app-card-set [cards]="game.hand" [selectionEnabled]="isHandSelectionEnabled()"></app-card-set>
       <div class="actions">
         <button (click)="confirmHandSelection()" [disabled]="!getSelectedCardFromHand()">Confirm Selection</button>

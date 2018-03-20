@@ -7,6 +7,7 @@ import com.thrashplay.spellspeaker.effect.SpellEffect;
  */
 public class Card {
     private String name;
+    private boolean baseCard;
     private CardType type;
     private boolean reusable;
     private int manaCost;
@@ -23,6 +24,14 @@ public class Card {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isBaseCard() {
+        return baseCard;
+    }
+
+    public void setBaseCard(boolean baseCard) {
+        this.baseCard = baseCard;
     }
 
     public CardType getType() {

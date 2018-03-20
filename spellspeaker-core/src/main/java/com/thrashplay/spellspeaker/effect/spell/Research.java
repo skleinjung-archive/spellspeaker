@@ -15,8 +15,8 @@ public class Research implements SpellEffect {
 
     @Override
     public void execute() {
-        if (manaToSpend < 1) {
-            throw new InvalidInputException("You must spend at least one mana.");
+        if (manaToSpend < 0) {
+            throw new InvalidInputException("You may not spend negative mana.");
         }
         if (manaToSpend > activePlayer.getMana()) {
             throw new InvalidInputException("You do not have enough mana.");

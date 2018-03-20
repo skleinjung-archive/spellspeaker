@@ -1,5 +1,5 @@
 <ul class="cardSet">
-  <li *ngFor="let card of cards" class="card" [ngClass]="{selected: card.selected, selectable: selectionEnabled, updated: isCardUpdated(card.name)}" (click)="selectIfEnabled(card)">
+  <li *ngFor="let card of cards" class="card" [ngClass]="{selected: card.selected, selectable: selectionEnabled, baseCard: card.baseCard, updated: isCardUpdated(card.name)}" (click)="selectIfEnabled(card)">
     <div class="cardHeader">
       <span class="cardName">{{card.name}}</span>
       <div class="cardStats">

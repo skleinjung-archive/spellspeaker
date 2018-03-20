@@ -22,26 +22,27 @@ public class CardFactory {
     }
 
     public List<Card> createBaseCards() {
-        return createCards(cardConfigurationRepository.findAllBaseCards());
+        return createCards(cardConfigurationRepository.findAllBaseCards(), true);
     }
 
     public List<Card> createLibraryCards() {
-        return createCards(cardConfigurationRepository.findAllLibraryCards());
+        return createCards(cardConfigurationRepository.findAllLibraryCards(), false);
     }
 
-    private List<Card> createCards(List<CardConfiguration> cardConfigurations) {
+    private List<Card> createCards(List<CardConfiguration> cardConfigurations, boolean areBaseCards) {
         List<Card> cards = new LinkedList<>();
         for (CardConfiguration cardConfiguration : cardConfigurations) {
             for (int i = 0; i < cardConfiguration.getQuantity(); i++) {
-                cards.add(createCard(cardConfiguration));
+                cards.add(createCard(cardConfiguration, areBaseCards));
             }
         }
         return cards;
     }
 
-    private Card createCard(CardConfiguration cardConfiguration) {
+    private Card createCard(CardConfiguration cardConfiguration, boolean isBaseCard) {
         Card card = new Card();
         card.setName(cardConfiguration.getName());
+        card.setBaseCard(isBaseCard);
         card.setType(cardConfiguration.getType());
         card.setReusable(cardConfiguration.isReusable());
         card.setManaCost(cardConfiguration.getManaCost());

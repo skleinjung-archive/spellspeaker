@@ -92,3 +92,9 @@ div.timeTrackSpace.currentTick {
   width: unset;
   color: #333;
 }
+
+.selectionPrompt {
+  background-color: #FEEFB3;
+  padding: 8px;
+  margin-bottom: 8px;
+}

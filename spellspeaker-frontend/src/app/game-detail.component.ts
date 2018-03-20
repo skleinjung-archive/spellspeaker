@@ -11,8 +11,10 @@ import {GameService} from './service/game.service';
 import {Rules} from './model/rules';
 import {RulesService} from './service/rules.service';
 import {MessageService} from './service/message-service';
-import {Card} from "./model/card";
-import {AddedToRitualStateChange, StateChange} from "./model/state-change";
+import {Card} from './model/card';
+import {AddedToRitualStateChange, StateChange} from './model/state-change';
+import {ActionResult} from './model/action-result';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'game-detail',
@@ -93,7 +95,22 @@ export class GameDetailComponent implements OnInit {
   }
 
   isHandSelectionEnabled(): boolean {
-    return this._game.inputRequest.type === 'PlayCardFromHand';
+    return this.isMyTurn() && (this.game.inputRequest.type === 'PlayCardFromHand' || this.game.inputRequest.type === 'SelectCardToDiscard');
+  }
+
+  getHandSelectionPrompt(): string {
+    if (!this.isHandSelectionEnabled()) {
+      return null;
+    }
+
+    switch (this.game.inputRequest.type) {
+      case 'PlayCardFromHand':
+        return 'Select a card to play.';
+      case 'SelectCardToDiscard':
+        return 'Select a card to discard.';
+      default:
+        return null;
+    }
   }
 
   getSelectedCardFromMarket(): Card {
@@ -117,21 +134,24 @@ export class GameDetailComponent implements OnInit {
   }
 
   confirmHandSelection(): void {
-    this.gameService.playCardFromHand(this._game.id, this.getSelectedCardFromHand())
-      .finally(() => {
-        window.scrollTo(0, 0);
-      })
-      .subscribe(result => {
-        this.stateChanges = result.stateChanges;
-        this.game = result.game;
-      });
+    if (this.game.inputRequest.type === 'PlayCardFromHand') {
+      this.processActionResult(this.gameService.playCardFromHand(this._game.id, this.getSelectedCardFromHand()));
+    } else if (this.game.inputRequest.type === 'SelectCardToDiscard') {
+      this.processActionResult(this.gameService.discardCardFromHand(this._game.id, this.getSelectedCardFromHand()));
+    } else {
+      this.messageService.showError('Unknown inputRequest type: ' + this.game.inputRequest.type);
+    }
   }
 
   confirmUserInput(): void {
-    this.gameService.submitUserInput(this._game.id, this.userInput)
-      .finally(() => {
-        window.scrollTo(0, 0);
-      })
+    this.processActionResult(this.gameService.submitUserInput(this._game.id, this.userInput));
+  }
+
+  processActionResult(observable: Observable<ActionResult>): void {
+    observable.finally(() => {
+      window.scrollTo(0, 0);
+      this.userInput = null;
+    })
       .subscribe(result => {
         this.stateChanges = result.stateChanges;
         this.game = result.game;

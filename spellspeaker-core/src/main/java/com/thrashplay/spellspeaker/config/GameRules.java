@@ -16,5 +16,7 @@ public interface GameRules {
 
     int getInitialHandSize();
 
+    int getMaximumHandSize();
+
     RitualConstructionRules getRitualConstructionRules();
 }

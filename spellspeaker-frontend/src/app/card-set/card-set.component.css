@@ -102,3 +102,15 @@ p + p.special {
   font-size: 0.5em;
 }
 
+/* base card styles */
+
+.baseCard .cardBody {
+  background-color: #efffef;
+}
+.baseCard .cardHeader {
+  background-color: #cfffcf;
+}
+.baseCard .cardFooter {
+  background-color: #cfffcf;
+}
+

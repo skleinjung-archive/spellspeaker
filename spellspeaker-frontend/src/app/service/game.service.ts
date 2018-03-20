@@ -33,7 +33,7 @@ export class GameService {
     return this.http.post<ActionResult>(url, JSON.stringify({
       action: 'PlayCardFromHand',
       card: card.name
-    }), {headers: this.headers})
+    }), {headers: this.headers});
       // .map(result => {
       //   const newResult = new ActionResult();
       //   newResult.game = result.game;
@@ -59,6 +59,14 @@ export class GameService {
       //
       //   return newResult;
       // });
+  }
+
+  discardCardFromHand(gameId: number, card: Card): Observable<ActionResult> {
+    const url = this.gamesUrl + '/' + gameId + '/actions';
+    return this.http.post<ActionResult>(url, JSON.stringify({
+      action: 'DiscardCardFromHand',
+      card: card.name
+    }), {headers: this.headers});
   }
 
   submitUserInput(gameId: number, userInput: string): Observable<ActionResult> {

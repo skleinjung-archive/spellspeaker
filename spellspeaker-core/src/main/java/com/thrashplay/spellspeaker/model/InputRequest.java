@@ -6,6 +6,7 @@ package com.thrashplay.spellspeaker.model;
 public class InputRequest {
     public enum InputRequestType {
         PlayCardFromHand,
+        SelectCardToDiscard,
         TextEntry
     }
 

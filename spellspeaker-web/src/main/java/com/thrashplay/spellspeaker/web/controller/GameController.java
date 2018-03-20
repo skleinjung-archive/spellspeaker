@@ -84,6 +84,10 @@ public class GameController {
                 stateChanges = game.playFromHand(user.getId(), action.getCard());
                 break;
 
+            case "DiscardCardFromHand":
+                stateChanges = game.discardFromHand(user.getId(), action.getCard());
+                break;
+
             case "SubmitUserInput":
                 stateChanges = game.handleUserInput(action.getUserInput());
                 break;

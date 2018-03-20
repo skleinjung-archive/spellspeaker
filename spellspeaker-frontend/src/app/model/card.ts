@@ -2,6 +2,7 @@ export class Card {
   selected: boolean;
 
   name: string;
+  baseCard: boolean;
   type: string;
   reusable: boolean;
   manaCost: number;
