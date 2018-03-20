@@ -8,6 +8,11 @@ import java.util.List;
  */
 public class Ritual extends CardContainer {
     public String getEffect() {
+        for (Card card : cards) {
+            if (card.getType() == CardType.EffectRune) {
+                return card.getName();
+            }
+        }
         return "None";
     }
 

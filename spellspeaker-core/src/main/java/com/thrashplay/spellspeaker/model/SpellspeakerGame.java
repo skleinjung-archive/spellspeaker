@@ -3,6 +3,7 @@ package com.thrashplay.spellspeaker.model;
 import com.thrashplay.spellspeaker.config.GameRules;
 import com.thrashplay.spellspeaker.model.state.AddedToRitual;
 import com.thrashplay.spellspeaker.model.state.BeganCasting;
+import com.thrashplay.spellspeaker.model.state.FinishedCasting;
 import com.thrashplay.spellspeaker.model.state.StateChange;
 
 import java.util.Iterator;
@@ -92,9 +93,26 @@ public class SpellspeakerGame {
     private void resolveActiveCard(List<StateChange> stateChangeList, Player player) {
         // for the time being, just add it to the ritual
         if (player.getActiveCard() != null) {
-            stateChangeList.add(new AddedToRitual(player.getColor().name(), player.getActiveCard().getName()));
+            Card card = player.getActiveCard();
 
-            player.getRitual().add(player.getActiveCard());
+            stateChangeList.add(new FinishedCasting(player.getColor().name(), card.getName()));
+
+            if (card.getType().isRune()) {
+                stateChangeList.add(new AddedToRitual(player.getColor().name(), player.getActiveCard().getName()));
+                player.getRitual().add(player.getActiveCard());
+            } else {
+                // the card is a spell
+
+                // todo: implement spell behavior
+
+                // put reusable cards back in the player's hand, otherwise discard it
+                if (card.isReusable()) {
+                    player.getHand().add(card);
+                } else {
+                    discardPile.add(card);
+                }
+            }
+
             player.setActiveCard(null);
         }
     }
