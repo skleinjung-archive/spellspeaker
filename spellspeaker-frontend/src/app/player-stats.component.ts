@@ -14,6 +14,7 @@ export class PlayerStatsComponent implements OnInit {
   @Input() redPlayer: Player;
   @Input() blueRitualUpdates: string[];
   @Input() redRitualUpdates: string[];
+  @Input() activePlayerColor: string;
 
   constructor(
     private authenticationService: AuthenticationService,

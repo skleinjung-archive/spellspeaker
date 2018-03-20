@@ -41,7 +41,7 @@
       </li>
     </ul>
 
-    <app-player-stats [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer" [blueRitualUpdates]="getUpdatedRitualCards('Blue')" [redRitualUpdates]="getUpdatedRitualCards('Red')"></app-player-stats>
+    <app-player-stats [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer" [blueRitualUpdates]="getUpdatedRitualCards('Blue')" [redRitualUpdates]="getUpdatedRitualCards('Red')" [activePlayerColor]="game.activePlayerColor"></app-player-stats>
   </div>
 
   <div *ngIf="isMyTurn() && game.inputRequest.type === 'TextEntry'">

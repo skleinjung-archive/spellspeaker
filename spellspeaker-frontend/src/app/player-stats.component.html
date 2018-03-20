@@ -1,7 +1,10 @@
 <div class="column-container playerStatsContainer">
   <div class="column playerStats">
     <div class="statsRow bluePlayer">
-      <div class="playerStats">
+      <div class="basicStats">
+        <div *ngIf="activePlayerColor === 'Blue'">
+          <label>*</label>
+        </div>
         <div>
           <label>H</label> x {{bluePlayer.health}}
         </div>
@@ -13,32 +16,37 @@
         </div>
       </div>
 
-      <div class="ritualStats">
-        <div>
-          <label>Effect:</label> {{bluePlayer.ritual.effect}}
-        </div>
-        <div>
-          <label>Element:</label> {{bluePlayer.ritual.element}}
-        </div>
-        <div>
-          <label>Power:</label> {{bluePlayer.ritual.power >= 0 ? '+' : ''}}{{bluePlayer.ritual.power}}
-        </div>
-      </div>
-
       <div class="switchUser">
         <div>
-          <a (click)="switchToUser('blue')">[Switch to Blue]</a>
+          <button (click)="switchToUser('blue')">Switch User</button>
         </div>
       </div>
     </div>
 
     <div class="cardArea">
-      <div class="activeCard">
-        <app-card-set *ngIf="bluePlayer.activeCard" [cards]="[bluePlayer.activeCard]"></app-card-set>
+      <div>
+        <div class="activeCard">
+          <app-card-set *ngIf="bluePlayer.activeCard" [cards]="[bluePlayer.activeCard]"></app-card-set>
+        </div>
       </div>
 
       <div class="ritual" *ngIf="playerHasRitual(bluePlayer)">
         <app-card-set [cards]="bluePlayer.ritual.cards" [updatedCardNames]="blueRitualUpdates"></app-card-set>
+        <div class="ritualStatus statsRow">
+          <div>
+            <button>Complete Ritual</button>
+          </div>
+
+          <div>
+            <label>Effect:</label> {{bluePlayer.ritual.effect}}
+          </div>
+          <div>
+            <label>Element:</label> {{bluePlayer.ritual.element}}
+          </div>
+          <div>
+            <label>Power:</label> {{bluePlayer.ritual.power >= 0 ? '+' : ''}}{{bluePlayer.ritual.power}}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -47,6 +55,9 @@
     <!--<h4>Red Player</h4>-->
     <div class="statsRow redPlayer">
       <div class="playerStats">
+        <div *ngIf="activePlayerColor === 'Red'">
+          <label>*</label>
+        </div>
         <div>
           <label>H</label> x {{redPlayer.health}}
         </div>
@@ -58,21 +69,9 @@
         </div>
       </div>
 
-      <div class="ritualStats">
-        <div>
-          <label>Effect:</label> {{redPlayer.ritual.effect}}
-        </div>
-        <div>
-          <label>Element:</label> {{redPlayer.ritual.element}}
-        </div>
-        <div>
-          <label>Power:</label> {{redPlayer.ritual.power >= 0 ? '+' : ''}}{{redPlayer.ritual.power}}
-        </div>
-      </div>
-
       <div class="switchUser">
         <div>
-          <a (click)="switchToUser('red')">[Switch to Red]</a>
+          <button (click)="switchToUser('red')">Switch User</button>
         </div>
       </div>
     </div>
@@ -84,6 +83,21 @@
 
       <div class="ritual" *ngIf="playerHasRitual(redPlayer)">
         <app-card-set [cards]="redPlayer.ritual.cards" [updatedCardNames]="redRitualUpdates"></app-card-set>
+        <div class="ritualStatus statsRow">
+          <div>
+            <button>Complete Ritual</button>
+          </div>
+
+          <div>
+            <label>Effect:</label> {{redPlayer.ritual.effect}}
+          </div>
+          <div>
+            <label>Element:</label> {{redPlayer.ritual.element}}
+          </div>
+          <div>
+            <label>Power:</label> {{redPlayer.ritual.power >= 0 ? '+' : ''}}{{redPlayer.ritual.power}}
+          </div>
+        </div>
       </div>
     </div>
   </div>
