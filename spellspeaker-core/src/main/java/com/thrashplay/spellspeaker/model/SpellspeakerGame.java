@@ -69,7 +69,6 @@ public class SpellspeakerGame {
         library.shuffle();
 
         market = new Market(rules, discardPile, library);
-        market.refresh();
 
         bluePlayer.getHand().addAll(cardFactory.createBaseCards());
         redPlayer.getHand().addAll(cardFactory.createBaseCards());
@@ -78,10 +77,9 @@ public class SpellspeakerGame {
             redPlayer.getHand().add(library.draw());
         }
 
-        setRandomAttunement();
-
         currentTick = -1;
         LinkedList<StateChange> unused = new LinkedList<>();
+        beginNewPhase(unused);
         startNextTurn(unused);
         stepUntilBlocked(unused);
     }
@@ -145,6 +143,16 @@ public class SpellspeakerGame {
     }
 
     /**
+     * Begins a new phase.
+     */
+    private void beginNewPhase(List<StateChange> stateChanges) {
+        market.refresh();
+        stateChanges.add(new MarketRefreshed());
+
+        changeAttunement(stateChanges);
+    }
+
+    /**
      * Advance the time tracker until the next turn, and setup the game state to begin that turn.
      */
     private void startNextTurn(List<StateChange> stateChanges) {
@@ -161,8 +169,7 @@ public class SpellspeakerGame {
             currentTick = (currentTick + 1) % rules.getTicksPerPhase();
 
             if (currentTick == 0) {
-                setRandomAttunement();
-                stateChanges.add(new AttunementChanged(attunement));
+                beginNewPhase(stateChanges);
             }
         }
     }
@@ -208,7 +215,10 @@ public class SpellspeakerGame {
         return result;
     }
 
-    private void setRandomAttunement() {
+    /**
+     * Sets a new attunement element.
+     */
+    private void changeAttunement(List<StateChange> stateChanges) {
         int elementIndex = randomNumberService.getRandomNumberBetween(0, 3);
         if (elementIndex == 0) {
             attunement = Element.Ice;
@@ -217,6 +227,8 @@ public class SpellspeakerGame {
         } else {
             attunement = Element.Lightning;
         }
+
+        stateChanges.add(new AttunementChanged(attunement));
     }
 
     public List<StateChange> provideInput(User currentUser, InputType type, String value) {
