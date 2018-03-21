@@ -88,8 +88,8 @@ ul.cardSet li.updated {
   font-size: 0.75em;
   /*display: none;*/
 
-  -webkit-transition: height 500ms;
-  transition: height 500ms;
+  -webkit-transition: height 250ms;
+  transition: height 250ms;
 }
 .card.collapsed .cardBody {
   height: 6px;
