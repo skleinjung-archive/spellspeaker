@@ -52,6 +52,11 @@ public class InMemoryGameRepository implements GameRepository {
         return game.getId();
     }
 
+    @Override
+    public void deleteAll() {
+        games.clear();
+    }
+
     public SpellspeakerGame findOne(Long id) {
         return games.get(id);
     }

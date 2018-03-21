@@ -8,4 +8,6 @@ import com.thrashplay.spellspeaker.model.User;
  */
 public interface GameRepository extends Repository<SpellspeakerGame, Long> {
     Long createNewGame(User blueUser, User redUser);
+
+    void deleteAll();
 }

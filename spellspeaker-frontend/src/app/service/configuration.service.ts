@@ -19,8 +19,10 @@ export class ConfigurationService {
   updateCardsJson(newJson: string): void {
       this.http.post(this.configurationUrl + '/cards',
         {encodedCardsJson: btoa(newJson)},
-        {headers: this.headers})
-        .subscribe(response => {
+        {
+          headers: this.headers,
+          responseType: 'text'
+        }).subscribe(() => {
           this.messageService.showSuccess('Cards JSON updated successfully.');
         });
   }
