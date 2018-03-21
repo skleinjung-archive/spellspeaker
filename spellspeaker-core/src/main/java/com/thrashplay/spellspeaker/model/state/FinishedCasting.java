@@ -8,7 +8,6 @@ public class FinishedCasting extends StateChange {
     private String card;
 
     public FinishedCasting(String player, String card) {
-        super(StateChangeType.BeganCasting);
         this.player = player;
         this.card = card;
     }

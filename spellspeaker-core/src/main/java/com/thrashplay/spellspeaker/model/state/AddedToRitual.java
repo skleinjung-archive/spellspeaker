@@ -8,7 +8,6 @@ public class AddedToRitual extends StateChange {
     private String card;
 
     public AddedToRitual(String player, String card) {
-        super(StateChangeType.AddedToRitual);
         this.player = player;
         this.card = card;
     }

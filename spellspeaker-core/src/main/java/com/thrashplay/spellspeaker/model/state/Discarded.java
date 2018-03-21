@@ -8,7 +8,6 @@ public class Discarded extends StateChange {
     private String card;
 
     public Discarded(String player, String card) {
-        super(StateChangeType.BeganCasting);
         this.player = player;
         this.card = card;
     }

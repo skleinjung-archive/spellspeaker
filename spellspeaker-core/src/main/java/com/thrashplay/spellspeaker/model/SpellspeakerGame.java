@@ -75,18 +75,12 @@ public class SpellspeakerGame {
             redPlayer.getHand().add(library.draw());
         }
 
-        int elementIndex = randomNumberService.getRandomNumberBetween(0, 3);
-        if (elementIndex == 0) {
-            attunement = Element.Ice;
-        } else if (elementIndex == 1) {
-            attunement = Element.Fire;
-        } else {
-            attunement = Element.Lightning;
-        }
+        setRandomAttunement();
 
         currentTick = -1;
-        startNextTurn();
-        stepUntilBlocked(new LinkedList<>());
+        LinkedList<StateChange> unused = new LinkedList<>();
+        startNextTurn(unused);
+        stepUntilBlocked(unused);
     }
 
     public long getId() {
@@ -150,8 +144,8 @@ public class SpellspeakerGame {
     /**
      * Advance the time tracker until the next turn, and setup the game state to begin that turn.
      */
-    private void startNextTurn() {
-        advanceTimeTracker(new LinkedList<>());
+    private void startNextTurn(List<StateChange> stateChanges) {
+        advanceTimeTracker(stateChanges);
         activePlayer = calculateActivePlayer();
         turnState = new ResolveActiveCardState();
     }
@@ -162,6 +156,11 @@ public class SpellspeakerGame {
     private void advanceTimeTracker(List<StateChange> stateChanges) {
         while (redPlayer.getNextTurnTick() != currentTick && bluePlayer.getNextTurnTick() != currentTick) {
             currentTick = (currentTick + 1) % rules.getTicksPerPhase();
+
+            if (currentTick == 0) {
+                setRandomAttunement();
+                stateChanges.add(new AttunementChanged(attunement));
+            }
         }
     }
 
@@ -204,6 +203,17 @@ public class SpellspeakerGame {
         inputResponse = null;
         inputResponseType = null;
         return result;
+    }
+
+    private void setRandomAttunement() {
+        int elementIndex = randomNumberService.getRandomNumberBetween(0, 3);
+        if (elementIndex == 0) {
+            attunement = Element.Ice;
+        } else if (elementIndex == 1) {
+            attunement = Element.Fire;
+        } else {
+            attunement = Element.Lightning;
+        }
     }
 
     public List<StateChange> provideInput(User currentUser, InputType type, String value) {
@@ -458,11 +468,11 @@ public class SpellspeakerGame {
 
     private class EndOfTurnState implements TurnState {
         @Override
-        public void execute(List<StateChange> stateChangeList, SpellspeakerGame game) {
+        public void execute(List<StateChange> stateChanges, SpellspeakerGame game) {
             if (game.getActivePlayer().getHand().size() > rules.getMaximumHandSize()) {
                 turnState = new WaitForCardToDiscardState();
             } else {
-                startNextTurn();
+                startNextTurn(stateChanges);
             }
         }
 
