@@ -1,6 +1,7 @@
 import {Player} from './player';
 import {Card} from './card';
 import {InputRequest} from './input-request';
+import {StateChange} from './state-change';
 
 export class Game {
   id: number;
@@ -20,5 +21,7 @@ export class Game {
   hand: Card[];
 
   type: string;
+
+  log: string[];
 }
 

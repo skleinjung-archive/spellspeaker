@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpModule} from '@angular/http';
 import {FormsModule} from '@angular/forms';
@@ -19,7 +19,7 @@ import {MessageComponent} from './component/message/message.component';
 import {ErrorInterceptor} from './error-interceptor';
 import {PlayerStatsComponent} from './component/player-stats/player-stats.component';
 import {CardSetComponent} from './component/card-set/card-set.component';
-import { ConfigurationComponent } from './component/configuration/configuration.component';
+import {ConfigurationComponent} from './component/configuration/configuration.component';
 import {ConfigurationService} from './service/configuration.service';
 
 @NgModule({

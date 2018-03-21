@@ -98,6 +98,19 @@ export class GameDetailComponent implements OnInit {
     }
   }
 
+  get logText(): string {
+    let text = '';
+    for (let i = 0; i < this.game.log.length; i++) {
+      if (i !== 0) {
+        text += '\n';
+      }
+
+      text += this.game.log[i];
+    }
+
+    return text;
+  }
+
   isMyTurn(): boolean {
     return this.game.activePlayerColor === this.game.currentUserColor;
   }
