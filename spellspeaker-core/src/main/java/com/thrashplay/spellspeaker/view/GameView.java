@@ -1,6 +1,7 @@
 package com.thrashplay.spellspeaker.view;
 
 import com.thrashplay.spellspeaker.model.*;
+import com.thrashplay.spellspeaker.model.state.StateChange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ public class GameView {
 
     private List<CardView> market;
     private List<CardView> hand;
+
+    private List<String> log;
 
     public GameView(User user, SpellspeakerGame game) {
         final Player currentUserPlayer;
@@ -56,6 +59,8 @@ public class GameView {
         hand = currentUserPlayer == null
                 ? null
                 : CardView.fromCards(currentUserPlayer.getHand().getCards());
+
+        log = game.getStateChangeLog();
     }
 
     public long getId() {
@@ -100,5 +105,9 @@ public class GameView {
 
     public List<CardView> getHand() {
         return hand;
+    }
+
+    public List<String> getLog() {
+        return log;
     }
 }

@@ -41,6 +41,8 @@ public class SpellspeakerGame {
 
     private TurnState turnState;
 
+    private List<String> stateChangeLog = new LinkedList<>();
+
     public SpellspeakerGame(GameRules rules, RandomService randomNumberService, CardFactory cardFactory, PowerDeckFactory powerDeckFactory, SpellEffectExecutor spellEffectExecutor, User blueUser, User redUser) {
         this.rules = rules;
         this.randomNumberService = randomNumberService;
@@ -77,11 +79,13 @@ public class SpellspeakerGame {
             redPlayer.getHand().add(library.draw());
         }
 
-        currentTick = -1;
-        LinkedList<StateChange> unused = new LinkedList<>();
-        beginNewPhase(unused);
-        startNextTurn(unused);
-        stepUntilBlocked(unused);
+        currentTick = -1; // start at -1 because the first thing we do is advance this
+        LinkedList<StateChange> stateChanges = new LinkedList<>();
+        stateChanges.add(new SimpleStateChange("GameBegins", "The game begins."));
+        startNextTurn(stateChanges);
+        stepUntilBlocked(stateChanges);
+
+        recordStateChanges(stateChanges);
     }
 
     public long getId() {
@@ -142,6 +146,10 @@ public class SpellspeakerGame {
         return attunement;
     }
 
+    public List<String> getStateChangeLog() {
+        return stateChangeLog;
+    }
+
     /**
      * Begins a new phase.
      */
@@ -157,7 +165,15 @@ public class SpellspeakerGame {
      */
     private void startNextTurn(List<StateChange> stateChanges) {
         advanceTimeTracker(stateChanges);
+
+        Player oldActivePlayer = activePlayer;
         activePlayer = calculateActivePlayer();
+
+        if (oldActivePlayer != activePlayer) {
+            stateChanges.add(new SimpleStateChange("TurnBegan", "It is now " + activePlayer.getColor().name() + "'s turn."));
+        } else {
+            stateChanges.add(new SimpleStateChange("TurnBegan", "It is still " + activePlayer.getColor().name() + "'s turn."));
+        }
         turnState = new ResolveActiveCardState();
     }
 
@@ -171,6 +187,12 @@ public class SpellspeakerGame {
             if (currentTick == 0) {
                 beginNewPhase(stateChanges);
             }
+        }
+    }
+
+    private void recordStateChanges(List<StateChange> stateChanges) {
+        for (StateChange stateChange : stateChanges) {
+            stateChangeLog.add(stateChange.getMessage());
         }
     }
 
@@ -260,6 +282,7 @@ public class SpellspeakerGame {
 
         List<StateChange> stateChanges = new LinkedList<>();
         stepUntilBlocked(stateChanges);
+        recordStateChanges(stateChanges);
         return stateChanges;
     }
 
@@ -311,8 +334,6 @@ public class SpellspeakerGame {
                         waitForCardInput(game, card);
                         return;
                     }
-
-                    stateChangeList.add(new FinishedCasting(player.getColor().name(), card.getName()));
 
                     if (card.getType().isRune()) {
                         // add the card to the ritual

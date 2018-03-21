@@ -11,4 +11,9 @@ export class Player {
   powerCardDrawPileSize: number;
   powerCardDiscardPileSize: number;
   usedPowerCards: number[];
+
+  // shields
+  iceShieldStrength: number;
+  fireShieldStrength: number;
+  lightningShieldStrength: number;
 }

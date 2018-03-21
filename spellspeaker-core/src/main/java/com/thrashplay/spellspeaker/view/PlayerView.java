@@ -22,6 +22,10 @@ public class PlayerView {
     private int powerCardDrawPileSize;
     private int powerCardDiscardPileSize;
     private List<Integer> usedPowerCards;
+    // shields
+    private int iceShieldStrength;
+    private int fireShieldStrength;
+    private int lightningShieldStrength;
 
     public PlayerView(User requestingUser, Player player) {
         isControlledByClient = requestingUser != null && requestingUser.getId() == player.getUser().getId();
@@ -34,6 +38,10 @@ public class PlayerView {
         powerCardDrawPileSize = player.getPowerDeck().sizeOfDrawPile();
         powerCardDiscardPileSize = player.getPowerDeck().sizeOfDiscardPile();
         usedPowerCards = player.getPowerDeck().getUsedCards();
+        // shields
+        iceShieldStrength = player.getIceShield().getStrength();
+        fireShieldStrength = player.getFireShield().getStrength();
+        lightningShieldStrength = player.getLightningShield().getStrength();
     }
 
     public boolean isControlledByClient() {
@@ -74,5 +82,29 @@ public class PlayerView {
 
     public List<Integer> getUsedPowerCards() {
         return usedPowerCards;
+    }
+
+    public int getIceShieldStrength() {
+        return iceShieldStrength;
+    }
+
+    public void setIceShieldStrength(int iceShieldStrength) {
+        this.iceShieldStrength = iceShieldStrength;
+    }
+
+    public int getFireShieldStrength() {
+        return fireShieldStrength;
+    }
+
+    public void setFireShieldStrength(int fireShieldStrength) {
+        this.fireShieldStrength = fireShieldStrength;
+    }
+
+    public int getLightningShieldStrength() {
+        return lightningShieldStrength;
+    }
+
+    public void setLightningShieldStrength(int lightningShieldStrength) {
+        this.lightningShieldStrength = lightningShieldStrength;
     }
 }
