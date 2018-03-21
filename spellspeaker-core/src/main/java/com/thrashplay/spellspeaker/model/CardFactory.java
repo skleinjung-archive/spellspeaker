@@ -49,6 +49,7 @@ public class CardFactory {
         card.setCastingTime(cardConfiguration.getCastingTime());
         card.setElement(cardConfiguration.getElement());
         card.setPower(cardConfiguration.getPower());
+        card.setElementStrength(cardConfiguration.getElementStrength());
         card.setText(cardConfiguration.getText());
         card.setEffectClass(cardConfiguration.getEffectClass());
         card.setParameter(cardConfiguration.getParameter());

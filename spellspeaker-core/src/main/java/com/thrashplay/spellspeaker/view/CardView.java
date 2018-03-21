@@ -17,6 +17,7 @@ public class CardView {
     private int castingTime;
     private String element;
     private int power;
+    private int elementStrength;
     private String text;
 
     public String getName() {
@@ -51,6 +52,10 @@ public class CardView {
         return power;
     }
 
+    public int getElementStrength() {
+        return elementStrength;
+    }
+
     public String getText() {
         return text;
     }
@@ -65,6 +70,7 @@ public class CardView {
         view.castingTime = card.getCastingTime();
         view.element = card.getElement().name();
         view.power = card.getPower();
+        view.elementStrength = card.getElementStrength();
         view.text = card.getText();
         return view;
     }

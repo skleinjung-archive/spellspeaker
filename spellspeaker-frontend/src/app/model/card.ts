@@ -10,6 +10,7 @@ export class Card {
 
   element: string;
   power: number;
+  elementStrength: number;
 
   text: string;
 }

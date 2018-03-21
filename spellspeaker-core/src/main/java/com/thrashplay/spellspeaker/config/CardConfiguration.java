@@ -17,6 +17,7 @@ public class CardConfiguration {
     private int castingTime;
     private Element element;
     private int power;
+    private int elementStrength;
     private String text;
     private Class<? extends SpellEffect> effectClass;
     private CardExecutionParameter parameter;
@@ -84,6 +85,14 @@ public class CardConfiguration {
 
     public void setPower(int power) {
         this.power = power;
+    }
+
+    public int getElementStrength() {
+        return elementStrength;
+    }
+
+    public void setElementStrength(int elementStrength) {
+        this.elementStrength = elementStrength;
     }
 
     public String getText() {

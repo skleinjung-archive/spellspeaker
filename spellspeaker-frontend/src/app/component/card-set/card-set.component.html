@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="cardBody">
-      <p *ngIf="card.element && card.element !== 'None'">Element: {{card.element}}</p>
+      <p *ngIf="card.element && card.element !== 'None'">Element: {{card.element}} ({{card.elementStrength}})</p>
       <p *ngIf="card.power && card.power != 0">Power: {{card.power > 0 ? '+' : ''}}{{card.power}}</p>
       <p *ngIf="card.text" class="special">{{card.text}}</p>
     </div>

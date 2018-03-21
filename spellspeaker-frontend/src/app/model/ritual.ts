@@ -5,4 +5,5 @@ export class Ritual {
   effect: string;
   element: string;
   power: number;
+  elementStrength: number;
 }

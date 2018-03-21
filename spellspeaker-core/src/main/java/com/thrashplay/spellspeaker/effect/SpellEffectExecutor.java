@@ -40,6 +40,7 @@ public class SpellEffectExecutor {
             ritualPropertyProvider.addPropertyValue("ritual", ritual);
             ritualPropertyProvider.addPropertyValue("element", ritual.getElement());
             ritualPropertyProvider.addPropertyValue("power", ritual.getPower());
+            ritualPropertyProvider.addPropertyValue("elementStrength", ritual.getElementStrength());
 
             PropertyInjector injector = createDefaultPropertyInjector(game);
             injector.addPropertyProvider(ritualPropertyProvider);
@@ -54,6 +55,7 @@ public class SpellEffectExecutor {
     private PropertyInjector createDefaultPropertyInjector(SpellspeakerGame game) {
         MapBackedPropertyProvider defaultProperties = new MapBackedPropertyProvider();
         defaultProperties.addPropertyValue("game", game);
+        defaultProperties.addPropertyValue("attunement", game.getAttunement());
         defaultProperties.addPropertyValue("rules", game.getRules());
         defaultProperties.addPropertyValue("library", game.getLibrary());
         defaultProperties.addPropertyValue("market", game.getMarket());

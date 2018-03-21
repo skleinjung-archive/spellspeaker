@@ -38,6 +38,14 @@ public class Ritual extends CardContainer {
         return power;
     }
 
+    public int getElementStrength() {
+        int strength = 0;
+        for (Card card : cards) {
+            strength += card.getElementStrength();
+        }
+        return strength;
+    }
+
     public void clear(Hand hand, DiscardPile discardPile) {
         for (Card card : getCards()) {
             if (card.isBaseCard()) {

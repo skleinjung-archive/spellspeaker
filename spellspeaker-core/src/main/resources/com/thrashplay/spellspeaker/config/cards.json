@@ -55,6 +55,7 @@
       "castingTime": "2",
       "element": "Ice",
       "power": "1",
+      "elementStrength": "1",
       "text": "If (P) is less than one, then this spell has a power of one.",
       "quantity": "5"
     },
@@ -64,6 +65,7 @@
       "castingTime": "3",
       "element": "Ice",
       "power": "2",
+      "elementStrength": "2",
       "text": "If (P) is less than two, then this spell has a power of two.",
       "quantity": "4"
     },
@@ -73,6 +75,7 @@
       "castingTime": "4",
       "element": "Ice",
       "power": "3",
+      "elementStrength": "3",
       "text": "If (P) is less than three, then this spell has a power of three.",
       "quantity": "3"
     },
@@ -82,6 +85,7 @@
       "castingTime": "1",
       "element": "Lightning",
       "power": "2",
+      "elementStrength": "1",
       "quantity": "5"
     },
     {
@@ -90,6 +94,7 @@
       "castingTime": "2",
       "element": "Lightning",
       "power": "3",
+      "elementStrength": "2",
       "quantity": "4"
     },
     {
@@ -98,6 +103,7 @@
       "castingTime": "3",
       "element": "Lightning",
       "power": "4",
+      "elementStrength": "3",
       "quantity": "3"
     },
     {
@@ -106,6 +112,7 @@
       "castingTime": "3",
       "element": "Fire",
       "power": "3",
+      "elementStrength": "1",
       "quantity": "5"
     },
     {
@@ -114,6 +121,7 @@
       "castingTime": "4",
       "element": "Fire",
       "power": "4",
+      "elementStrength": "2",
       "quantity": "4"
     },
     {
@@ -122,6 +130,7 @@
       "castingTime": "5",
       "element": "Fire",
       "power": "5",
+      "elementStrength": "3",
       "quantity": "3"
     },
     {

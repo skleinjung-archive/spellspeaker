@@ -161,6 +161,7 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
         private int quantity;
         private String element;
         private int power;
+        private int elementStrength;
         private String text;
         private List<String> textVariables;
         private String effect;
@@ -187,6 +188,7 @@ public class JsonCardConfigurationRepository implements CardConfigurationReposit
 
             result.setElement(element == null ? Element.None : Element.fromName(element));
             result.setPower(power);
+            result.setElementStrength(elementStrength);
             result.setText(resolveText(rules));
 
             if (effect == null) {
