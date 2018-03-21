@@ -91,42 +91,57 @@
   </div>
 
   <div *ngIf="isMyTurn() && game.inputRequest.type === 'TextEntry'">
-    <div class="section userInput">
-      <h3>Input Needed</h3>
-      <div>
-        <label>{{game.inputRequest.prompt}}</label>
-      </div>
-      <div>
-        <input [(ngModel)]="userInput" placeholder="Enter a value"/>
-      </div>
-      <div>
-        <button (click)="confirmUserInput()">Submit</button>
+    <div class="section userInput" [ngClass]="{visible: animationsStarted}">
+      <div class="actionsAndContentContainer">
+        <div class="actionSection">
+          <h3>Input Needed</h3>
+        </div>
+        <div class="contentSection">
+          <div>
+            <label>{{game.inputRequest.prompt}}</label>
+          </div>
+          <div>
+            <input [(ngModel)]="userInput" placeholder="Enter a value"/>
+          </div>
+          <div>
+            <button (click)="confirmUserInput()">Submit</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <div *ngIf="game.hand !== null">
     <div class="section">
-      <h3>Hand</h3>
-      <div *ngIf="getHandSelectionPrompt() !== null" class="selectionPrompt">
-        {{getHandSelectionPrompt()}}
-      </div>
-      <app-card-set [cards]="game.hand" [selectionEnabled]="isHandSelectionEnabled()"></app-card-set>
-      <div class="actions">
-        <button (click)="confirmHandSelection()" [disabled]="!getSelectedCardFromHand()">Confirm Selection</button>
+      <div class="actionsAndContentContainer">
+        <div class="actionSection">
+          <h3>Hand</h3>
+          <button (click)="confirmHandSelection()" [disabled]="!getSelectedCardFromHand()">Confirm Selection</button>
+        </div>
+        <div class="contentSection">
+          <div class="selectionPrompt" [ngClass]="{visible: getHandSelectionPrompt() !== null && animationsStarted}">
+            {{getHandSelectionPrompt()}}
+          </div>
+
+          <app-card-set [cards]="game.hand" [selectionEnabled]="isHandSelectionEnabled()"></app-card-set>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <h3>Market</h3>
-    <div *ngIf="getMarketSelectionPrompt() !== null" class="selectionPrompt">
-      {{getMarketSelectionPrompt()}}
-    </div>
-    <app-card-set [cards]="game.market" [selectionEnabled]="isMarketSelectionEnabled()"></app-card-set>
-    <div class="actions">
-      <button (click)="confirmMarketSelection()" [disabled]="!getSelectedCardFromMarket()">Confirm Selection</button>
-    </div>
+    <div class="actionsAndContentContainer">
+      <div class="actionSection">
+        <h3>Market</h3>
+        <button (click)="confirmMarketSelection()" [disabled]="!getSelectedCardFromMarket()">Confirm Selection</button>
+      </div>
+      <div class="contentSection">
+        <div class="selectionPrompt" [ngClass]="{visible: getMarketSelectionPrompt() !== null && animationsStarted}">
+          {{getMarketSelectionPrompt()}}
+        </div>
+
+        <app-card-set [cards]="game.market" [selectionEnabled]="isMarketSelectionEnabled()"></app-card-set>
+      </div>
   </div>
 
   <div class="section">

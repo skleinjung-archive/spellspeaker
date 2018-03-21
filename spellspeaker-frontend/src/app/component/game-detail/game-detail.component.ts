@@ -31,6 +31,7 @@ export class GameDetailComponent implements OnInit {
 
   @Input() private _game: Game;
   private _stateChanges: StateChange[];
+  private _animationsStarted: boolean;
 
   userInput: string;
   rules: Rules;
@@ -64,6 +65,18 @@ export class GameDetailComponent implements OnInit {
 
   set game(value: Game) {
     this._game = value;
+    this.animationsStarted = false;
+    setTimeout(() => {
+      this.animationsStarted = true;
+    }, 250);
+  }
+
+  get animationsStarted(): boolean {
+    return this._animationsStarted;
+  }
+
+  set animationsStarted(value: boolean) {
+    this._animationsStarted = value;
   }
 
   get stateChanges(): StateChange[] {

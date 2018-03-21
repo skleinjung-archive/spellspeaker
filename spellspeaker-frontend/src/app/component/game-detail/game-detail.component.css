@@ -21,8 +21,6 @@ button:disabled {
   cursor: auto;
 }
 
-.gameOverview {
-}
 .attunementIcon {
   display: inline-block;
   float:left;
@@ -74,19 +72,33 @@ div.timeTrackSpace.currentTick {
 /* market */
 
 /* hand and market action rows */
-.actions {
-  margin: 16px 0 8px 0;
+.actionsAndContentContainer {
+  display: flex;
+}
+.actionsAndContentContainer .actionSection h3 {
+  background-color: transparent;
+}
+.actionSection {
+  display: inline-block;
+  float: left;
+  margin: 0 8px 8px 8px;
+  height: 100%;
+  text-align: center;
+
+  flex: 0 0 136px;
+}
+.contentSection {
+  display: inline-block;
+  margin-left: 8px;
+  padding-left: 32px;
+  border-left: 1px solid #999;
+  flex: 1 1 auto;
 }
 .actions button {
   margin: 0;
 }
 
 /* user input section */
-
-.section.userInput div {
-  margin-left: 16px;
-}
-
 .userInput label {
   width: unset;
   color: #333;
@@ -95,10 +107,41 @@ div.timeTrackSpace.currentTick {
   margin-top: 12px;
 }
 
-.selectionPrompt {
+/* user input section */
+.section.userInput {
+  height: 0;
+  overflow: hidden;
   background-color: #FEEFB3;
-  padding: 8px;
+  border: 1px solid #666;
+}
+.section.userInput.visible {
+  height: 115px;
+
+  -webkit-transition: height 500ms linear;
+  -moz-transition: height 500ms linear;
+  -ms-transition: height 500ms linear;
+  -o-transition: height 500ms linear;
+  transition: height 500ms linear;
+}
+
+.selectionPrompt {
+  height: 0;
+  overflow: hidden;
+  padding: 0;
+
+  background-color: #FEEFB3;
+  font-size: 1.3em;
   margin-bottom: 8px;
+}
+.selectionPrompt.visible {
+  height: 24px;
+  padding: 8px;
+
+  -webkit-transition: height 150ms linear;
+  -moz-transition: height 150ms linear;
+  -ms-transition: height 150ms linear;
+  -o-transition: height 150ms linear;
+  transition: height 150ms linear;
 }
 
 .ritualActions {

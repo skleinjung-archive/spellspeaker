@@ -81,11 +81,25 @@ ul.cardSet li.updated {
   display: inline-block;
 }
 
+.cardSet:hover .cardBody, .card.selected .cardBody {
+  height: 121px;
+  width: 132px;
+}
+
+.cardSet:hover .cardFooter, .card.selected .cardFooter {
+  display: block;
+}
+
 /* card text */
 .cardBody {
-  height: 121px;
+  height: 6px;
+  overflow: hidden;
   padding: 4px;
   font-size: 0.75em;
+  /*display: none;*/
+
+  -webkit-transition: height 500ms;
+  transition: height 500ms;
 }
 p {
   padding: 0;
@@ -100,6 +114,7 @@ p + p.special {
   border-top: 1px solid #ccc;
   padding: 4px;
   font-size: 0.5em;
+  display: none;
 }
 
 /* base card styles */
