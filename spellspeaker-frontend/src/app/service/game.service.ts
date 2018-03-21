@@ -34,12 +34,8 @@ export class GameService {
     return this.http.get<Game>(url);
   }
 
-  playCardFromHand(gameId: number, card: Card): Observable<ActionResult> {
-    return this.selectCard('PlayCardFromHand', gameId, card);
-  }
-
-  discardCardFromHand(gameId: number, card: Card): Observable<ActionResult> {
-    return this.selectCard('DiscardCardFromHand', gameId, card);
+  selectCardFromHand(gameId: number, card: Card): Observable<ActionResult> {
+    return this.selectCard('SelectCardFromHand', gameId, card);
   }
 
   selectCardFromMarket(gameId: number, card: Card): Observable<ActionResult> {

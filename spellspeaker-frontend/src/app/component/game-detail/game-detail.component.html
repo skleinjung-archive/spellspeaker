@@ -1,6 +1,8 @@
 <script src="../../service/game.service.ts"></script>
+<!--<div *ngIf="!game || !rules" style="display: table-cell; vertical-align: center; text-align: center;">-->
+  <!--<img src="../../../assets/images/spinner.gif"/>-->
+<!--</div>-->
 <div *ngIf="game && rules">
-
   <!--<div class="section">
     <h3>General</h3>
     <div>
@@ -107,6 +109,11 @@
     <div class="actions">
       <button (click)="confirmMarketSelection()" [disabled]="!getSelectedCardFromMarket()">Confirm Selection</button>
     </div>
+  </div>
+
+  <div class="section debugInformation">
+    <h3>Debug Information</h3>
+    <label>inputRequest.type: </label> <span>{{game.inputRequest.type}}</span>
   </div>
 
   <!--<button (click)="goBack()">Back</button>-->

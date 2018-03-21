@@ -90,7 +90,7 @@ export class GameDetailComponent implements OnInit {
   }
 
   isMarketSelectionEnabled(): boolean {
-    return this.isMyTurn() && (this.game.inputRequest.type === 'SelectCardFromMarket');
+    return this.isMyTurn() && (this.game.inputRequest.type === 'CardFromMarket');
   }
 
   getMarketSelectionPrompt(): string {
@@ -116,7 +116,7 @@ export class GameDetailComponent implements OnInit {
   }
 
   isHandSelectionEnabled(): boolean {
-    return this.isMyTurn() && (this.game.inputRequest.type === 'PlayCardFromHand' || this.game.inputRequest.type === 'SelectCardToDiscard');
+    return this.isMyTurn() && this.game.inputRequest.type === 'CardFromHand';
   }
 
   getHandSelectionPrompt(): string {
@@ -124,14 +124,7 @@ export class GameDetailComponent implements OnInit {
       return null;
     }
 
-    switch (this.game.inputRequest.type) {
-      case 'PlayCardFromHand':
-        return 'Select a card to play.';
-      case 'SelectCardToDiscard':
-        return 'Select a card to discard.';
-      default:
-        return null;
-    }
+    return this.game.inputRequest.prompt;
   }
 
   getSelectedCardFromHand(): Card {
@@ -145,10 +138,8 @@ export class GameDetailComponent implements OnInit {
   }
 
   confirmHandSelection(): void {
-    if (this.game.inputRequest.type === 'PlayCardFromHand') {
-      this.processActionResult(this.gameService.playCardFromHand(this._game.id, this.getSelectedCardFromHand()));
-    } else if (this.game.inputRequest.type === 'SelectCardToDiscard') {
-      this.processActionResult(this.gameService.discardCardFromHand(this._game.id, this.getSelectedCardFromHand()));
+    if (this.game.inputRequest.type === 'CardFromHand') {
+      this.processActionResult(this.gameService.selectCardFromHand(this._game.id, this.getSelectedCardFromHand()));
     } else {
       this.messageService.showError('Unknown inputRequest type: ' + this.game.inputRequest.type);
     }

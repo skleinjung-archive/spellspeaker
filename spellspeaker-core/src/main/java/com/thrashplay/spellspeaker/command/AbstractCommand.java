@@ -15,8 +15,7 @@ import java.util.List;
               include = JsonTypeInfo.As.PROPERTY,
               property = "action")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = PlayCardFromHand.class, name = "PlayCardFromHand"),
-        @JsonSubTypes.Type(value = DiscardCardFromHand.class, name = "DiscardCardFromHand"),
+        @JsonSubTypes.Type(value = SelectCardFromHand.class, name = "SelectCardFromHand"),
         @JsonSubTypes.Type(value = SelectCardFromMarket.class, name = "SelectCardFromMarket"),
         @JsonSubTypes.Type(value = SubmitUserInput.class, name = "SubmitUserInput"),
         @JsonSubTypes.Type(value = CompleteRitual.class, name = "CompleteRitual")

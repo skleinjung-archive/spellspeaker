@@ -4,30 +4,24 @@ package com.thrashplay.spellspeaker.model;
  * @author Sean Kleinjung
  */
 public class InputRequest {
-    public enum InputRequestType {
-        PlayCardFromHand,
-        SelectCardToDiscard,
-        SelectCardFromMarket,
-        TextEntry
-    }
 
-    private InputRequestType type;
+    private InputType type;
     private String prompt;
 
-    public InputRequest(InputRequestType type) {
+    public InputRequest(InputType type) {
         this.type = type;
     }
 
-    public InputRequest(InputRequestType type, String prompt) {
+    public InputRequest(InputType type, String prompt) {
         this.type = type;
         this.prompt = prompt;
     }
 
-    public InputRequestType getType() {
+    public InputType getType() {
         return type;
     }
 
-    public void setType(InputRequestType type) {
+    public void setType(InputType type) {
         this.type = type;
     }
 

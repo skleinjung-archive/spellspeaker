@@ -1,6 +1,6 @@
 package com.thrashplay.spellspeaker.command;
 
-import com.thrashplay.spellspeaker.model.InputRequest;
+import com.thrashplay.spellspeaker.model.InputType;
 import com.thrashplay.spellspeaker.model.SpellspeakerGame;
 import com.thrashplay.spellspeaker.model.User;
 import com.thrashplay.spellspeaker.model.state.StateChange;
@@ -23,6 +23,6 @@ public class SelectCardFromMarket extends AbstractCommand {
 
     @Override
     public List<StateChange> execute(User currentUser, SpellspeakerGame game) {
-        return game.provideInput(currentUser, InputRequest.InputRequestType.SelectCardFromMarket, card);
+        return game.provideInput(currentUser, InputType.CardFromMarket, card);
     }
 }

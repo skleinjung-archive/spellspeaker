@@ -116,3 +116,7 @@ div.timeTrackSpace.currentTick {
   width: unset;
   margin: 2px;
 }
+
+.debugInformation label {
+  width: 150px;
+}

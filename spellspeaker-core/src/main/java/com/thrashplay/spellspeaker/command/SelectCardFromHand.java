@@ -1,7 +1,7 @@
 package com.thrashplay.spellspeaker.command;
 
 
-import com.thrashplay.spellspeaker.model.InputRequest;
+import com.thrashplay.spellspeaker.model.InputType;
 import com.thrashplay.spellspeaker.model.SpellspeakerGame;
 import com.thrashplay.spellspeaker.model.User;
 import com.thrashplay.spellspeaker.model.state.StateChange;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Sean Kleinjung
  */
-public class PlayCardFromHand extends AbstractCommand {
+public class SelectCardFromHand extends AbstractCommand {
     private String card;
 
     public String getCard() {
@@ -24,6 +24,6 @@ public class PlayCardFromHand extends AbstractCommand {
 
     @Override
     public List<StateChange> execute(User currentUser, SpellspeakerGame game) {
-        return game.provideInput(currentUser, InputRequest.InputRequestType.PlayCardFromHand, card);
+        return game.provideInput(currentUser, InputType.CardFromHand, card);
     }
 }
