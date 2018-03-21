@@ -9,9 +9,7 @@ import java.util.List;
 /**
  * @author Sean Kleinjung
  */
-public class Market {
-    private List<Card> cards;
-
+public class Market extends CardContainer {
     private GameRules rules;
     private DiscardPile discardPile;
     private Library library;
@@ -24,14 +22,6 @@ public class Market {
         cards = new ArrayList<>(rules.getMarketSize());
     }
 
-    public List<Card> getCards() {
-        return new ArrayList<>(cards);
-    }
-
-    public int size() {
-        return cards.size();
-    }
-
     public void refresh() {
         discardPile.addAll(cards);
         cards.clear();
@@ -39,17 +29,5 @@ public class Market {
         for (int i = 0; i < rules.getMarketSize(); i++) {
             cards.add(library.draw());
         }
-    }
-
-    public void buy(Card card) {
-        cards.remove(card);
-    }
-
-    //    public void drawTo(Hand hand) {
-//        hand.add(draw());
-//    }
-
-    public boolean hasCards() {
-        return !cards.isEmpty();
     }
 }

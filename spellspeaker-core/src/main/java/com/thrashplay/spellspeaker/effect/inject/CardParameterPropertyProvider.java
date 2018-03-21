@@ -18,6 +18,7 @@ public class CardParameterPropertyProvider implements PropertyProvider {
                 break;
 
             case String:
+            case CardFromMarket:
                 this.parameterValue = enteredValue;
                 break;
         }

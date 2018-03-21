@@ -7,13 +7,16 @@ public class CardExecutionParameter {
     public enum Type {
         None,
         String,
-        Integer;
+        Integer,
+        CardFromMarket;
 
         public static Type fromName(String type) {
             if ("String".equals(type)) {
                 return String;
             } else if ("Integer".equals(type)) {
                 return Integer;
+            } else if ("CardFromMarket".equals(type)) {
+                return CardFromMarket;
             } else {
                 return None;
             }

@@ -7,6 +7,7 @@ public class InputRequest {
     public enum InputRequestType {
         PlayCardFromHand,
         SelectCardToDiscard,
+        SelectCardFromMarket,
         TextEntry
     }
 

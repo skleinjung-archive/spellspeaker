@@ -90,8 +90,29 @@ export class GameDetailComponent implements OnInit {
   }
 
   isMarketSelectionEnabled(): boolean {
-    // todo: implement this
-    return false;
+    return this.isMyTurn() && (this.game.inputRequest.type === 'SelectCardFromMarket');
+  }
+
+  getMarketSelectionPrompt(): string {
+    if (!this.isMarketSelectionEnabled()) {
+      return null;
+    }
+
+    return this.game.inputRequest.prompt;
+  }
+
+  getSelectedCardFromMarket(): Card {
+    for (let i = 0; i < this.game.market.length; i++) {
+      const card = this.game.market[i];
+      if (card.selected) {
+        return card;
+      }
+    }
+    return null;
+  }
+
+  confirmMarketSelection(): void {
+    this.processActionResult(this.gameService.selectCardFromMarket(this.game.id, this.getSelectedCardFromMarket()));
   }
 
   isHandSelectionEnabled(): boolean {
@@ -111,16 +132,6 @@ export class GameDetailComponent implements OnInit {
       default:
         return null;
     }
-  }
-
-  getSelectedCardFromMarket(): Card {
-    for (let i = 0; i < this.game.market.length; i++) {
-      const card = this.game.market[i];
-      if (card.selected) {
-        return card;
-      }
-    }
-    return null;
   }
 
   getSelectedCardFromHand(): Card {

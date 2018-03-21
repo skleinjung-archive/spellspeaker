@@ -17,6 +17,7 @@ import java.util.List;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = PlayCardFromHand.class, name = "PlayCardFromHand"),
         @JsonSubTypes.Type(value = DiscardCardFromHand.class, name = "DiscardCardFromHand"),
+        @JsonSubTypes.Type(value = SelectCardFromMarket.class, name = "SelectCardFromMarket"),
         @JsonSubTypes.Type(value = SubmitUserInput.class, name = "SubmitUserInput"),
         @JsonSubTypes.Type(value = CompleteRitual.class, name = "CompleteRitual")
 })

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {ConfigurationService} from '../../service/configuration.service';
 
 @Component({

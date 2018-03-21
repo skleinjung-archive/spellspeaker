@@ -47,6 +47,7 @@ public class SpellspeakerGame {
         redPlayer = new Player(redUser, PlayerColor.Red);
         redPlayer.setHealth(rules.getMaximumHealth());
         redPlayer.setMana(rules.getMaximumMana());
+        redPlayer.setNextTurnTick(29);
 
         playerWithInitiative = bluePlayer; // todo: randomly determine this
 
@@ -120,7 +121,12 @@ public class SpellspeakerGame {
 
     private void requestInput() {
         if (activePlayer.getActiveCard() != null && activePlayer.getActiveCard().requiresInput() && (inputResponse == null || inputResponse.length() == 0)) {
-            inputRequest = new InputRequest(InputRequest.InputRequestType.TextEntry, activePlayer.getActiveCard().getParameter().getPrompt());
+            CardExecutionParameter parameter = activePlayer.getActiveCard().getParameter();
+            if (parameter.getType() == CardExecutionParameter.Type.CardFromMarket) {
+                inputRequest = new InputRequest(InputRequest.InputRequestType.SelectCardFromMarket, parameter.getPrompt());
+            } else {
+                inputRequest = new InputRequest(InputRequest.InputRequestType.TextEntry, parameter.getPrompt());
+            }
         } else if (activePlayer.getHand().size() > rules.getMaximumHandSize()) {
             inputRequest = new InputRequest(InputRequest.InputRequestType.SelectCardToDiscard);
         } else {
@@ -155,7 +161,7 @@ public class SpellspeakerGame {
             throw new InvalidInputException("Did not expect a card to be selected from your hand.");
         }
 
-        Card card = findCardInHand(activePlayer, cardName);
+        Card card = findCardIn(activePlayer.getHand(), cardName, "You do not have that card.");
 
         List<StateChange> stateChanges = new LinkedList<>();
         // validate the rune can be added to the ritual
@@ -179,6 +185,16 @@ public class SpellspeakerGame {
         return stateChanges;
     }
 
+    public List<StateChange> selectCardFromMarket(User currentUser, String cardName) {
+        assertCurrentUserIsActive(currentUser.getId());
+        if (inputRequest.getType() != InputRequest.InputRequestType.SelectCardFromMarket) {
+            throw new InvalidInputException("Did not expect a card to be selected from the market.");
+        }
+
+        Card card = findCardIn(market, cardName, "The market does not contain that card.");
+        return handleUserInput(currentUser, card.getName());
+    }
+
     public List<StateChange> completeRitual(long userId) {
         assertCurrentUserIsActive(userId);
 
@@ -196,7 +212,7 @@ public class SpellspeakerGame {
             throw new InvalidInputException("Did not expect a card to be discarded from your hand.");
         }
 
-        Card card = findCardInHand(activePlayer, cardName);
+        Card card = findCardIn(activePlayer.getHand(), cardName, "You do not have that card.");
         if (card.isBaseCard()) {
             throw new InvalidInputException("You cannot discard a base card.");
         }
@@ -214,7 +230,7 @@ public class SpellspeakerGame {
     public List<StateChange> handleUserInput(User currentUser, String input) {
         assertCurrentUserIsActive(currentUser.getId());
 
-        if (inputRequest.getType() != InputRequest.InputRequestType.TextEntry) {
+        if (inputRequest.getType() != InputRequest.InputRequestType.TextEntry && inputRequest.getType() != InputRequest.InputRequestType.SelectCardFromMarket) {
             throw new InvalidInputException("Not expecting user input.");
         }
 
@@ -234,14 +250,14 @@ public class SpellspeakerGame {
         }
     }
 
-    private Card findCardInHand(Player activePlayer, String cardName) {
-        for (Card currentCard : activePlayer.getHand().getCards()) {
+    private Card findCardIn(CardContainer cardContainer, String cardName, String notFoundErrorMessage) {
+        for (Card currentCard : cardContainer.getCards()) {
             if (currentCard.getName().equals(cardName)) {
                 return currentCard;
             }
         }
 
-        throw new InvalidInputException("You do not have that card.");
+        throw new InvalidInputException(notFoundErrorMessage);
     }
 
     private void spendManaAndTime(Player activePlayer, Card card) {
@@ -294,6 +310,10 @@ public class SpellspeakerGame {
 
     public Market getMarket() {
         return market;
+    }
+
+    public DiscardPile getDiscardPile() {
+        return discardPile;
     }
 
     public Library getLibrary() {

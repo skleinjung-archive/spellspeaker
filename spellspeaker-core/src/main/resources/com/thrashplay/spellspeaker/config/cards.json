@@ -25,7 +25,13 @@
       "reusable": "true",
       "manaCost": "0",
       "castingTime": "1",
-      "text": "Take a card from the market, and add it to your hand."
+      "text": "Take a card from the market, and add it to your hand. This spell has no effect if there are no cards in the market.",
+      "effect": "com.thrashplay.spellspeaker.effect.spell.Purchase",
+      "parameter": {
+        "name": "cardName",
+        "type": "CardFromMarket",
+        "prompt": "Select a card to purchase:"
+      }
     },
     {
       "name": "Research",

@@ -20,7 +20,7 @@ import {ErrorInterceptor} from './error-interceptor';
 import {PlayerStatsComponent} from './component/player-stats/player-stats.component';
 import {CardSetComponent} from './component/card-set/card-set.component';
 import { ConfigurationComponent } from './component/configuration/configuration.component';
-import {ConfigurationService} from "./service/configuration.service";
+import {ConfigurationService} from './service/configuration.service';
 
 @NgModule({
   declarations: [

@@ -56,6 +56,8 @@ public class SpellEffectExecutor {
         defaultProperties.addPropertyValue("game", game);
         defaultProperties.addPropertyValue("rules", game.getRules());
         defaultProperties.addPropertyValue("library", game.getLibrary());
+        defaultProperties.addPropertyValue("market", game.getMarket());
+        defaultProperties.addPropertyValue("discardPile", game.getDiscardPile());
         defaultProperties.addPropertyValue("activePlayer", game.getActivePlayer());
         defaultProperties.addPropertyValue("opponent", game.getNonActivePlayer());
 

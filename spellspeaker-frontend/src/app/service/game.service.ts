@@ -35,42 +35,21 @@ export class GameService {
   }
 
   playCardFromHand(gameId: number, card: Card): Observable<ActionResult> {
-    const url = this.gamesUrl + '/' + gameId + '/actions';
-    return this.http.post<ActionResult>(url, JSON.stringify({
-      action: 'PlayCardFromHand',
-      card: card.name
-    }), {headers: this.headers});
-      // .map(result => {
-      //   const newResult = new ActionResult();
-      //   newResult.game = result.game;
-      //   newResult.stateChanges = [];
-      //
-      //   for (let i = 0; i < result.stateChanges.length; i++) {
-      //     let stateChange;
-      //     switch (result.stateChanges[i].type) {
-      //       case 'AddedToRitual':
-      //         stateChange = new AddedToRitualStateChange();
-      //         break;
-      //
-      //       default:
-      //         stateChange = new StateChange();
-      //     }
-      //
-      //     for (const p in result.stateChanges[i]) {
-      //       stateChange[p] = result.stateChanges[i][p];
-      //     }
-      //
-      //     newResult.stateChanges.push(stateChange);
-      //   }
-      //
-      //   return newResult;
-      // });
+    return this.selectCard('PlayCardFromHand', gameId, card);
   }
 
   discardCardFromHand(gameId: number, card: Card): Observable<ActionResult> {
+    return this.selectCard('DiscardCardFromHand', gameId, card);
+  }
+
+  selectCardFromMarket(gameId: number, card: Card): Observable<ActionResult> {
+    return this.selectCard('SelectCardFromMarket', gameId, card);
+  }
+
+  selectCard(action: string, gameId: number, card: Card) {
     const url = this.gamesUrl + '/' + gameId + '/actions';
     return this.http.post<ActionResult>(url, JSON.stringify({
-      action: 'DiscardCardFromHand',
+      action: action,
       card: card.name
     }), {headers: this.headers});
   }
