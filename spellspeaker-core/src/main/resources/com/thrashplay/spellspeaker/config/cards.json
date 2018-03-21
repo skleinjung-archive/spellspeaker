@@ -146,6 +146,39 @@
       "castingTime": "3",
       "text": "Applies two stacks of an affliction to your opponent, of the type associated with this spell's element.",
       "quantity": "4"
+    },
+    {
+      "name": "Ice Shield",
+      "type": "Spell",
+      "manaCost": "8",
+      "castingTime": "1",
+      "element": "Ice",
+      "power": "4",
+      "text": "Increase the strength of your ice shield by (P).",
+      "quantity": "4",
+      "effect": "com.thrashplay.spellspeaker.effect.spell.Shield"
+    },
+    {
+      "name": "Fire Shield",
+      "type": "Spell",
+      "manaCost": "8",
+      "castingTime": "1",
+      "element": "Fire",
+      "power": "4",
+      "text": "Increase the strength of your fire shield by (P).",
+      "quantity": "4",
+      "effect": "com.thrashplay.spellspeaker.effect.spell.Shield"
+    },
+    {
+      "name": "Lightning Shield",
+      "type": "Spell",
+      "manaCost": "8",
+      "castingTime": "1",
+      "element": "Lightning",
+      "power": "4",
+      "text": "Increase the strength of your lightning shield by (P).",
+      "quantity": "4",
+      "effect": "com.thrashplay.spellspeaker.effect.spell.Shield"
     }
   ]
 }

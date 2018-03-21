@@ -20,7 +20,12 @@ public class SpellEffectExecutor {
         try {
             SpellEffect effect = spellCard.getEffectClass().newInstance();
 
+            MapBackedPropertyProvider spellPropertyProvider = new MapBackedPropertyProvider();
+            spellPropertyProvider.addPropertyValue("element", spellCard.getElement());
+            spellPropertyProvider.addPropertyValue("power", spellCard.getPower());
+
             PropertyInjector injector = createDefaultPropertyInjector(game);
+            injector.addPropertyProvider(spellPropertyProvider);
             if (spellCard.getParameter() != null) {
                 injector.addPropertyProvider(new CardParameterPropertyProvider(spellCard.getParameter(), parameterValue));
             }
@@ -61,6 +66,7 @@ public class SpellEffectExecutor {
         defaultProperties.addPropertyValue("market", game.getMarket());
         defaultProperties.addPropertyValue("discardPile", game.getDiscardPile());
         defaultProperties.addPropertyValue("activePlayer", game.getActivePlayer());
+        defaultProperties.addPropertyValue("activeCard", game.getActivePlayer().getActiveCard());
         defaultProperties.addPropertyValue("opponent", game.getNonActivePlayer());
 
         PropertyInjector injector = new PropertyInjector();

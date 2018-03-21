@@ -92,6 +92,19 @@ public class Player {
         this.powerDeck = powerDeck;
     }
 
+    public Shield getShield(Element element) {
+        switch (element) {
+            case Ice:
+                return iceShield;
+            case Fire:
+                return fireShield;
+            case Lightning:
+                return lightningShield;
+            default:
+                return null;
+        }
+    }
+
     public Shield getIceShield() {
         return iceShield;
     }
@@ -114,5 +127,20 @@ public class Player {
 
     public void setLightningShield(Shield lightningShield) {
         this.lightningShield = lightningShield;
+    }
+
+    public void resolveAttack(Element element, int power) {
+        Shield shield = getShield(element);
+        if (shield != null && shield.getStrength() > 0) {
+            int strength = shield.getStrength();
+            if (strength >= power) {
+                // completely blocked
+                shield.setStrength(strength - power);
+            } else {
+                // some damage got through
+                health -= (power - shield.getStrength());
+                shield.setStrength(0);
+            }
+        }
     }
 }

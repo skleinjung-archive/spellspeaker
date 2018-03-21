@@ -61,7 +61,9 @@ public class Inflict implements SpellEffect {
         }
 
         for (InflictResult.Attack attack : result.getAttacks()) {
-            opponent.setHealth(opponent.getHealth() - attack.getPower());
+            if (attack.getPower() > 0) {
+                opponent.resolveAttack(attack.getElement(), attack.getPower());
+            }
         }
     }
 
