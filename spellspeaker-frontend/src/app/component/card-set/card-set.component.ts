@@ -10,6 +10,7 @@ export class CardSetComponent implements OnInit {
 
   @Input() cards: Card[];
   @Input() updatedCardNames: string[];
+  @Input() expanded: boolean;
   @Input() selectionEnabled: boolean;
 
   constructor() { }

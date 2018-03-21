@@ -26,12 +26,12 @@
     <div class="cardArea">
       <div>
         <div class="activeCard">
-          <app-card-set *ngIf="bluePlayer.activeCard" [cards]="[bluePlayer.activeCard]"></app-card-set>
+          <app-card-set *ngIf="bluePlayer.activeCard" [cards]="[bluePlayer.activeCard]" [expanded]="true"></app-card-set>
         </div>
       </div>
 
       <div class="ritual" *ngIf="playerHasRitual(bluePlayer)">
-        <app-card-set [cards]="bluePlayer.ritual.cards" [updatedCardNames]="blueRitualUpdates"></app-card-set>
+        <app-card-set [cards]="bluePlayer.ritual.cards" [expanded]="false" [updatedCardNames]="blueRitualUpdates"></app-card-set>
 
       </div>
     </div>
@@ -64,11 +64,11 @@
 
     <div class="cardArea">
       <div class="activeCard">
-        <app-card-set *ngIf="redPlayer.activeCard" [cards]="[redPlayer.activeCard]"></app-card-set>
+        <app-card-set *ngIf="redPlayer.activeCard" [cards]="[redPlayer.activeCard]" [expanded]="true"></app-card-set>
       </div>
 
       <div class="ritual" *ngIf="playerHasRitual(redPlayer)">
-        <app-card-set [cards]="redPlayer.ritual.cards" [updatedCardNames]="redRitualUpdates"></app-card-set>
+        <app-card-set [cards]="redPlayer.ritual.cards" [updatedCardNames]="redRitualUpdates" [expanded]="false"></app-card-set>
       </div>
     </div>
   </div>

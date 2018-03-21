@@ -123,7 +123,7 @@
             {{getHandSelectionPrompt()}}
           </div>
 
-          <app-card-set [cards]="game.hand" [selectionEnabled]="isHandSelectionEnabled()"></app-card-set>
+          <app-card-set [cards]="game.hand" [expanded]="isHandSelectionEnabled() && animationsStarted" [selectionEnabled]="isHandSelectionEnabled()"></app-card-set>
         </div>
       </div>
     </div>
@@ -140,7 +140,7 @@
           {{getMarketSelectionPrompt()}}
         </div>
 
-        <app-card-set [cards]="game.market" [selectionEnabled]="isMarketSelectionEnabled()"></app-card-set>
+        <app-card-set [cards]="game.market" [expanded]="isMarketSelectionEnabled() && animationsStarted" [selectionEnabled]="isMarketSelectionEnabled()"></app-card-set>
       </div>
   </div>
 

@@ -27,7 +27,7 @@
   vertical-align: center;
   float: left;
   width: 150px;
-  height: 181px;
+  height: 183px;
   min-height: 180px;
   border: 1px solid #999;
   display: table-cell;
@@ -47,7 +47,7 @@
   margin-left: 4px;
   padding: 16px 16px 16px;
   border: 1px solid #666;
-  min-height: 180px;
+  min-height: 183px;
   display: table-cell;
 }
 .bluePlayer ~ .cardArea .ritual {

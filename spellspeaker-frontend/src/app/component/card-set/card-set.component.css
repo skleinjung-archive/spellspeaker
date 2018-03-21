@@ -81,25 +81,19 @@ ul.cardSet li.updated {
   display: inline-block;
 }
 
-.cardSet:hover .cardBody, .card.selected .cardBody {
-  height: 121px;
-  width: 132px;
-}
-
-.cardSet:hover .cardFooter, .card.selected .cardFooter {
-  display: block;
-}
-
 /* card text */
 .cardBody {
-  height: 6px;
-  overflow: hidden;
+  height: 121px;
   padding: 4px;
   font-size: 0.75em;
   /*display: none;*/
 
   -webkit-transition: height 500ms;
   transition: height 500ms;
+}
+.card.collapsed .cardBody {
+  height: 6px;
+  overflow: hidden;
 }
 p {
   padding: 0;
@@ -109,11 +103,23 @@ p + p.special {
   margin-top: 8px;
 }
 
+.cardSet:hover .card.collapsed .cardBody, .card.selected.collapsed .cardBody {
+  height: 121px;
+  width: 132px;
+}
+
+.cardSet:hover .card.collapsed .cardFooter, .card.selected.collapsed .cardFooter {
+  display: block;
+}
+
+
 /* card footer */
 .cardFooter {
   border-top: 1px solid #ccc;
   padding: 4px;
   font-size: 0.5em;
+}
+.card.collapsed .cardFooter {
   display: none;
 }
 
