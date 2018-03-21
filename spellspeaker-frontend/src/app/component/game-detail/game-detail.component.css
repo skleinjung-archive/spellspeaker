@@ -126,6 +126,42 @@ div.timeTrackSpace.currentTick {
   margin: 2px;
 }
 
+/* power cards */
+.powerCard {
+  display: inline-block;
+  margin-left: -220px;
+  width: 220px;
+  height: 140px;
+  line-height: 140px;
+  border: 1px solid black;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 6em;
+  vertical-align: top;
+}
+.powerCard:first-of-type {
+  margin-left: 0;
+}
+.drawPile .powerCard.empty, .discardPile .powerCard.empty {
+  background-color: white;
+  border: 1px dashed black;
+}
+.drawPile, .discardPile {
+  display: inline-block;
+}
+.drawPile h4, .discardPile h4 {
+  margin: 8px;
+}
+.discardPile {
+  margin-left: 24px;
+}
+.discardPile .powerCard {
+  background-color: #DEB887;
+  /*background-image: url('../../../assets/images/card_front_texture.jpg');*/
+  /*background-size: 1;*/
+}
+
 .debugInformation label {
   width: 150px;
 }
+

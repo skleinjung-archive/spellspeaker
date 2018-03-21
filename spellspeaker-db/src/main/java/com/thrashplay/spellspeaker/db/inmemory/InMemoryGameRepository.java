@@ -8,6 +8,7 @@ import com.thrashplay.spellspeaker.model.CardFactory;
 import com.thrashplay.spellspeaker.model.SpellspeakerGame;
 import com.thrashplay.spellspeaker.model.User;
 import com.thrashplay.spellspeaker.repository.GameRepository;
+import com.thrashplay.spellspeaker.repository.json.PowerDeckFactory;
 import com.thrashplay.spellspeaker.service.RandomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,12 +28,13 @@ public class InMemoryGameRepository implements GameRepository {
     private GameRules rules;
     private RandomService randomNumberService;
     private CardFactory cardFactory;
+    private PowerDeckFactory powerDeckFactory;
     private SpellEffectExecutor spellEffectExecutor;
     private IdGenerator idGenerator;
     private Map<Long, SpellspeakerGame> games = new HashMap<>();
 
     @Autowired
-    public InMemoryGameRepository(IdGenerator idGenerator, GameRules rules, RandomService randomNumberService, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor) {
+    public InMemoryGameRepository(IdGenerator idGenerator, GameRules rules, RandomService randomNumberService, CardFactory cardFactory, PowerDeckFactory powerDeckFactory, SpellEffectExecutor spellEffectExecutor) {
         Assert.notNull(idGenerator, "idGenerator cannot be null");
         this.idGenerator = idGenerator;
 
@@ -45,13 +47,16 @@ public class InMemoryGameRepository implements GameRepository {
         Assert.notNull(cardFactory, "cardFactory cannot be null");
         this.cardFactory = cardFactory;
 
+        Assert.notNull(powerDeckFactory, "powerDeckFactory cannot be null");
+        this.powerDeckFactory = powerDeckFactory;
+
         Assert.notNull(spellEffectExecutor, "spellEffectExecutor cannot be null");
         this.spellEffectExecutor = spellEffectExecutor;
     }
 
     @Override
     public Long createNewGame(User blueUser, User redUser) {
-        SpellspeakerGame game = new SpellspeakerGame(rules, randomNumberService, cardFactory, spellEffectExecutor, blueUser, redUser);
+        SpellspeakerGame game = new SpellspeakerGame(rules, randomNumberService, cardFactory, powerDeckFactory, spellEffectExecutor, blueUser, redUser);
         game.setId(idGenerator.getId(SpellspeakerGame.class));
         save(game);
         return game.getId();

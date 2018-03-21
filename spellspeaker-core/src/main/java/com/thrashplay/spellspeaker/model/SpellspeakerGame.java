@@ -5,6 +5,7 @@ import com.thrashplay.spellspeaker.SpellspeakerException;
 import com.thrashplay.spellspeaker.config.GameRules;
 import com.thrashplay.spellspeaker.effect.SpellEffectExecutor;
 import com.thrashplay.spellspeaker.model.state.*;
+import com.thrashplay.spellspeaker.repository.json.PowerDeckFactory;
 import com.thrashplay.spellspeaker.service.RandomService;
 
 import java.util.LinkedList;
@@ -40,7 +41,7 @@ public class SpellspeakerGame {
 
     private TurnState turnState;
 
-    public SpellspeakerGame(GameRules rules, RandomService randomNumberService, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor, User blueUser, User redUser) {
+    public SpellspeakerGame(GameRules rules, RandomService randomNumberService, CardFactory cardFactory, PowerDeckFactory powerDeckFactory, SpellEffectExecutor spellEffectExecutor, User blueUser, User redUser) {
         this.rules = rules;
         this.randomNumberService = randomNumberService;
         this.spellEffectExecutor = spellEffectExecutor;
@@ -48,10 +49,12 @@ public class SpellspeakerGame {
         bluePlayer = new Player(blueUser, PlayerColor.Blue);
         bluePlayer.setHealth(rules.getMaximumHealth());
         bluePlayer.setMana(rules.getMaximumMana());
+        bluePlayer.setPowerDeck(powerDeckFactory.createPowerDeck());
 
         redPlayer = new Player(redUser, PlayerColor.Red);
         redPlayer.setHealth(rules.getMaximumHealth());
         redPlayer.setMana(rules.getMaximumMana());
+        redPlayer.setPowerDeck(powerDeckFactory.createPowerDeck());
         redPlayer.setNextTurnTick(29);      // todo: remove this
 
         playerWithInitiative = bluePlayer; // todo: randomly determine this

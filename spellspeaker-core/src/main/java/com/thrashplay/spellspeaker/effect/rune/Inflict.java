@@ -11,6 +11,7 @@ import java.util.List;
  * @author Sean Kleinjung
  */
 public class Inflict implements SpellEffect {
+    private Player activePlayer;
     private Player opponent;
     private Element attunement;
     private Element element;
@@ -23,6 +24,11 @@ public class Inflict implements SpellEffect {
         modifiers.add(new IceAttunementModifier());
         modifiers.add(new FireAttunementModifier());
         modifiers.add(new LightningAttunementModifier());
+        modifiers.add(new PowerCardModifier());
+    }
+
+    public void setActivePlayer(Player activePlayer) {
+        this.activePlayer = activePlayer;
     }
 
     public void setOpponent(Player opponent) {
@@ -96,6 +102,15 @@ public class Inflict implements SpellEffect {
                 for (InflictResult.Attack attack : result.getAttacks()) {
                     attack.setPower(attack.getPower() + elementStrength);
                 }
+            }
+        }
+    }
+
+    public class PowerCardModifier implements InflictResultModifier {
+        @Override
+        public void modifyResult(InflictResult result) {
+            for (InflictResult.Attack attack : result.getAttacks()) {
+                attack.setPower(attack.getPower() + activePlayer.getPowerDeck().draw());
             }
         }
     }

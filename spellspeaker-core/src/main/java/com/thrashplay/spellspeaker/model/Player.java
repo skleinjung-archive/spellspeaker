@@ -14,6 +14,7 @@ public class Player {
     private Hand hand;
     private Card activeCard;
     private Ritual ritual;
+    private PowerDeck powerDeck;
 
     public Player(User user, PlayerColor color) {
         this.user = user;
@@ -68,5 +69,13 @@ public class Player {
 
     public Ritual getRitual() {
         return ritual;
+    }
+
+    public PowerDeck getPowerDeck() {
+        return powerDeck;
+    }
+
+    public void setPowerDeck(PowerDeck powerDeck) {
+        this.powerDeck = powerDeck;
     }
 }

@@ -8,4 +8,7 @@ export class Player {
   numberOfCardsInHand: number;
   activeCard: Card;
   ritual: Ritual;
+  powerCardDrawPileSize: number;
+  powerCardDiscardPileSize: number;
+  usedPowerCards: number[];
 }

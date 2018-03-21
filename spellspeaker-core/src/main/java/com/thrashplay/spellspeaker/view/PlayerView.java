@@ -19,6 +19,9 @@ public class PlayerView {
     private int numberOfCardsInHand;
     private CardView activeCard;
     private RitualView ritual;
+    private int powerCardDrawPileSize;
+    private int powerCardDiscardPileSize;
+    private List<Integer> usedPowerCards;
 
     public PlayerView(User requestingUser, Player player) {
         isControlledByClient = requestingUser != null && requestingUser.getId() == player.getUser().getId();
@@ -28,6 +31,9 @@ public class PlayerView {
         numberOfCardsInHand = player.getHand().size();
         activeCard = player.getActiveCard() == null ? null : CardView.fromCard(player.getActiveCard());
         ritual = new RitualView(player.getRitual());
+        powerCardDrawPileSize = player.getPowerDeck().sizeOfDrawPile();
+        powerCardDiscardPileSize = player.getPowerDeck().sizeOfDiscardPile();
+        usedPowerCards = player.getPowerDeck().getUsedCards();
     }
 
     public boolean isControlledByClient() {
@@ -56,5 +62,17 @@ public class PlayerView {
 
     public RitualView getRitual() {
         return ritual;
+    }
+
+    public int getPowerCardDrawPileSize() {
+        return powerCardDrawPileSize;
+    }
+
+    public int getPowerCardDiscardPileSize() {
+        return powerCardDiscardPileSize;
+    }
+
+    public List<Integer> getUsedPowerCards() {
+        return usedPowerCards;
     }
 }

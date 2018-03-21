@@ -129,6 +129,52 @@
     </div>
   </div>
 
+  <div class="section">
+    <h3>Power Cards</h3>
+    <div class="column-container">
+      <div class="column">
+        <div class="drawPile">
+          <h4>Draw</h4>
+          <div *ngFor="let n of range(0, game.bluePlayer.powerCardDrawPileSize)" class="powerCard bluePlayer">
+            <!-- empty -->{{game.bluePlayer.powerCardDrawPileSize}}
+          </div>
+          <div *ngIf="game.bluePlayer.powerCardDrawPileSize === 0" class="powerCard empty">
+            <!-- empty -->
+          </div>
+        </div>
+        <div class="discardPile">
+          <h4>Discard</h4>
+          <div *ngFor="let value of game.bluePlayer.usedPowerCards" class="powerCard">
+            {{value > -1 ? '+' : ''}}{{value}}
+          </div>
+          <div *ngIf="game.bluePlayer.usedPowerCards.length === 0" class="powerCard empty">
+            <!-- empty -->
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="drawPile">
+          <h4>Draw</h4>
+          <div *ngFor="let n of range(0, game.redPlayer.powerCardDrawPileSize)" class="powerCard redPlayer">
+            <!-- empty -->{{game.redPlayer.powerCardDrawPileSize}}
+          </div>
+          <div *ngIf="game.redPlayer.powerCardDrawPileSize === 0" class="powerCard empty">
+            <!-- empty -->
+          </div>
+        </div>
+        <div class="discardPile">
+          <h4>Discard</h4>
+          <div *ngFor="let value of game.redPlayer.usedPowerCards" class="powerCard">
+            {{value > -1 ? '+' : ''}}{{value}}
+          </div>
+          <div *ngIf="game.redPlayer.usedPowerCards.length === 0" class="powerCard empty">
+            <!-- empty -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="section debugInformation">
     <h3>Debug Information</h3>
     <div>
