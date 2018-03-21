@@ -5,7 +5,7 @@ package com.thrashplay.spellspeaker.model.state;
  */
 public abstract class StateChange {
     public String getType() {
-        return getClass().getName();
+        return getClass().getSimpleName();
     }
 
     public abstract String getMessage();
