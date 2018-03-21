@@ -5,6 +5,7 @@ import com.thrashplay.spellspeaker.SpellspeakerException;
 import com.thrashplay.spellspeaker.config.GameRules;
 import com.thrashplay.spellspeaker.effect.SpellEffectExecutor;
 import com.thrashplay.spellspeaker.model.state.*;
+import com.thrashplay.spellspeaker.service.RandomService;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,30 +18,31 @@ public class SpellspeakerGame {
     private long id;
 
     private GameRules rules;
+    private RandomService randomNumberService;
+    private SpellEffectExecutor spellEffectExecutor;
 
-    private Player bluePlayer;
-    private Player redPlayer;
-
-    private Player playerWithInitiative;
-    private Player activePlayer;
-
-    private InputRequest inputRequest;
-
-    private InputType inputResponseType;
-    private String inputResponse;
+    private int currentTick = 0;
 
     private DiscardPile discardPile;
     private Library library;
     private Market market;
 
-    private int currentTick = 0;
+    private Player bluePlayer;
+    private Player redPlayer;
+    private Player playerWithInitiative;
+    private Player activePlayer;
+
+    private Element attunement;
+
+    private InputRequest inputRequest;
+    private InputType inputResponseType;
+    private String inputResponse;
 
     private TurnState turnState;
 
-    private SpellEffectExecutor spellEffectExecutor;
-
-    public SpellspeakerGame(GameRules rules, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor, User blueUser, User redUser) {
+    public SpellspeakerGame(GameRules rules, RandomService randomNumberService, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor, User blueUser, User redUser) {
         this.rules = rules;
+        this.randomNumberService = randomNumberService;
         this.spellEffectExecutor = spellEffectExecutor;
 
         bluePlayer = new Player(blueUser, PlayerColor.Blue);
@@ -73,6 +75,15 @@ public class SpellspeakerGame {
             redPlayer.getHand().add(library.draw());
         }
 
+        int elementIndex = randomNumberService.getRandomNumberBetween(0, 3);
+        if (elementIndex == 0) {
+            attunement = Element.Ice;
+        } else if (elementIndex == 1) {
+            attunement = Element.Fire;
+        } else {
+            attunement = Element.Lightning;
+        }
+
         currentTick = -1;
         startNextTurn();
         stepUntilBlocked(new LinkedList<>());
@@ -92,6 +103,48 @@ public class SpellspeakerGame {
 
     public int getCurrentTick() {
         return currentTick;
+    }
+
+    public Player getBluePlayer() {
+        return bluePlayer;
+    }
+
+    public Player getRedPlayer() {
+        return redPlayer;
+    }
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    public Player getNonActivePlayer() {
+        if (activePlayer == bluePlayer) {
+            return redPlayer;
+        } else if (activePlayer == redPlayer) {
+            return bluePlayer;
+        } else {
+            return null;
+        }
+    }
+
+    public InputRequest getInputRequest() {
+        return inputRequest;
+    }
+
+    public Market getMarket() {
+        return market;
+    }
+
+    public DiscardPile getDiscardPile() {
+        return discardPile;
+    }
+
+    public Library getLibrary() {
+        return library;
+    }
+
+    public Element getAttunement() {
+        return attunement;
     }
 
     /**
@@ -213,44 +266,6 @@ public class SpellspeakerGame {
 
     private Player getPlayerWithoutInitiative() {
         return playerWithInitiative == bluePlayer ? redPlayer : bluePlayer;
-    }
-
-    public Player getBluePlayer() {
-        return bluePlayer;
-    }
-
-    public Player getRedPlayer() {
-        return redPlayer;
-    }
-
-    public Player getActivePlayer() {
-        return activePlayer;
-    }
-
-    public Player getNonActivePlayer() {
-        if (activePlayer == bluePlayer) {
-            return redPlayer;
-        } else if (activePlayer == redPlayer) {
-            return bluePlayer;
-        } else {
-            return null;
-        }
-    }
-
-    public InputRequest getInputRequest() {
-        return inputRequest;
-    }
-
-    public Market getMarket() {
-        return market;
-    }
-
-    public DiscardPile getDiscardPile() {
-        return discardPile;
-    }
-
-    public Library getLibrary() {
-        return library;
     }
 
     private interface TurnState {

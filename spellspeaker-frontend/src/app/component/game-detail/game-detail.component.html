@@ -20,19 +20,31 @@
   </div>-->
 
   <div class="section">
-    <ul class="timeTrack">
-      <li *ngFor="let n of range(0, rules.ticksPerPhase - 1)">
-        <div class="timeTrackSpaceContainer">
-          <div class="timeTrackSpace" [ngClass]="{currentTick: game.currentTick == n}">
-            <div>{{n}}</div>
+    <div class="gameOverview">
+      <div class="attunementIcon" *ngIf="game.attunement === 'Ice'">
+        <img src="../../../assets/images/ice.png" width="47" height="35"/>
+      </div>
+      <div class="attunementIcon" *ngIf="game.attunement === 'Fire'">
+        <img src="../../../assets/images/fire.png" width="47" height="35"/>
+      </div>
+      <div class="attunementIcon" *ngIf="game.attunement === 'Lightning'">
+        <img src="../../../assets/images/lightning.png" width="47" height="35"/>
+      </div>
+
+      <ul class="timeTrack">
+        <li *ngFor="let n of range(0, rules.ticksPerPhase - 1)">
+          <div class="timeTrackSpaceContainer">
+            <div class="timeTrackSpace" [ngClass]="{currentTick: game.currentTick == n}">
+              <div>{{n}}</div>
+            </div>
+            <div class="column-container">
+              <div class="column timeTracker bluePlayer" [ngClass]="{showTimeTracker: game.bluePlayer.nextTurnTick == n}"></div>
+              <div class="column timeTracker redPlayer" [ngClass]="{showTimeTracker: game.redPlayer.nextTurnTick == n}"></div>
+            </div>
           </div>
-          <div class="column-container">
-            <div class="column timeTracker bluePlayer" [ngClass]="{showTimeTracker: game.bluePlayer.nextTurnTick == n}"></div>
-            <div class="column timeTracker redPlayer" [ngClass]="{showTimeTracker: game.redPlayer.nextTurnTick == n}"></div>
-          </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
 
     <app-player-stats [gameId]="game.id" [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer" [blueRitualUpdates]="getUpdatedRitualCards('Blue')" [redRitualUpdates]="getUpdatedRitualCards('Red')" [activePlayerColor]="game.activePlayerColor"></app-player-stats>
 
@@ -113,7 +125,12 @@
 
   <div class="section debugInformation">
     <h3>Debug Information</h3>
-    <label>inputRequest.type: </label> <span>{{game.inputRequest.type}}</span>
+    <div>
+      <label>Current Player: </label> <span>{{game.activePlayerColor}}</span>
+    </div>
+    <div>
+      <label>inputRequest.type: </label> <span>{{game.inputRequest.type}}</span>
+    </div>
   </div>
 
   <!--<button (click)="goBack()">Back</button>-->

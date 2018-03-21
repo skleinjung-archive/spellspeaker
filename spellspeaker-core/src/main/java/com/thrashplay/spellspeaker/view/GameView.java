@@ -18,6 +18,8 @@ public class GameView {
     private String activePlayerColor;
     private String currentUserColor;
 
+    private String attunement;
+
     private InputRequestView inputRequest;
 
     private List<CardView> market;
@@ -49,6 +51,7 @@ public class GameView {
         inputRequest = game.getInputRequest() == null
                 ? null
                 : new InputRequestView(game.getInputRequest());
+        attunement = game.getAttunement().name();
         market = CardView.fromCards(game.getMarket().getCards());
         hand = currentUserPlayer == null
                 ? null
@@ -85,6 +88,10 @@ public class GameView {
 
     public InputRequestView getInputRequest() {
         return inputRequest;
+    }
+
+    public String getAttunement() {
+        return attunement;
     }
 
     public List<CardView> getMarket() {

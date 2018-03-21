@@ -21,9 +21,17 @@ button:disabled {
   cursor: auto;
 }
 
+.gameOverview {
+}
+.attunementIcon {
+  display: inline-block;
+  float:left;
+}
+
 ul.timeTrack {
   margin: 0;
   padding: 0;
+  display: inline-block;
 }
 ul.timeTrack li {
   list-style-type: none;
@@ -31,6 +39,7 @@ ul.timeTrack li {
 }
 div.timeTrackSpaceContainer {
   margin: 0 5px 0 5px;
+  padding-top: 5px;
 }
 
 div.timeTrackSpace {

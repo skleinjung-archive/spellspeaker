@@ -8,6 +8,7 @@ import com.thrashplay.spellspeaker.model.CardFactory;
 import com.thrashplay.spellspeaker.model.SpellspeakerGame;
 import com.thrashplay.spellspeaker.model.User;
 import com.thrashplay.spellspeaker.repository.GameRepository;
+import com.thrashplay.spellspeaker.service.RandomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
@@ -24,18 +25,22 @@ import java.util.Map;
 public class InMemoryGameRepository implements GameRepository {
 
     private GameRules rules;
+    private RandomService randomNumberService;
     private CardFactory cardFactory;
     private SpellEffectExecutor spellEffectExecutor;
     private IdGenerator idGenerator;
     private Map<Long, SpellspeakerGame> games = new HashMap<>();
 
     @Autowired
-    public InMemoryGameRepository(IdGenerator idGenerator, GameRules rules, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor) {
+    public InMemoryGameRepository(IdGenerator idGenerator, GameRules rules, RandomService randomNumberService, CardFactory cardFactory, SpellEffectExecutor spellEffectExecutor) {
         Assert.notNull(idGenerator, "idGenerator cannot be null");
         this.idGenerator = idGenerator;
 
         Assert.notNull(rules, "rules cannot be null");
         this.rules = rules;
+
+        Assert.notNull(randomNumberService, "randomNumberService cannot be null");
+        this.randomNumberService = randomNumberService;
 
         Assert.notNull(cardFactory, "cardFactory cannot be null");
         this.cardFactory = cardFactory;
@@ -46,7 +51,7 @@ public class InMemoryGameRepository implements GameRepository {
 
     @Override
     public Long createNewGame(User blueUser, User redUser) {
-        SpellspeakerGame game = new SpellspeakerGame(new DefaultGameRules(), cardFactory, spellEffectExecutor, blueUser, redUser);
+        SpellspeakerGame game = new SpellspeakerGame(rules, randomNumberService, cardFactory, spellEffectExecutor, blueUser, redUser);
         game.setId(idGenerator.getId(SpellspeakerGame.class));
         save(game);
         return game.getId();

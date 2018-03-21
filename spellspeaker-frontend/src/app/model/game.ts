@@ -14,6 +14,8 @@ export class Game {
 
   inputRequest: InputRequest;
 
+  attunement: string;
+
   market: Card[];
   hand: Card[];
 
