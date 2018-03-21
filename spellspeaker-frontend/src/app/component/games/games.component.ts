@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Game} from './model/game';
-import {GameService} from './service/game.service';
-import {GameSummary} from './model/game-summary';
+import {Game} from '../../model/game';
+import {GameService} from '../../service/game.service';
+import {GameSummary} from '../../model/game-summary';
 
 @Component({
   selector: 'games',

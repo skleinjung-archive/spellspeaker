@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {Player} from './model/player';
-import {Router} from "@angular/router";
-import {AuthenticationService} from "./service/authentication.service";
+import {Player} from '../../model/player';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../../service/authentication.service';
 
 @Component({
   selector: 'app-player-stats',
   templateUrl: './player-stats.component.html',
-  styleUrls: ['./game-detail.shared.css', './player-stats.component.css']
+  styleUrls: ['../game-detail/game-detail.shared.css', './player-stats.component.css']
 })
 export class PlayerStatsComponent implements OnInit {
   @Input() gameId: number;
@@ -47,7 +47,7 @@ export class PlayerStatsComponent implements OnInit {
     this.authenticationService.loginWithCredentials(username, 'password',
       (result) => {
         if (result === true) {
-          this.router.navigate(['/games']).then(() =>{
+          this.router.navigate(['/games']).then(() => {
             this.router.navigate(['/games', this.gameId]);
           });
         }

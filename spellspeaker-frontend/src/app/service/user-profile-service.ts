@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/finally';
 
-import {UserProfile} from "../user-profile";
+import {UserProfile} from "../model/user-profile";
 import {Router} from "@angular/router";
 
 @Injectable()

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/finally';
 
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
-import {UserProfile} from '../user-profile';
+import {UserProfile} from '../model/user-profile';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {UserProfileService} from './user-profile-service';

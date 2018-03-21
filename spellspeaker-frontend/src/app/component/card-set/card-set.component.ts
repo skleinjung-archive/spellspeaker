@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Card} from '../model/card';
-import {Player} from "../model/player";
+import {Card} from '../../model/card';
 
 @Component({
   selector: 'app-card-set',

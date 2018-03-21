@@ -1,4 +1,4 @@
-///<reference path="message.component.ts"/>
+///<reference path="../message/message.component.ts"/>
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Location} from '@angular/common';
@@ -6,14 +6,14 @@ import {Location} from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/finally';
 
-import {Game} from './model/game';
-import {GameService} from './service/game.service';
-import {Rules} from './model/rules';
-import {RulesService} from './service/rules.service';
-import {MessageService} from './service/message-service';
-import {Card} from './model/card';
-import {AddedToRitualStateChange, StateChange} from './model/state-change';
-import {ActionResult} from './model/action-result';
+import {Game} from '../../model/game';
+import {GameService} from '../../service/game.service';
+import {Rules} from '../../model/rules';
+import {RulesService} from '../../service/rules.service';
+import {MessageService} from '../../service/message-service';
+import {Card} from '../../model/card';
+import {AddedToRitualStateChange, StateChange} from '../../model/state-change';
+import {ActionResult} from '../../model/action-result';
 import {Observable} from 'rxjs/Observable';
 
 @Component({

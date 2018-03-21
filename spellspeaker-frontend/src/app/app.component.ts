@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "./service/authentication.service";
-import {UserProfile} from "./user-profile";
+import {UserProfile} from "./model/user-profile";
 import {UserProfileService} from "./service/user-profile-service";
-import {MessageComponent} from "./message.component";
+import {MessageComponent} from "./component/message/message.component";
 
 @Component({
   selector: 'app-root',

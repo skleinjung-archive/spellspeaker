@@ -1,7 +1,7 @@
-///<reference path="../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
+///<reference path="../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthenticationService} from "./service/authentication.service";
+import {AuthenticationService} from "../../service/authentication.service";
 
 @Component({
   selector: 'app-login',
