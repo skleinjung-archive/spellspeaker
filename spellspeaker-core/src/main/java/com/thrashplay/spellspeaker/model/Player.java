@@ -137,15 +137,21 @@ public class Player {
         this.lightningShield = lightningShield;
     }
 
-    public void addAffliction(Element element) {
+    public void addAfflictionStack(Element element) {
         int afflictionCount = getAfflictionStacks(element);
         afflictionCount++;
         afflictionStacks.put(element, afflictionCount);
     }
 
-    public void removeAffliction(Element element) {
+    public void removeAfflictionStack(Element element) {
         int afflictionCount = getAfflictionStacks(element);
         afflictionCount--;
+        afflictionStacks.put(element, afflictionCount);
+    }
+
+    public void removeAfflictionStacks(Element element, int numberOfStacksToRemove) {
+        int afflictionCount = getAfflictionStacks(element);
+        afflictionCount = Math.max(0, afflictionCount - numberOfStacksToRemove);
         afflictionStacks.put(element, afflictionCount);
     }
 

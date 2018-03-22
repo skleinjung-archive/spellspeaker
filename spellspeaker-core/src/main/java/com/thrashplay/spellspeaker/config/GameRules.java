@@ -19,4 +19,25 @@ public interface GameRules {
     int getMaximumHandSize();
 
     RitualConstructionRules getRitualConstructionRules();
+
+    int getChillCastingTimeIncrease();
+
+    int getBurningDamage();
+
+    int getShockManaCostIncrease();
+
+    /**
+     * Number of chill stacks to clear each phase, -1 == all of them
+     */
+    int getChillDecayRate();
+
+    /**
+     * Number of burning stacks to clear each phase, -1 == all of them
+     */
+    int getBurningDecayRate();
+
+    /**
+     * Number of shock stacks to clear each phase, -1 == all of them
+     */
+    int getShockDecayRate();
 }

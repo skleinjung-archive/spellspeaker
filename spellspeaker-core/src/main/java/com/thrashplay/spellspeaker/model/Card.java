@@ -15,6 +15,7 @@ public class Card {
     private int power;
     private Element element;
     private int elementStrength;
+    private boolean ignoreAfflictions;
     private String text;
     private Class<? extends SpellEffect> effectClass;
     private CardExecutionParameter parameter;
@@ -89,6 +90,14 @@ public class Card {
 
     public void setElementStrength(int elementStrength) {
         this.elementStrength = elementStrength;
+    }
+
+    public boolean isIgnoreAfflictions() {
+        return ignoreAfflictions;
+    }
+
+    public void setIgnoreAfflictions(boolean ignoreAfflictions) {
+        this.ignoreAfflictions = ignoreAfflictions;
     }
 
     public String getText() {

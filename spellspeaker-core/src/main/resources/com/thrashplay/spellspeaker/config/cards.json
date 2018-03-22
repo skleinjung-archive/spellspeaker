@@ -15,7 +15,8 @@
       "reusable": "true",
       "manaCost": "0",
       "castingTime": "10",
-      "text": "Your mana total is set to %d.",
+      "ignoreAfflictions": "true",
+      "text": "Your mana total is set to %d. This card ignores the effects of all afflictions.",
       "textVariables": ["maximumMana"],
       "effect": "com.thrashplay.spellspeaker.effect.spell.Rejuvenate"
     },
@@ -60,7 +61,7 @@
       "quantity": "5"
     },
     {
-      "name": "Ice",
+      "name": "Rime",
       "manaCost": "3",
       "castingTime": "3",
       "element": "Ice",

@@ -21,6 +21,6 @@ public class LesserAffliction implements SpellEffect {
 
     @Override
     public void execute() {
-        opponent.addAffliction(element);
+        opponent.addAfflictionStack(element);
     }
 }

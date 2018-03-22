@@ -50,6 +50,7 @@ public class CardFactory {
         card.setElement(cardConfiguration.getElement());
         card.setPower(cardConfiguration.getPower());
         card.setElementStrength(cardConfiguration.getElementStrength());
+        card.setIgnoreAfflictions(cardConfiguration.isIgnoreAfflictions());
         card.setText(cardConfiguration.getText());
         card.setEffectClass(cardConfiguration.getEffectClass());
         card.setParameter(cardConfiguration.getParameter());

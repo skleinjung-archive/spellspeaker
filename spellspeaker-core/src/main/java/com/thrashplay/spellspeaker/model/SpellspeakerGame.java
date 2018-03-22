@@ -57,7 +57,7 @@ public class SpellspeakerGame {
         redPlayer.setHealth(rules.getMaximumHealth());
         redPlayer.setMana(rules.getMaximumMana());
         redPlayer.setPowerDeck(powerDeckFactory.createPowerDeck());
-        redPlayer.setNextTurnTick(29);      // todo: remove this
+//        redPlayer.setNextTurnTick(29);      // todo: remove this
 
         playerWithInitiative = bluePlayer; // todo: randomly determine this
 
@@ -157,7 +157,44 @@ public class SpellspeakerGame {
         market.refresh();
         stateChanges.add(new MarketRefreshed());
 
+        applyBurningDamage(stateChanges, bluePlayer);
+        applyBurningDamage(stateChanges, redPlayer);
+        applyAfflictionDecay(bluePlayer);
+        applyAfflictionDecay(redPlayer);
+
         changeAttunement(stateChanges);
+    }
+
+    private void applyBurningDamage(List<StateChange> stateChanges, Player player) {
+        int stackCount = player.getAfflictionStacks(Element.Fire);
+        if (stackCount > 0) {
+            int burningDamage = stackCount * rules.getBurningDamage();
+            stateChanges.add(new SimpleStateChange("TookBurningDamage", String.format("%s: Burning dealt %d damage", player.getColor().name(), burningDamage)));
+            player.setHealth(player.getHealth() - burningDamage);
+        }
+    }
+
+    private void applyAfflictionDecay(Player player) {
+        int decayRate = rules.getChillDecayRate();
+        if (decayRate == -1) {
+            player.clearAffliction(Element.Ice);
+        } else if (decayRate > 0) {
+            player.removeAfflictionStacks(Element.Ice, decayRate);
+        }
+
+        decayRate = rules.getBurningDecayRate();
+        if (decayRate == -1) {
+            player.clearAffliction(Element.Fire);
+        } else if (decayRate > 0) {
+            player.removeAfflictionStacks(Element.Fire, decayRate);
+        }
+
+        decayRate = rules.getShockDecayRate();
+        if (decayRate == -1) {
+            player.clearAffliction(Element.Lightning);
+        } else if (decayRate > 0) {
+            player.removeAfflictionStacks(Element.Lightning, decayRate);
+        }
     }
 
     /**
@@ -435,7 +472,7 @@ public class SpellspeakerGame {
                         rules.getRitualConstructionRules().validateRitualAddition(activePlayer.getRitual(), card);
                     }
 
-                    if (activePlayer.getMana() < card.getManaCost()) {
+                    if (activePlayer.getMana() < calculateManaCost(activePlayer, card)) {
                         throw new InvalidInputException("You do not have enough mana to cast '" + card.getName() + "'.");
                     }
 
@@ -454,15 +491,28 @@ public class SpellspeakerGame {
         }
 
         private void playCard(List<StateChange> stateChanges, Player activePlayer, Card card) {
-            int manaCost = Math.max(0, card.getManaCost());
-            int castingTime = Math.max(0, card.getCastingTime());
-
-            activePlayer.setNextTurnTick((currentTick + castingTime) % rules.getTicksPerPhase());
-            activePlayer.setMana(activePlayer.getMana() - manaCost);
+            activePlayer.setNextTurnTick((currentTick + calculateCastingTime(activePlayer, card)) % rules.getTicksPerPhase());
+            activePlayer.setMana(activePlayer.getMana() - calculateManaCost(activePlayer, card));
 
             activePlayer.getHand().getCards().remove(card);
             activePlayer.setActiveCard(card);
             stateChanges.add(new BeganCasting(activePlayer.getColor().name(), card.getName()));
+        }
+
+        private int calculateManaCost(Player player, Card card) {
+            int manaCost = card.getManaCost();
+            if (!card.isIgnoreAfflictions()) {
+                manaCost += (rules.getShockManaCostIncrease() * player.getAfflictionStacks(Element.Lightning));
+            }
+            return Math.max(0, manaCost);
+        }
+
+        private int calculateCastingTime(Player player, Card card) {
+            int castingTime = card.getCastingTime();
+            if (!card.isIgnoreAfflictions()) {
+                castingTime += (rules.getChillCastingTimeIncrease() * player.getAfflictionStacks(Element.Ice));
+            }
+            return Math.max(0, castingTime);
         }
     }
 

@@ -50,4 +50,34 @@ public class DefaultGameRules implements GameRules {
                 .addRule(new OnlyOneElementRule())
                 .addRule(new OnlyOneEffectTypeRule());
     }
+
+    @Override
+    public int getChillCastingTimeIncrease() {
+        return 1;
+    }
+
+    @Override
+    public int getBurningDamage() {
+        return 2;
+    }
+
+    @Override
+    public int getShockManaCostIncrease() {
+        return 1;
+    }
+
+    @Override
+    public int getChillDecayRate() {
+        return 0;
+    }
+
+    @Override
+    public int getBurningDecayRate() {
+        return -1;
+    }
+
+    @Override
+    public int getShockDecayRate() {
+        return 0;
+    }
 }

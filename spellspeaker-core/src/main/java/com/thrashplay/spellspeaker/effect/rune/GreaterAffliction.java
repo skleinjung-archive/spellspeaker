@@ -21,7 +21,7 @@ public class GreaterAffliction implements SpellEffect {
 
     @Override
     public void execute() {
-        opponent.addAffliction(element);
-        opponent.addAffliction(element);
+        opponent.addAfflictionStack(element);
+        opponent.addAfflictionStack(element);
     }
 }
