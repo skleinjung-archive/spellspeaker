@@ -1,6 +1,7 @@
 package com.thrashplay.spellspeaker.model;
 
-import com.thrashplay.spellspeaker.view.PlayerView;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Sean Kleinjung
@@ -19,6 +20,8 @@ public class Player {
     private Shield iceShield;
     private Shield fireShield;
     private Shield lightningShield;
+    // afflictions
+    private Map<Element, Integer> afflictionStacks;
 
     public Player(User user, PlayerColor color) {
         this.user = user;
@@ -34,6 +37,11 @@ public class Player {
 
         lightningShield = new Shield();
         lightningShield.setElement(Element.Lightning);
+
+        afflictionStacks = new HashMap<>();
+        afflictionStacks.put(Element.Ice, 0);
+        afflictionStacks.put(Element.Fire, 0);
+        afflictionStacks.put(Element.Lightning, 0);
     }
 
     public User getUser() {
@@ -127,6 +135,29 @@ public class Player {
 
     public void setLightningShield(Shield lightningShield) {
         this.lightningShield = lightningShield;
+    }
+
+    public void addAffliction(Element element) {
+        int afflictionCount = getAfflictionStacks(element);
+        afflictionCount++;
+        afflictionStacks.put(element, afflictionCount);
+    }
+
+    public void removeAffliction(Element element) {
+        int afflictionCount = getAfflictionStacks(element);
+        afflictionCount--;
+        afflictionStacks.put(element, afflictionCount);
+    }
+
+    public void clearAffliction(Element element) {
+        afflictionStacks.put(element, 0);
+    }
+
+    public int getAfflictionStacks(Element element) {
+        if (!afflictionStacks.containsKey(element)) {
+            afflictionStacks.put(element, 0);
+        }
+        return afflictionStacks.get(element);
     }
 
     public void resolveAttack(Element element, int power) {

@@ -1,4 +1,4 @@
-package com.thrashplay.spellspeaker.effect.spell;
+package com.thrashplay.spellspeaker.effect;
 
 import com.thrashplay.spellspeaker.effect.SpellEffect;
 

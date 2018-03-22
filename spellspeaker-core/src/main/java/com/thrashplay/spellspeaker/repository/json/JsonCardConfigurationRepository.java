@@ -2,11 +2,10 @@ package com.thrashplay.spellspeaker.repository.json;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.thrashplay.spellspeaker.SpellspeakerException;
 import com.thrashplay.spellspeaker.config.CardConfiguration;
 import com.thrashplay.spellspeaker.config.GameRules;
 import com.thrashplay.spellspeaker.effect.SpellEffect;
-import com.thrashplay.spellspeaker.effect.spell.Noop;
+import com.thrashplay.spellspeaker.effect.Noop;
 import com.thrashplay.spellspeaker.model.CardExecutionParameter;
 import com.thrashplay.spellspeaker.model.CardType;
 import com.thrashplay.spellspeaker.model.Element;

@@ -1,6 +1,7 @@
 package com.thrashplay.spellspeaker.view;
 
 import com.thrashplay.spellspeaker.model.Card;
+import com.thrashplay.spellspeaker.model.Element;
 import com.thrashplay.spellspeaker.model.Player;
 import com.thrashplay.spellspeaker.model.User;
 
@@ -26,6 +27,10 @@ public class PlayerView {
     private int iceShieldStrength;
     private int fireShieldStrength;
     private int lightningShieldStrength;
+    // afflictions
+    private int chillStacks;
+    private int burningStacks;
+    private int shockStacks;
 
     public PlayerView(User requestingUser, Player player) {
         isControlledByClient = requestingUser != null && requestingUser.getId() == player.getUser().getId();
@@ -42,6 +47,10 @@ public class PlayerView {
         iceShieldStrength = player.getIceShield().getStrength();
         fireShieldStrength = player.getFireShield().getStrength();
         lightningShieldStrength = player.getLightningShield().getStrength();
+        // afflictions
+        chillStacks = player.getAfflictionStacks(Element.Ice);
+        burningStacks = player.getAfflictionStacks(Element.Fire);
+        shockStacks = player.getAfflictionStacks(Element.Lightning);
     }
 
     public boolean isControlledByClient() {
@@ -88,23 +97,23 @@ public class PlayerView {
         return iceShieldStrength;
     }
 
-    public void setIceShieldStrength(int iceShieldStrength) {
-        this.iceShieldStrength = iceShieldStrength;
-    }
-
     public int getFireShieldStrength() {
         return fireShieldStrength;
-    }
-
-    public void setFireShieldStrength(int fireShieldStrength) {
-        this.fireShieldStrength = fireShieldStrength;
     }
 
     public int getLightningShieldStrength() {
         return lightningShieldStrength;
     }
 
-    public void setLightningShieldStrength(int lightningShieldStrength) {
-        this.lightningShieldStrength = lightningShieldStrength;
+    public int getChillStacks() {
+        return chillStacks;
+    }
+
+    public int getBurningStacks() {
+        return burningStacks;
+    }
+
+    public int getShockStacks() {
+        return shockStacks;
     }
 }

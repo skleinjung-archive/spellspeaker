@@ -39,8 +39,6 @@ public class SpellEffectExecutor {
 
     public void execute(Ritual ritual, SpellspeakerGame game) {
         try {
-            SpellEffect effect = ritual.getEffectRune().getEffectClass().newInstance();
-
             MapBackedPropertyProvider ritualPropertyProvider = new MapBackedPropertyProvider();
             ritualPropertyProvider.addPropertyValue("ritual", ritual);
             ritualPropertyProvider.addPropertyValue("element", ritual.getElement());
@@ -49,9 +47,14 @@ public class SpellEffectExecutor {
 
             PropertyInjector injector = createDefaultPropertyInjector(game);
             injector.addPropertyProvider(ritualPropertyProvider);
-            injector.inject(effect);
 
-            effect.execute();
+            for (Card card : ritual.getCards()) {
+                if (card.getEffectClass() != null) {
+                    SpellEffect effect = card.getEffectClass().newInstance();
+                    injector.inject(effect);
+                    effect.execute();
+                }
+            }
         } catch (InstantiationException | IllegalAccessException e) {
             throw new CardConfigurationException("Failed to execute ritual with effect rune '" + ritual.getEffectRune().getName() + ": " + e.toString(), e);
         }

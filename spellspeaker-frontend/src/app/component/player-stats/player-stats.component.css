@@ -15,13 +15,16 @@
   display: inline-block;
   margin-right: 20px;
 }
+.statsRow div:last-child {
+  margin-right: 0;
+}
 
 /* shields */
-.shieldStats {
+.statsWithIcons {
   padding: 0;
   margin: 0;
 }
-.shieldStats img {
+.statsWithIcons img {
   padding: 0;
   margin: 0 0 4px 0;
   vertical-align: middle;
@@ -38,8 +41,8 @@
   vertical-align: center;
   float: left;
   width: 150px;
-  height: 183px;
-  min-height: 180px;
+  height: 184px;
+  min-height: 184px;
   border: 1px solid #999;
   display: table-cell;
 }
@@ -58,7 +61,7 @@
   margin-left: 4px;
   padding: 16px 16px 16px;
   border: 1px solid #666;
-  min-height: 183px;
+  min-height: 184px;
   display: table-cell;
 }
 .bluePlayer ~ .cardArea .ritual {

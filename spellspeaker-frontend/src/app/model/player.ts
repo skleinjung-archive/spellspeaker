@@ -16,4 +16,9 @@ export class Player {
   iceShieldStrength: number;
   fireShieldStrength: number;
   lightningShieldStrength: number;
+
+  // afflictions
+  chillStacks: number;
+  burningStacks: number;
+  shockStacks: number;
 }
