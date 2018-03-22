@@ -136,11 +136,14 @@ public class Player {
             if (strength >= power) {
                 // completely blocked
                 shield.setStrength(strength - power);
+                power = 0;
             } else {
                 // some damage got through
-                health -= (power - shield.getStrength());
+                power = power - shield.getStrength();
                 shield.setStrength(0);
             }
         }
+
+        health -= power;
     }
 }
