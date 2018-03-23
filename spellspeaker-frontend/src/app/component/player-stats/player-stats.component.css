@@ -8,13 +8,22 @@
   border-style:  solid;
   border-width: 1px 1px 1px 15px;
 }
+.playerInfoBlock.active {
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+}
+.bluePlayer.playerInfoBlock.active {
+  background-color: #ddeeff;
+}
 .bluePlayer.playerInfoBlock {
   border-color: #336699;
-  background-color: #ddeeff;
+}
+.redPlayer.playerInfoBlock.active {
+  background-color: #ffe0f0;
 }
 .redPlayer.playerInfoBlock {
   border-left-color: #993333;
-  background-color: #ffe0f0;
 }
 
 .cardArea {

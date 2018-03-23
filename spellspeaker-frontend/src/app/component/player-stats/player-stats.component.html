@@ -1,5 +1,5 @@
 <div class="playerStatsContainer">
-    <div class="playerInfoBlock" [ngClass]="{bluePlayer: color === 'Blue', redPlayer: color === 'Red'}">
+    <div class="playerInfoBlock" [ngClass]="{bluePlayer: color === 'Blue', redPlayer: color === 'Red', active: activePlayer}">
       <!-- begin health and mana -->
       <app-fillable-bar [type]="'health'" [value]="player.health" [maxValue]="rules.maximumHealth"></app-fillable-bar>
       <app-fillable-bar [type]="'mana'" [value]="player.mana" [maxValue]="rules.maximumMana"></app-fillable-bar>

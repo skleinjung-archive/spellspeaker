@@ -126,11 +126,11 @@
           <button (click)="confirmHandSelection()" [disabled]="!getSelectedCardFromHand()">Confirm Selection</button>
         </div>
         <div class="contentSection">
-          <div class="selectionPrompt" [ngClass]="{visible: getHandSelectionPrompt() !== null && animationsStarted}">
+          <div class="selectionPrompt" [ngClass]="{visible: getHandSelectionPrompt() !== null}">
             {{getHandSelectionPrompt()}}
           </div>
 
-          <app-card-set [cards]="game.hand" [expanded]="isHandSelectionEnabled() && animationsStarted" [selectionEnabled]="isHandSelectionEnabled()"></app-card-set>
+          <app-card-set [cards]="game.hand" [expanded]="true" [selectionEnabled]="isHandSelectionEnabled()"></app-card-set>
         </div>
       </div>
     </div>
@@ -147,7 +147,7 @@
           {{getMarketSelectionPrompt()}}
         </div>
 
-        <app-card-set [cards]="game.market" [expanded]="isMarketSelectionEnabled() && animationsStarted" [selectionEnabled]="isMarketSelectionEnabled()"></app-card-set>
+        <app-card-set [cards]="game.market" [expanded]="true" [selectionEnabled]="isMarketSelectionEnabled()"></app-card-set>
       </div>
   </div>
 
