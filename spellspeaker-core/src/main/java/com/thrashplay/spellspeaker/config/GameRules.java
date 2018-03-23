@@ -18,6 +18,8 @@ public interface GameRules {
 
     int getMaximumHandSize();
 
+    int getMaximumAfflictions();
+
     RitualConstructionRules getRitualConstructionRules();
 
     int getChillCastingTimeIncrease();

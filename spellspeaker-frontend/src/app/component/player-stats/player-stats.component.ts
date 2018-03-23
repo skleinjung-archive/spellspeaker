@@ -3,6 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Player} from '../../model/player';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication.service';
+import {Rules} from "../../model/rules";
 
 @Component({
   selector: 'app-player-stats',
@@ -15,6 +16,7 @@ export class PlayerStatsComponent implements OnInit {
   @Input() ritualUpdates: string[];
   @Input() color: string;
   @Input() activePlayer: boolean;
+  @Input() rules: Rules;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -22,6 +24,18 @@ export class PlayerStatsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  getAfflictionTrack(afflictionStrength: number): boolean[] {
+    const result = [];
+    for (let i = 0; i < this.rules.maximumAfflictions; i++) {
+      if (afflictionStrength > i) {
+        result.push(true);
+      } else {
+        result.push(false);
+      }
+    }
+    return result;
   }
 
   playerHasRitual(player: Player) {

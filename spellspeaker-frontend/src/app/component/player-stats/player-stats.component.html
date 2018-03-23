@@ -1,51 +1,38 @@
 <div class="playerStatsContainer">
-    <div class="bluePlayer playerInfoBlock">
+    <div class="playerInfoBlock" [ngClass]="{bluePlayer: color === 'Blue', redPlayer: color === 'Red'}">
       <!-- begin health and mana -->
-      <div class="statusBar health">
-        <label>40</label>
-        <div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="fourFifths"></span></div>
-      </div>
-
-      <div class="statusBar mana">
-        <label>30</label>
-        <div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="oneFifth"></span></div>
-      </div>
+      <app-fillable-bar [type]="'health'" [value]="player.health" [maxValue]="rules.maximumHealth"></app-fillable-bar>
+      <app-fillable-bar [type]="'mana'" [value]="player.mana" [maxValue]="rules.maximumMana"></app-fillable-bar>
 
       <!-- begin shields -->
       <div class="shields">
-        <img src="../../../assets/images/ice_shield.png"/> <span>x 4</span>
-        <img src="../../../assets/images/fire_shield.png"/> <span>x 0</span>
-        <img src="../../../assets/images/lightning_shield.png"/> <span>x 6</span>
+        <img src="../../../assets/images/ice_shield.png"/> <span>x {{player.iceShieldStrength}}</span>
+        <img src="../../../assets/images/fire_shield.png"/> <span>x {{player.fireShieldStrength}}</span>
+        <img src="../../../assets/images/lightning_shield.png"/> <span>x {{player.lightningShieldStrength}}</span>
       </div>
 
       <!-- begin afflictions -->
       <div class="afflictions">
         <div class="affliction chill">
           <img src="../../../assets/images/chill.png"/>
-          <ul class="afflictionTrack"><li class="full"></li><li class="full"></li><li class="full"></li><li class="full"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li></ul>
+          <ul class="afflictionTrack"><li *ngFor="let filled of getAfflictionTrack(player.chillStacks)" [ngClass]="{full: filled}"></li></ul>
         </div>
         <div class="affliction burning">
           <img src="../../../assets/images/burning.png"/>
-          <ul class="afflictionTrack"><li class="full"></li><li class="full"></li><li class="full"></li><li class="full"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li></ul>
+          <ul class="afflictionTrack"><li *ngFor="let filled of getAfflictionTrack(player.burningStacks)" [ngClass]="{full: filled}"></li></ul>
         </div>
         <div class="affliction shock">
           <img src="../../../assets/images/shock.png"/>
-          <ul class="afflictionTrack"><li class="full"></li><li class="full"></li><li class="full"></li><li class="full"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li></ul>
+          <ul class="afflictionTrack"><li *ngFor="let filled of getAfflictionTrack(player.shockStacks)" [ngClass]="{full: filled}"></li></ul>
         </div>
       </div>
     </div>
 
-    <div class="cardArea">
-      <div>
-        <div class="activeCard">
-          <app-card-set *ngIf="player.activeCard" [cards]="[player.activeCard]" [expanded]="true"></app-card-set>
-        </div>
-      </div>
+    <div class="activeCard">
+      <app-card-set *ngIf="player.activeCard" [cards]="[player.activeCard]" [expanded]="true"></app-card-set>
+    </div>
 
-      <div class="ritual" *ngIf="playerHasRitual(player)">
-        <app-card-set [cards]="player.ritual.cards" [expanded]="false" [updatedCardNames]="ritualUpdates"></app-card-set>
-
-      </div>
+    <div class="ritual" *ngIf="playerHasRitual(player)">
+        <app-card-set [cards]="player.ritual.cards" [expanded]="true" [updatedCardNames]="ritualUpdates"></app-card-set>
     </div>
 </div>
-<div class="hardClear"></div>

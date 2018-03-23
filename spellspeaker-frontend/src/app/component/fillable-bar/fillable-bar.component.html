@@ -1,0 +1,5 @@
+<div class="statusBar" [ngClass]="{mana: type === 'mana', health: type !== 'mana'}">
+  <label>{{value}}</label>
+
+  <div *ngFor="let n of barRange()"><span [ngClass]="{empty: getFraction(n) == '0/5', oneFifth: getFraction(n) == '1/5', twoFifths: getFraction(n) == '2/5', threeFifths: getFraction(n) == '3/5', fourFifths: getFraction(n) == '4/5', full: getFraction(n) == '5/5'}"></span></div>
+</div>

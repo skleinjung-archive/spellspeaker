@@ -98,6 +98,14 @@ export class GameDetailComponent implements OnInit {
     }
   }
 
+  get maximumHealth(): number {
+    return this.rules.maximumHealth;
+  }
+
+  get maximumMana(): number {
+    return this.rules.maximumMana;
+  }
+
   get logText(): string {
     let text = '';
     for (let i = 0; i < this.game.log.length; i++) {

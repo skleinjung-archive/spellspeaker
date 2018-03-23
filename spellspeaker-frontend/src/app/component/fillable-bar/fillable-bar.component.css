@@ -1,0 +1,84 @@
+.statusBar {
+  margin-bottom: 10px;
+}
+.statusBar div {
+  display: inline-block;
+  margin: -4px 0 0 -1px;
+  padding: 0;
+  border: 1px solid;
+  height: 15px; /* why is this necessary when span specifies? */
+}
+.statusBar span {
+  display: inline-block;
+  width: 25px;
+  height: 15px;
+}
+.statusBar span {
+  display: inline-block;
+}
+/* label styles */
+.statusBar label {
+  display: inline-block;
+  width: 25px;
+  text-align: center;
+  margin: 0 4px 0 0;
+  padding: 0 7px 0 5px;
+  font-size: 1.5em;
+  font-weight: normal;
+  border: 1px solid;
+  color: white;
+}
+.statusBar div:first-of-type, .statusBar div:first-of-type span {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.statusBar div:last-of-type, .statusBar div:last-of-type span {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* fill styles */
+.statusBar span.empty {
+  background-color: white;
+}
+.statusBar span.oneFifth {
+  background: linear-gradient(to right, transparent 20%, white 20%);
+}
+.statusBar span.twoFifths {
+  background: linear-gradient(to right, transparent 40%, white 40%);
+}
+.statusBar span.threeFifths {
+  background: linear-gradient(to right, transparent 60%, white 60%);
+}
+.statusBar span.fourFifths {
+  background: linear-gradient(to right, transparent 80%, white 80%);
+}
+.statusBar span.full {
+  background-color: transparent;
+}
+
+/* health colors */
+.statusBar.health label {
+  background-color: #cc6666;
+  color: #fff;
+  border-color: #600;
+}
+.health div {
+  background: #cc0000 url('../../../assets/images/health_background.png') repeat-x;
+}
+.statusBar.health div {
+  border-color: #666;
+}
+
+/* mana colors */
+.statusBar.mana label {
+  background-color: #6666cc;
+  color: #fff;
+  border-color: #006;
+}
+.mana div {
+  background: #0000cc url('../../../assets/images/mana_background.png') repeat-x;
+}
+.statusBar.mana div {
+  border-color: #999;
+}

@@ -89,6 +89,7 @@ ul.cardSet li.updated {
   height: 121px;
   padding: 4px;
   font-size: 0.75em;
+  white-space: normal;
   /*display: none;*/
 
   -webkit-transition: height 250ms;

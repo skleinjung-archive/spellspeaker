@@ -1,53 +1,66 @@
 /* player stats block */
-.cardArea {
-  display: table;
+
+.playerInfoBlock {
+  display: inline-block;
+  clear: both;
+  margin-left: 8px;
+  padding: 5px 10px 5px 10px;
+  border-style:  solid;
+  border-width: 1px 1px 1px 15px;
+}
+.bluePlayer.playerInfoBlock {
+  border-color: #336699;
+  background-color: #ddeeff;
+}
+.redPlayer.playerInfoBlock {
+  border-left-color: #993333;
+  background-color: #ffe0f0;
 }
 
-.bluePlayer.playerInfoBlock {
-  background-color: transparent;
+.cardArea {
+  display: inline-block;
+  float: left;
 }
 
 /* player active card */
 .activeCard {
-  margin-right: 8px;
+  margin: 0 8px 0 10px;
   padding: 16px 8px 16px 8px;
   vertical-align: center;
-  float: left;
   width: 150px;
   height: 184px;
   min-height: 184px;
   border: 1px solid #999;
-  display: table-cell;
+  float: left;
 }
 .activeCard .card {
   margin: 0;
 }
 
-.bluePlayer + .cardArea .activeCard {
+.bluePlayer + .activeCard {
   background-color: #336699;
 }
-.redPlayer + .cardArea .activeCard {
+.redPlayer + .activeCard {
   background-color: #993333;
 }
 
 .ritual {
+  float: left;
   margin-left: 4px;
   padding: 16px 16px 16px;
   border: 1px solid #666;
   min-height: 184px;
-  display: table-cell;
+  width: 329px;
+
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+.bluePlayer ~ .cardArea .ritual {
+  background-color: #A3B1BF;
 }
 .redPlayer ~ .cardArea .ritual {
   background-color: #FBBABD;
-}
-
-.switchUser {
-  float: right;
-}
-.switchUser div {
-  cursor: pointer;
-  font-weight: bold;
-  margin: 0.5em 0;
 }
 
 /* version 2 styles */
@@ -58,104 +71,14 @@
 
 .playerInfoBlock {
   margin-bottom: 20px;
-}
-.playerInfoBlock:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
-.statusBar {
-  margin-bottom: 10px;
-}
-.statusBar:last-of-type {
-  margin-bottom: 0;
-}
-.statusBar div {
-  display: inline-block;
-  margin: -4px 0 0 -1px;
-  padding: 0;
-  border: 1px solid;
-  height: 15px; /* why is this necessary when span specifies? */
-}
-.statusBar span {
-  display: inline-block;
-  width: 25px;
-  height: 15px;
-}
-.statusBar span {
-  display: inline-block;
-}
-/* label styles */
-.statusBar label {
-  display: inline-block;
-  width: unset;
-  margin: 0 4px 0 0;
-  padding: 0 7px 0 5px;
-  font-size: 1.5em;
-  font-weight: normal;
-  border: 1px solid;
-  color: white;
-}
-.statusBar div:first-of-type, .statusBar div:first-of-type span {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-.statusBar div:last-of-type, .statusBar div:last-of-type span {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-/* fill styles */
-.statusBar span.empty {
-  background-color: white;
-}
-.statusBar span.oneFifth {
-  background: linear-gradient(to right, transparent 20%, white 20%);
-}
-.statusBar span.twoFifths {
-  background: linear-gradient(to right, transparent 40%, white 40%);
-}
-.statusBar span.threeFifths {
-  background: linear-gradient(to right, transparent 60%, white 60%);
-}
-.statusBar span.fourFifths {
-  background: linear-gradient(to right, transparent 80%, white 80%);
-}
-.statusBar span.full {
-  background-color: transparent;
-}
-
-/* health colors */
-.statusBar.health label {
-  background-color: #cc6666;
-  color: #fff;
-  border-color: #600;
-}
-.health div {
-  background: #cc0000 url('../../../assets/images/health_background.png') repeat-x;
-}
-.statusBar.health div {
-  border-color: #666;
-}
-
-/* mana colors */
-.statusBar.mana label {
-  background-color: #6666cc;
-  color: #fff;
-  border-color: #006;
-}
-.mana div {
-  background: #0000cc url('../../../assets/images/mana_background.png') repeat-x;
-}
-.statusBar.mana div {
-  border-color: #999;
+  float: left;
 }
 
 /* shields */
 
 .shields {
-  margin-top: 20px;
+  margin-top: 12px;
+  margin-left: 15px
 }
 .shields img {
   margin-left: 20px;
@@ -178,12 +101,12 @@
   clear: both;
 }
 .affliction {
-  margin-top: 5px;
+  margin-top: 3px;
   clear: both;
   float: left;
 }
 .affliction:first-of-type {
-  margin-top: 20px;
+  margin-top: 8px;
 }
 .affliction img {
   float: left;
@@ -207,26 +130,15 @@ ul.afflictionTrack li {
 ul.afflictionTrack li:nth-child(6), ul.afflictionTrack li:nth-child(11), ul.afflictionTrack li:nth-child(16) {
   margin-left: 9px;
 }
-.affliction.chill .full {
+.afflictionTrack li {
+  background-color: white;
+}
+.affliction.chill .afflictionTrack li.full {
   background-color: #8bd5ed;
 }
-
-.ritual {
-  overflow-x: auto;
-  white-space: nowrap;
+.affliction.burning .afflictionTrack li.full {
+  background-color: #e34616;
 }
-
-/* temp styles? */
-.playerInfoBlock {
-  float: left;
-  clear: both;
-  margin-left: 8px;
-  padding-left: 10px;
-  border-left: 15px solid;
-}
-.bluePlayer.playerInfoBlock {
-  border-left-color: #336699;
-}
-.redPlayer.playerInfoBlock {
-  border-left-color: #993333;
+.affliction.shock .afflictionTrack li.full {
+  background-color: #f1df18;
 }

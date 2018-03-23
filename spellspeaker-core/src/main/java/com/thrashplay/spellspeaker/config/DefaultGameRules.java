@@ -43,6 +43,11 @@ public class DefaultGameRules implements GameRules {
     }
 
     @Override
+    public int getMaximumAfflictions() {
+        return 10;
+    }
+
+    @Override
     @JsonIgnore
     public RitualConstructionRules getRitualConstructionRules() {
         return new RitualConstructionRules()

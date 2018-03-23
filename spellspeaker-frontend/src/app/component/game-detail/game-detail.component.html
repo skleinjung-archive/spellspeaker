@@ -46,8 +46,14 @@
       </ul>
     </div>
 
-    <app-player-stats [gameId]="game.id" [player]="game.bluePlayer" [color]="Blue" [ritualUpdates]="getUpdatedRitualCards('Blue')" [activePlayer]="'Blue' === game.activePlayerColor"></app-player-stats>
-    <app-player-stats [gameId]="game.id" [player]="game.redPlayer" [color]="Red" [ritualUpdates]="getUpdatedRitualCards('Red')" [activePlayer]="'Red' === game.activePlayerColor"></app-player-stats>
+    <div class="column-container">
+      <div class="column">
+        <app-player-stats [gameId]="game.id" [player]="game.bluePlayer" [color]="'Blue'" [ritualUpdates]="getUpdatedRitualCards('Blue')" [activePlayer]="'Blue' === game.activePlayerColor" [rules]="rules"></app-player-stats>
+      </div>
+      <div class="column">
+        <app-player-stats [gameId]="game.id" [player]="game.redPlayer" [color]="'Red'" [ritualUpdates]="getUpdatedRitualCards('Red')" [activePlayer]="'Red' === game.activePlayerColor" [rules]="rules"></app-player-stats>
+      </div>
+    </div>
 
     <div class="column-container">
       <div class="column ritualActions">

@@ -21,6 +21,7 @@ import {PlayerStatsComponent} from './component/player-stats/player-stats.compon
 import {CardSetComponent} from './component/card-set/card-set.component';
 import {ConfigurationComponent} from './component/configuration/configuration.component';
 import {ConfigurationService} from './service/configuration.service';
+import { FillableBarComponent } from './component/fillable-bar/fillable-bar.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {ConfigurationService} from './service/configuration.service';
     GameDetailComponent,
     PlayerStatsComponent,
     CardSetComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    FillableBarComponent
   ],
   imports: [
     BrowserModule,
