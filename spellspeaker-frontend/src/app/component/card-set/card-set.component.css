@@ -48,6 +48,9 @@ ul.cardSet li.updated {
   display: table;
   width: 130px;
 }
+.cardName {
+  white-space: normal;
+}
 /* clearfix */
 .cardHeader:after {
   content: "";

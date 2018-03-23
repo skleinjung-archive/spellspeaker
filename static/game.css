@@ -1,0 +1,323 @@
+body {
+    margin: 8px 0 0 0;
+    padding: 0;
+}
+
+.hardClear {
+    width: 100%;
+    clear: both;
+}
+
+.playerInfoBlock {
+    margin-bottom: 20px;
+}
+.playerInfoBlock:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.statusBar {
+    margin-bottom: 10px;
+}
+.statusBar:last-of-type {
+    margin-bottom: 0;
+}
+.statusBar div {
+    display: inline-block;
+    margin: -4px 0 0 -1px;
+    padding: 0;
+    border: 1px solid;
+}
+.statusBar span {
+    display: inline-block;
+    width: 25px;
+    height: 15px;
+}
+.statusBar span {
+    display: inline-block;
+}
+/* label styles */
+.statusBar label {
+    display: inline-block;
+    margin: 0 4px 0 0;
+    padding: 0 7px 0 5px;
+    font-size: 1.5em;
+    border: 1px solid;
+}
+.statusBar div:first-of-type, .statusBar div:first-of-type span {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.statusBar div:last-of-type, .statusBar div:last-of-type span {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* fill styles */
+.statusBar span.empty {
+    background-color: white;
+}
+.statusBar span.oneFifth {
+    background: linear-gradient(to right, transparent 20%, white 20%);
+}
+.statusBar span.twoFifths {
+    background: linear-gradient(to right, transparent 40%, white 40%);
+}
+.statusBar span.threeFifths {
+    background: linear-gradient(to right, transparent 60%, white 60%);
+}
+.statusBar span.fourFifths {
+    background: linear-gradient(to right, transparent 80%, white 80%);
+}
+.statusBar span.full {
+    background-color: transparent;
+}
+
+/* health colors */
+.statusBar.health label {
+    background-color: #cc6666;
+    color: #fff;
+    border-color: #600;
+}
+.health div {
+    background: #cc0000 url('images/health_background.png') repeat-x;
+}
+.statusBar.health div {
+    border-color: #666;
+}
+
+/* mana colors */
+.statusBar.mana label {
+    background-color: #6666cc;
+    color: #fff;
+    border-color: #006;
+}
+.mana div {
+    background: #0000cc url('images/mana_background.png') repeat-x;
+}
+.statusBar.mana div {
+    border-color: #999;
+}
+
+/* shields */
+
+.shields {
+    margin-top: 20px;
+}
+.shields img {
+    margin-left: 20px;
+    float: left;
+    width: 35px;
+    height: 35px;
+}
+.shields img:first-of-type {
+    margin-left: 0;
+}
+.shields span {
+    float: left;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 16px;
+}
+
+/** afflictions */
+.afflictions {
+    clear: both;
+}
+.affliction {
+    margin-top: 5px;
+    clear: both;
+    float: left;
+}
+.affliction:first-of-type {
+    margin-top: 20px;
+}
+.affliction img {
+    float: left;
+    margin: 0 15px 0 0;
+}
+ul.afflictionTrack {
+    display: inline-block;
+    float: left;
+    margin: 6px 0 0 0;
+    padding: 0;
+}
+ul.afflictionTrack li {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 3px 0 0;
+    padding: 0;
+    list-style-type: none;
+    border: 1px solid black;
+}
+ul.afflictionTrack li:nth-child(6), ul.afflictionTrack li:nth-child(11), ul.afflictionTrack li:nth-child(16) {
+    margin-left: 9px;
+}
+.affliction.chill .full {
+    background-color: #8bd5ed;
+}
+
+.ritual {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+/* temp styles */
+.playerInfoBlock {
+    float: left;
+    clear: both;
+    margin-left: 8px;
+    padding-left: 10px;
+    border-left: 15px solid;
+}
+.bluePlayer.playerInfoBlock {
+    border-left-color: #336699;
+}
+.redPlayer.playerInfoBlock {
+    border-left-color: #993333;
+}
+
+
+
+
+/* card list styles */
+ul.cardSet {
+    list-style-type: none;
+    margin: -15px 0 0 15px;
+    padding: 0;
+}
+ul.cardSet li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+ul.cardSet li.updated {
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 2s; /* Firefox < 16 */
+    -ms-animation: fadein 2s; /* Internet Explorer */
+    -o-animation: fadein 2s; /* Opera < 12.1 */
+    animation: fadein 2s;
+}
+
+/* cards */
+.card {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 5px;
+    width: 140px;
+    margin: 15px 15px 0 0;
+}
+.card:last-child {
+    margin-right: 0;
+}
+
+/* card selection */
+.card.selected {
+    border: 3px solid darkred;
+}
+.card.selectable {
+    cursor: pointer; cursor: hand;
+}
+
+/* card header */
+.cardHeader {
+    background-color: gainsboro;
+    border-bottom: 1px solid black;
+    padding: 0 5px 0 5px;
+    font-size: 0.75em;
+    font-weight: bold;
+    vertical-align: center;
+    display: table;
+    width: 130px;
+}
+/* clearfix */
+.cardHeader:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.cardName {
+    display: table-cell;
+    vertical-align: middle;
+    width: 79px;
+}
+.cardManaCost {
+    margin: 3px 3px 0 0;
+    padding: 0 3px;
+    background-color: white;
+    border: 1px solid black;
+    line-height: 20px;
+    width: 14px;
+    text-align: center;
+    display: inline-block;
+}
+.cardCastingTime {
+    margin: 3px 0;
+    padding: 0 3px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 50%;
+    line-height: 20px;
+    width: 14px;
+    text-align: center;
+    display: inline-block;
+}
+
+/* card text */
+.cardBody {
+    height: 121px;
+    padding: 4px;
+    font-size: 0.75em;
+    /*display: none;*/
+    -webkit-transition: height 250ms;
+    transition: height 250ms;
+}
+.card .cardBody {
+    white-space: normal;
+}
+.card.collapsed .cardBody {
+    height: 6px;
+    overflow: hidden;
+}
+p {
+    padding: 0;
+    margin: 0;
+}
+p + p.special {
+    margin-top: 8px;
+}
+
+.cardSet:hover .card.collapsed .cardBody, .card.selected.collapsed .cardBody {
+    height: 121px;
+    width: 132px;
+}
+
+.cardSet:hover .card.collapsed .cardFooter, .card.selected.collapsed .cardFooter {
+    display: block;
+}
+
+
+/* card footer */
+.cardFooter {
+    border-top: 1px solid #ccc;
+    padding: 4px;
+    font-size: 0.5em;
+}
+.card.collapsed .cardFooter {
+    display: none;
+}
+
+/* base card styles */
+
+.baseCard .cardBody {
+    background-color: #efffef;
+}
+.baseCard .cardHeader {
+    background-color: #cfffcf;
+}
+.baseCard .cardFooter {
+    background-color: #cfffcf;
+}
+

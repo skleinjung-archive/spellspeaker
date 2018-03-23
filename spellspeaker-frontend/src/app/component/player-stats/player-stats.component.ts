@@ -11,11 +11,10 @@ import {AuthenticationService} from '../../service/authentication.service';
 })
 export class PlayerStatsComponent implements OnInit {
   @Input() gameId: number;
-  @Input() bluePlayer: Player;
-  @Input() redPlayer: Player;
-  @Input() blueRitualUpdates: string[];
-  @Input() redRitualUpdates: string[];
-  @Input() activePlayerColor: string;
+  @Input() player: Player;
+  @Input() ritualUpdates: string[];
+  @Input() color: string;
+  @Input() activePlayer: boolean;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -32,27 +31,11 @@ export class PlayerStatsComponent implements OnInit {
   isRitualCardUpdated(player: Player, cardName: string): boolean {
     return true;
 
-    // if (player === this.bluePlayer) {
-    //   return this.blueRitualUpdates.indexOf(cardName) !== -1;
+    // if (player === this.player) {
+    //   return this.ritualUpdates.indexOf(cardName) !== -1;
     // } else {
     //   return this.redRitualUpdates.indexOf(cardName) !== -1;
     // }
   }
-
-  completeRitual(whichPlayer: string) {
-
-  }
-
-  switchToUser(username: string) {
-    this.authenticationService.loginWithCredentials(username, 'password',
-      (result) => {
-        if (result === true) {
-          this.router.navigate(['/games']).then(() => {
-            this.router.navigate(['/games', this.gameId]);
-          });
-        }
-      });
-  }
-
 }
 

@@ -1,37 +1,10 @@
 /* player stats block */
-.playerStats {
-    padding: 0;
-}
-.statsRow {
-  padding: 0 15px;
-  margin-bottom: 8px;
-  line-height: 1.5em;
-}
-.statsRow label {
-  width: auto;
-  color: #ffffff;
-}
-.statsRow div {
-  display: inline-block;
-  margin-right: 20px;
-}
-.statsRow div:last-child {
-  margin-right: 0;
-}
-
-/* shields */
-.statsWithIcons {
-  padding: 0;
-  margin: 0;
-}
-.statsWithIcons img {
-  padding: 0;
-  margin: 0 0 4px 0;
-  vertical-align: middle;
-}
-
 .cardArea {
   display: table;
+}
+
+.bluePlayer.playerInfoBlock {
+  background-color: transparent;
 }
 
 /* player active card */
@@ -64,9 +37,6 @@
   min-height: 184px;
   display: table-cell;
 }
-.bluePlayer ~ .cardArea .ritual {
-  background-color: #A3B1BF;
-}
 .redPlayer ~ .cardArea .ritual {
   background-color: #FBBABD;
 }
@@ -80,3 +50,183 @@
   margin: 0.5em 0;
 }
 
+/* version 2 styles */
+.hardClear {
+  width: 100%;
+  clear: both;
+}
+
+.playerInfoBlock {
+  margin-bottom: 20px;
+}
+.playerInfoBlock:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.statusBar {
+  margin-bottom: 10px;
+}
+.statusBar:last-of-type {
+  margin-bottom: 0;
+}
+.statusBar div {
+  display: inline-block;
+  margin: -4px 0 0 -1px;
+  padding: 0;
+  border: 1px solid;
+  height: 15px; /* why is this necessary when span specifies? */
+}
+.statusBar span {
+  display: inline-block;
+  width: 25px;
+  height: 15px;
+}
+.statusBar span {
+  display: inline-block;
+}
+/* label styles */
+.statusBar label {
+  display: inline-block;
+  width: unset;
+  margin: 0 4px 0 0;
+  padding: 0 7px 0 5px;
+  font-size: 1.5em;
+  font-weight: normal;
+  border: 1px solid;
+  color: white;
+}
+.statusBar div:first-of-type, .statusBar div:first-of-type span {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.statusBar div:last-of-type, .statusBar div:last-of-type span {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* fill styles */
+.statusBar span.empty {
+  background-color: white;
+}
+.statusBar span.oneFifth {
+  background: linear-gradient(to right, transparent 20%, white 20%);
+}
+.statusBar span.twoFifths {
+  background: linear-gradient(to right, transparent 40%, white 40%);
+}
+.statusBar span.threeFifths {
+  background: linear-gradient(to right, transparent 60%, white 60%);
+}
+.statusBar span.fourFifths {
+  background: linear-gradient(to right, transparent 80%, white 80%);
+}
+.statusBar span.full {
+  background-color: transparent;
+}
+
+/* health colors */
+.statusBar.health label {
+  background-color: #cc6666;
+  color: #fff;
+  border-color: #600;
+}
+.health div {
+  background: #cc0000 url('../../../assets/images/health_background.png') repeat-x;
+}
+.statusBar.health div {
+  border-color: #666;
+}
+
+/* mana colors */
+.statusBar.mana label {
+  background-color: #6666cc;
+  color: #fff;
+  border-color: #006;
+}
+.mana div {
+  background: #0000cc url('../../../assets/images/mana_background.png') repeat-x;
+}
+.statusBar.mana div {
+  border-color: #999;
+}
+
+/* shields */
+
+.shields {
+  margin-top: 20px;
+}
+.shields img {
+  margin-left: 20px;
+  float: left;
+  width: 35px;
+  height: 35px;
+}
+.shields img:first-of-type {
+  margin-left: 0;
+}
+.shields span {
+  float: left;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+/** afflictions */
+.afflictions {
+  clear: both;
+}
+.affliction {
+  margin-top: 5px;
+  clear: both;
+  float: left;
+}
+.affliction:first-of-type {
+  margin-top: 20px;
+}
+.affliction img {
+  float: left;
+  margin: 0 15px 0 0;
+}
+ul.afflictionTrack {
+  display: inline-block;
+  float: left;
+  margin: 6px 0 0 0;
+  padding: 0;
+}
+ul.afflictionTrack li {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 3px 0 0;
+  padding: 0;
+  list-style-type: none;
+  border: 1px solid black;
+}
+ul.afflictionTrack li:nth-child(6), ul.afflictionTrack li:nth-child(11), ul.afflictionTrack li:nth-child(16) {
+  margin-left: 9px;
+}
+.affliction.chill .full {
+  background-color: #8bd5ed;
+}
+
+.ritual {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* temp styles? */
+.playerInfoBlock {
+  float: left;
+  clear: both;
+  margin-left: 8px;
+  padding-left: 10px;
+  border-left: 15px solid;
+}
+.bluePlayer.playerInfoBlock {
+  border-left-color: #336699;
+}
+.redPlayer.playerInfoBlock {
+  border-left-color: #993333;
+}

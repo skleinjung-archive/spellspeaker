@@ -1,54 +1,36 @@
-<div class="column-container playerStatsContainer">
-  <div class="column playerStats">
-    <div class="statsRow bluePlayer">
-      <div class="basicStats">
-        <div *ngIf="activePlayerColor === 'Blue'">
-          <label>*</label>
-        </div>
-        <div>
-          <label>H</label> x {{bluePlayer.health}}
-        </div>
-        <div>
-          <label>M</label> x {{bluePlayer.mana}}
-        </div>
-        <div>
-          <label>Cards</label> x {{bluePlayer.numberOfCardsInHand}}
-        </div>
+<div class="playerStatsContainer">
+    <div class="bluePlayer playerInfoBlock">
+      <!-- begin health and mana -->
+      <div class="statusBar health">
+        <label>40</label>
+        <div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="fourFifths"></span></div>
       </div>
 
-      <div class="statsWithIcons">
-        <div>
-          <img src="../../../assets/images/ice_shield.png" width="25" height="25"/>
-          x {{bluePlayer.iceShieldStrength}}
-        </div>
-        <div>
-          <img src="../../../assets/images/fire_shield.png" width="25" height="25"/>
-          x {{bluePlayer.fireShieldStrength}}
-        </div>
-        <div>
-          <img src="../../../assets/images/lightning_shield.png" width="25" height="25"/>
-          x {{bluePlayer.lightningShieldStrength}}
-        </div>
+      <div class="statusBar mana">
+        <label>30</label>
+        <div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="full"></span></div><div><span class="oneFifth"></span></div>
       </div>
 
-      <div class="statsWithIcons">
-        <div>
-          <img src="../../../assets/images/chill.png" width="25" height="25"/>
-          x {{bluePlayer.chillStacks}}
-        </div>
-        <div>
-          <img src="../../../assets/images/burning.png" width="25" height="25"/>
-          x {{bluePlayer.burningStacks}}
-        </div>
-        <div>
-          <img src="../../../assets/images/shock.png" width="25" height="25"/>
-          x {{bluePlayer.shockStacks}}
-        </div>
+      <!-- begin shields -->
+      <div class="shields">
+        <img src="../../../assets/images/ice_shield.png"/> <span>x 4</span>
+        <img src="../../../assets/images/fire_shield.png"/> <span>x 0</span>
+        <img src="../../../assets/images/lightning_shield.png"/> <span>x 6</span>
       </div>
 
-      <div class="switchUser">
-        <div>
-          <button (click)="switchToUser('blue')">Switch User</button>
+      <!-- begin afflictions -->
+      <div class="afflictions">
+        <div class="affliction chill">
+          <img src="../../../assets/images/chill.png"/>
+          <ul class="afflictionTrack"><li class="full"></li><li class="full"></li><li class="full"></li><li class="full"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li></ul>
+        </div>
+        <div class="affliction burning">
+          <img src="../../../assets/images/burning.png"/>
+          <ul class="afflictionTrack"><li class="full"></li><li class="full"></li><li class="full"></li><li class="full"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li></ul>
+        </div>
+        <div class="affliction shock">
+          <img src="../../../assets/images/shock.png"/>
+          <ul class="afflictionTrack"><li class="full"></li><li class="full"></li><li class="full"></li><li class="full"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li><li class="empty"></li></ul>
         </div>
       </div>
     </div>
@@ -56,80 +38,14 @@
     <div class="cardArea">
       <div>
         <div class="activeCard">
-          <app-card-set *ngIf="bluePlayer.activeCard" [cards]="[bluePlayer.activeCard]" [expanded]="true"></app-card-set>
+          <app-card-set *ngIf="player.activeCard" [cards]="[player.activeCard]" [expanded]="true"></app-card-set>
         </div>
       </div>
 
-      <div class="ritual" *ngIf="playerHasRitual(bluePlayer)">
-        <app-card-set [cards]="bluePlayer.ritual.cards" [expanded]="false" [updatedCardNames]="blueRitualUpdates"></app-card-set>
+      <div class="ritual" *ngIf="playerHasRitual(player)">
+        <app-card-set [cards]="player.ritual.cards" [expanded]="false" [updatedCardNames]="ritualUpdates"></app-card-set>
 
-      </div>
-    </div>
-  </div>
-
-  <div class="column playerStats">
-    <!--<h4>Red Player</h4>-->
-    <div class="statsRow redPlayer">
-      <div class="playerStats">
-        <div *ngIf="activePlayerColor === 'Red'">
-          <label>*</label>
-        </div>
-        <div>
-          <label>H</label> x {{redPlayer.health}}
-        </div>
-        <div>
-          <label>M</label> x {{redPlayer.mana}}
-        </div>
-        <div>
-          <label>Cards</label> x {{redPlayer.numberOfCardsInHand}}
-        </div>
-      </div>
-
-      <div class="statsWithIcons">
-        <div>
-          <img src="../../../assets/images/ice_shield.png" width="25" height="25"/>
-          x {{redPlayer.iceShieldStrength}}
-        </div>
-        <div>
-          <img src="../../../assets/images/fire_shield.png" width="25" height="25"/>
-          x {{redPlayer.fireShieldStrength}}
-        </div>
-        <div>
-          <img src="../../../assets/images/lightning_shield.png" width="25" height="25"/>
-          x {{redPlayer.lightningShieldStrength}}
-        </div>
-      </div>
-
-      <div class="statsWithIcons">
-        <div>
-          <img src="../../../assets/images/chill.png" width="25" height="25"/>
-          x {{redPlayer.chillStacks}}
-        </div>
-        <div>
-          <img src="../../../assets/images/burning.png" width="25" height="25"/>
-          x {{redPlayer.burningStacks}}
-        </div>
-        <div>
-          <img src="../../../assets/images/shock.png" width="25" height="25"/>
-          x {{redPlayer.shockStacks}}
-        </div>
-      </div>
-
-      <div class="switchUser">
-        <div>
-          <button (click)="switchToUser('red')">Switch User</button>
-        </div>
       </div>
     </div>
-
-    <div class="cardArea">
-      <div class="activeCard">
-        <app-card-set *ngIf="redPlayer.activeCard" [cards]="[redPlayer.activeCard]" [expanded]="true"></app-card-set>
-      </div>
-
-      <div class="ritual" *ngIf="playerHasRitual(redPlayer)">
-        <app-card-set [cards]="redPlayer.ritual.cards" [updatedCardNames]="redRitualUpdates" [expanded]="false"></app-card-set>
-      </div>
-    </div>
-  </div>
 </div>
+<div class="hardClear"></div>

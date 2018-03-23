@@ -11,7 +11,7 @@
     </div>
     <div>
       <label>Active Player: </label>
-      {{game.activePlayerColor}}
+      {{game.activePlayer}}
     </div>
     <div>
       <label>Expected Input: </label>
@@ -46,7 +46,8 @@
       </ul>
     </div>
 
-    <app-player-stats [gameId]="game.id" [bluePlayer]="game.bluePlayer" [redPlayer]="game.redPlayer" [blueRitualUpdates]="getUpdatedRitualCards('Blue')" [redRitualUpdates]="getUpdatedRitualCards('Red')" [activePlayerColor]="game.activePlayerColor"></app-player-stats>
+    <app-player-stats [gameId]="game.id" [player]="game.bluePlayer" [color]="Blue" [ritualUpdates]="getUpdatedRitualCards('Blue')" [activePlayer]="'Blue' === game.activePlayerColor"></app-player-stats>
+    <app-player-stats [gameId]="game.id" [player]="game.redPlayer" [color]="Red" [ritualUpdates]="getUpdatedRitualCards('Red')" [activePlayer]="'Red' === game.activePlayerColor"></app-player-stats>
 
     <div class="column-container">
       <div class="column ritualActions">
